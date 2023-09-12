@@ -19,8 +19,8 @@ class User(db.Model, UserMixin):
     updated_at=db.Column(db.DateTime, nullable=False, default = datetime.utcnow, onupdate=datetime.utcnow)
     
    
-    
-    
+    # spot = db.relationship("Spot", secondary=add_prefix_for_prod('booking'), back_populates="user")
+    bookings = db.relationship("Booking", back_populates="user")
    
     @property 
     def password(self):

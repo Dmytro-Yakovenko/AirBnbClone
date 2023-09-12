@@ -21,8 +21,8 @@ class Spot(db.Model):
     created_at=db.Column(db.DateTime, nullable=False, default = datetime.utcnow )
     updated_at=db.Column(db.DateTime, nullable=False, default = datetime.utcnow, onupdate=datetime.utcnow)
 
-
-    
+    # user = db.relationship("User", secondary=add_prefix_for_prod('booking'), back_populates="spot")
+    bookings = db.relationship("Booking", back_populates="spot")
     def to_dict(self):
         return {
             "id":self.id,
@@ -36,7 +36,7 @@ class Spot(db.Model):
             'long':self.long,
             'price':self.price,
             'owner_id':self.owner_id,
-            "spot_image":[spot_image.to_dict() for spot_image in self.spot_images],
+            # "spot_image":[spot_image.to_dict() for spot_image in self.spot_images],
             "created_at":self.created_at,
             "updated_at":self.updated_at,
         }
