@@ -23,6 +23,10 @@ class Spot(db.Model):
 
     # user = db.relationship("User", secondary=add_prefix_for_prod('booking'), back_populates="spot")
     bookings = db.relationship("Booking", back_populates="spot")
+    reviews = db.relationship("Review", back_populates="spot")
+    
+    spot_images = db.relationship("Spot_image", back_populates="spots")
+
     def to_dict(self):
         return {
             "id":self.id,
