@@ -17,7 +17,7 @@ class Spot(db.Model):
     lat=db.Column(db.Numeric, nullable=False)
     long=db.Column(db.Numeric, nullable=False)
     price=db.Column(db.Numeric, nullable=False)
-    owner_id=db.Column(db.Integer, nullable=False)
+    owner_id=db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
     created_at=db.Column(db.DateTime, nullable=False, default = datetime.utcnow )
     updated_at=db.Column(db.DateTime, nullable=False, default = datetime.utcnow, onupdate=datetime.utcnow)
 
@@ -26,6 +26,7 @@ class Spot(db.Model):
     reviews = db.relationship("Review", back_populates="spot")
     
     spot_images = db.relationship("Spot_image", back_populates="spots")
+    user = db.relationship("User", back_populates="spots")
 
     def to_dict(self):
         return {
@@ -40,7 +41,7 @@ class Spot(db.Model):
             'long':self.long,
             'price':self.price,
             'owner_id':self.owner_id,
-            # "spot_image":[spot_image.to_dict() for spot_image in self.spot_images],
+            "spot_image":[spot_image.to_dict() for spot_image in self.spot_images],
             "created_at":self.created_at,
             "updated_at":self.updated_at,
         }
