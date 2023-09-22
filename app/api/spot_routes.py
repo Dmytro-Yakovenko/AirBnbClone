@@ -30,7 +30,7 @@ def get_spot(id):
     return spot.to_dict()
         
         
-@spot_routes.route("/", method=["POST"])   
+@spot_routes.route("/", methods=["POST"])   
 def create_spot():
     """
     Creates a new spot
@@ -107,7 +107,7 @@ def delete_spot(id):
 
 
 
-@spot_routes.route("/<int:id>/reviews", method=["POST"]) 
+@spot_routes.route("/<int:id>/reviews", methods=["POST"]) 
 @login_required  
 def create_review():
     """

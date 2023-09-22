@@ -7,6 +7,9 @@ import './SignupForm.css';
 function SignupFormPage() {
   const dispatch = useDispatch();
   const sessionUser = useSelector((state) => state.session.user);
+  const [first_name, setFirst_name]=useState("")
+  const [last_name, setLast_name]=useState("")
+  const [user_image_url, setUser_image_url]=useState("")
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -18,7 +21,7 @@ function SignupFormPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (password === confirmPassword) {
-        const data = await dispatch(signUp(username, email, password));
+        const data = await dispatch(signUp(first_name, last_name, user_image_url, username, email, password));
         if (data) {
           setErrors(data)
         }
@@ -34,6 +37,35 @@ function SignupFormPage() {
         <ul>
           {errors.map((error, idx) => <li key={idx}>{error}</li>)}
         </ul>
+        <label>
+          First name
+          <input
+            type="text"
+            value={first_name}
+            onChange={(e) => setFirst_name(e.target.value)}
+            required
+          />
+        </label>
+        <label>
+          Last name
+          <input
+            type="text"
+            value={last_name}
+            onChange={(e) => setLast_name(e.target.value)}
+            required
+          />
+        </label>
+        <label>
+          User image url
+          <input
+            type="text"
+            value={user_image_url}
+            onChange={(e) => setUser_image_url(e.target.value)}
+            required
+          />
+        </label>
+
+
         <label>
           Email
           <input

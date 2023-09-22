@@ -46,7 +46,7 @@ def get_bookings(user_id):
     return bookings.to_dict()
         
         
-@user_routes.route("/<int:user_id>/bookings", method=["POST"]) 
+@user_routes.route("/<int:user_id>/bookings", methods=["POST"]) 
 @login_required  
 def create_booking(user_id):
     
