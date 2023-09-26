@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+import {NavLink} from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { logout } from "../../store/session";
 import OpenModalButton from "../OpenModalButton";
@@ -46,8 +47,10 @@ console.log(user, 111111)
   return (
     <div className="profile-wrapper">
       <button className="profile-btn" onClick={openMenu}>
-        {/* <i className="fas fa-user-circle" /> */}
-        <img className="profile-img" alt={`${user.name}`} src="https://res.cloudinary.com/dr1ekjmf4/image/upload/v1691812110/776229ef8d0028f88330a492116ab40b_zelqge.jpg"/>
+       {!user && <i className="fas fa-user-circle header-profile-icon" />} 
+       {
+        user &&<img className="profile-img" alt={`${user?.name}`} src="https://res.cloudinary.com/dr1ekjmf4/image/upload/v1691812110/776229ef8d0028f88330a492116ab40b_zelqge.jpg"/>
+       } 
       </button>
       <ul className={ulClassName} ref={ulRef}>
         {user ? (
@@ -60,7 +63,7 @@ console.log(user, 111111)
           </>
         ) : (
           <>
-            <OpenModalButton
+            {/* <OpenModalButton
               buttonText="Log In"
               onItemClick={closeMenu}
               modalComponent={<LoginFormModal />}
@@ -70,7 +73,15 @@ console.log(user, 111111)
               buttonText="Sign Up"
               onItemClick={closeMenu}
               modalComponent={<SignupFormModal />}
-            />
+            /> */}
+    <NavLink className = "prifile-link"  to ="/login">
+      Log in
+    </NavLink>
+
+    <NavLink className = "prifile-link" to ="/signup">
+      Sign Up
+    </NavLink>
+
           </>
         )}
       </ul>

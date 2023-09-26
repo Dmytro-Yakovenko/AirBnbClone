@@ -22,35 +22,48 @@ const LoginPage = () => {
     };
   
     return (
-      <>
-        <h1>Log In</h1>
+      <div className="login">
+        <h1 className="login-title">Log In</h1>
         <form onSubmit={handleSubmit}>
           <ul>
             {errors.map((error, idx) => (
               <li key={idx}>{error}</li>
             ))}
           </ul>
+
+          <div className="login-input-wrapper">
           <label>
             Email
+              </label>
             <input
               type="text"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
             />
-          </label>
-          <label>
+        
+
+
+          </div>
+         
+
+         <div className="login-input-wrapper">
+         <label>
             Password
+            </label>
             <input
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
             />
-          </label>
+         
+
+         </div>
+          
           <button type="submit">Log In</button>
         </form>
-      </>
+      </div>
     );
   }
   
