@@ -1,0 +1,36 @@
+.signup {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    padding: 15px;
+    gap: 20px;
+}
+
+.signup-form {
+    max-width: 450px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+}
+
+.signup-input-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.signup-input-wrapper> input{
+  width: 100%;
+  padding: 10px;
+  font-size: 20px;
+  border-radius: 5px;
+}
+
+.signup-title {
+    font-size: 30px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
