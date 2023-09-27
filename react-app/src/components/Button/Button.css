@@ -15,9 +15,13 @@ padding: 15px;
     background-color: rgba(255, 56, 92, 0.5);
 }
 
-.signup-btn {
+.credential-btn  {
   color: #fff !important;
   background-color: rgb(255, 56, 92) !important;
   
   
+}
+
+.credential-btn:hover {
+  background-color: rgba(255, 56, 92, 0.5);
 }

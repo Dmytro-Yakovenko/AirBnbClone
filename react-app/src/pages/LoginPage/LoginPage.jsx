@@ -3,6 +3,7 @@ import { login } from "../../store/session";
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect } from "react-router-dom";
 import './LoginPage.css';
+import Button from "../../components/Button";
 
 const LoginPage = () => {
     const dispatch = useDispatch();
@@ -12,6 +13,15 @@ const LoginPage = () => {
     const [errors, setErrors] = useState([]);
   
     if (sessionUser) return <Redirect to="/" />;
+
+  const handleDemoSubmit =async (e) =>{
+    e.preventDefault()
+    const data = await dispatch(login("demo@aa.io", "password"));
+      if (data) {
+        setErrors(data);
+      }
+  }
+
   
     const handleSubmit = async (e) => {
       e.preventDefault();
@@ -24,7 +34,7 @@ const LoginPage = () => {
     return (
       <div className="login">
         <h1 className="login-title">Log In</h1>
-        <form onSubmit={handleSubmit}>
+        <form className="login-form" onSubmit={handleSubmit}>
           <ul>
             {errors.map((error, idx) => (
               <li key={idx}>{error}</li>
@@ -61,7 +71,8 @@ const LoginPage = () => {
 
          </div>
           
-          <button type="submit">Log In</button>
+          <Button id ="logIn"/>
+          <Button onClick={handleDemoSubmit} id="demo"/>
         </form>
       </div>
     );

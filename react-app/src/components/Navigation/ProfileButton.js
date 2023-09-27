@@ -3,8 +3,6 @@ import {NavLink} from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { logout } from "../../store/session";
 import OpenModalButton from "../OpenModalButton";
-import LoginFormModal from "../LoginFormModal";
-import SignupFormModal from "../SignupFormModal";
 import Button from "../Button";
 
 const  ProfileButton =({ user }) =>{
@@ -74,11 +72,11 @@ console.log(user, 111111)
               onItemClick={closeMenu}
               modalComponent={<SignupFormModal />}
             /> */}
-    <NavLink className = "prifile-link"  to ="/login">
+    <NavLink className = "profile-link"  to ="/login">
       Log in
     </NavLink>
 
-    <NavLink className = "prifile-link" to ="/signup">
+    <NavLink className = "profile-link" to ="/signup">
       Sign Up
     </NavLink>
 

@@ -1,9 +1,14 @@
 import React from 'react'
+import { useSelector } from 'react-redux'
+import Loader from '../../components/loader'
 
 const HomePage = () => {
+  const isUserLoading = useSelector((state)=>state.session.isUserLoading)
   return (
     <main>
- <div className='container'>Home page</div>
+      {isUserLoading && <Loader/>}
+      {!isUserLoading &&  <div className='container'>Home page</div>}
+
     </main>
    
   )
