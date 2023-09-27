@@ -1,148 +1,791 @@
-# Flask React Project
-
-This is the starter for the Flask React project.
-
-## Getting started
-1. Clone this repository (only this branch)
-
-2. Install dependencies
-
-      ```bash
-      pipenv install -r requirements.txt
-      ```
-
-3. Create a **.env** file based on the example with proper settings for your
-   development environment
-
-4. Make sure the SQLite3 database connection URL is in the **.env** file
-
-5. This starter organizes all tables inside the `flask_schema` schema, defined
-   by the `SCHEMA` environment variable.  Replace the value for
-   `SCHEMA` with a unique name, **making sure you use the snake_case
-   convention**.
-
-6. Get into your pipenv, migrate your database, seed your database, and run your Flask app
-
-   ```bash
-   pipenv shell
-   ```
-
-   ```bash
-   flask db upgrade
-   ```
-
-   ```bash
-   flask seed all
-   ```
-
-   ```bash
-   flask run
-   ```
-
-7. To run the React App in development, checkout the [README](./react-app/README.md) inside the `react-app` directory.
 
 
-## Deployment through Render.com
 
-First, refer to your Render.com deployment articles for more detailed
-instructions about getting started with [Render.com], creating a production
-database, and deployment debugging tips.
+![](https://res.cloudinary.com/dr1ekjmf4/image/upload/v1694183056/Screen_Shot_2023-09-08_at_7.23.13_AM_wn1ogv.png)
 
-From the [Dashboard], click on the "New +" button in the navigation bar, and
-click on "Web Service" to create the application that will be deployed.
 
-Look for the name of the application you want to deploy, and click the "Connect"
-button to the right of the name.
 
-Now, fill out the form to configure the build and start commands, as well as add
-the environment variables to properly deploy the application.
+All endpoints that require a current user to be logged in.
 
-### Part A: Configure the Start and Build Commands
+Request: endpoints that require authentication
+Error Response: Require authentication
+Status Code: 401
 
-Start by giving your application a name.
+Headers:
 
-Leave the root directory field blank. By default, Render will run commands from
-the root directory.
+Content-Type: application/json
+Body:
 
-Make sure the Environment field is set set to "Python 3", the Region is set to
-the location closest to you, and the Branch is set to "main".
+{
+  "message": "Authentication required",
+  "statusCode": 401
+}
+All endpoints that require proper authorization
+All endpoints that require authentication and the current user does not have the correct role(s) or permission(s).
 
-Next, add your Build command. This is a script that should include everything
-that needs to happen _before_ starting the server.
+Request: endpoints that require proper authorization
+Error Response: Require proper authorization
+Status Code: 403
 
-For your Flask project, enter the following command into the Build field, all in
-one line:
+Headers:
 
-```shell
-# build command - enter all in one line
-npm install --prefix react-app &&
-npm run build --prefix react-app &&
-pip install -r requirements.txt &&
-pip install psycopg2 &&
-flask db upgrade &&
-flask seed all
-```
+Content-Type: application/json
+Body:
 
-This script will install dependencies for the frontend, and run the build
-command in the __package.json__ file for the frontend, which builds the React
-application. Then, it will install the dependencies needed for the Python
-backend, and run the migration and seed files.
+{
+  "message": "Forbidden",
+  "statusCode": 403
+}
+## Get the Current User 
+ Get current user
 
-Now, add your start command in the Start field:
+* Require Authentication: true
+* Require proper authorization: Spot must belong to the current user
+* Request
+  * Method: GET
+  * URL: /api/session/
+  * Body: none
 
-```shell
-# start script
-gunicorn app:app
-```
+* Successful Response
+  * Status Code: 200
+  * Headers:
+    * Content-Type: application/json
+  * Body:
 
-_If you are using websockets, use the following start command instead for increased performance:_
+    ```json
+    user:{
+      "id":"1",
+      "first_name":"Dmytro",
+      "last_name":"Yakovenko",
+      "user_name":"dmytroy",
+      "user_image_url":"https://res.cloudinary.com/dr1ekjmf4/image/upload/v1673016570/samples/people/kitchen-bar.jpg",
+      "created_at":"2023-08-27",
+      "updated_at_at":"2023-08-27"
+  }
+    ```
 
-`gunicorn --worker-class eventlet -w 1 app:app`
+## Log in user
 
-### Part B: Add the Environment Variables
+logs in a current user with valid credentinal and return current user with valid information
+    
+* Require Authentication: false
 
-Click on the "Advanced" button at the bottom of the form to configure the
-environment variables your application needs to access to run properly. In the
-development environment, you have been securing these variables in the __.env__
-file, which has been removed from source control. In this step, you will need to
-input the keys and values for the environment variables you need for production
-into the Render GUI.
+* Request
+  * Method: POST
+  * URL: /api/session/
+  * 
+  Body: 
+    ```json
+  {
+    "email":"dmytro.aa.io",
+    "password":"password"
+  }
+  ```
 
-Click on "Add Environment Variable" to start adding all of the variables you
-need for the production environment.
+* Successful Response
+  * Status Code: 200
+  * Headers:
+    * Content-Type: application/json
+  * Body:
 
-Add the following keys and values in the Render GUI form:
+    ```json
+    user:{
+      "id":"1",
+      "first_name":"Dmytro",
+      "last_name":"Yakovenko",
+      "user_name":"dmytroy",
+      "user_image_url":"https://res.cloudinary.com/dr1ekjmf4/image/upload/v1673016570/samples/people/kitchen-bar.jpg",
+      "created_at":"2023-08-27",
+      "updated_at_at":"2023-08-27"
+  }
+    ```
 
-- SECRET_KEY (click "Generate" to generate a secure secret for production)
-- FLASK_ENV production
-- FLASK_APP app
-- SCHEMA (your unique schema name, in snake_case)
-- REACT_APP_BASE_URL (use render.com url, located at top of page, similar to
-  https://this-application-name.onrender.com)
+## Sign up user
 
-In a new tab, navigate to your dashboard and click on your Postgres database
-instance.
+signs up  a current user with valid credentinal and return current user with valid information
+    
+* Require Authentication: false
 
-Add the following keys and values:
+* Request
+  * Method: POST
+  * URL: /api/auth/
+  * 
+  Body: 
+    ```json
+  { 
+      "first_name":"Dmytro",
+      "last_name":"Yakovenko",
+      "user_name":"dmytroy",
+      "user_image_url":"https://res.cloudinary.com/dr1ekjmf4/image/upload/v1673016570/samples/people/kitchen-bar.jpg",
+    "email":"dmytro.aa.io",
+    "password":"password"
+  }
+  ```
 
-- DATABASE_URL (copy value from Internal Database URL field)
+* Successful Response
+  * Status Code: 200
+  * Headers:
+    * Content-Type: application/json
+  * Body:
 
-_Note: Add any other keys and values that may be present in your local __.env__
-file. As you work to further develop your project, you may need to add more
-environment variables to your local __.env__ file. Make sure you add these
-environment variables to the Render GUI as well for the next deployment._
+    ```json
+    user:{
+      "id":"1",
+      "first_name":"Dmytro",
+      "last_name":"Yakovenko",
+      "user_name":"dmytroy",
+      "user_image_url":"https://res.cloudinary.com/dr1ekjmf4/image/upload/v1673016570/samples/people/kitchen-bar.jpg",
+      "created_at":"2023-08-27",
+      "updated_at_at":"2023-08-27"
+  }
+    ```
 
-Next, choose "Yes" for the Auto-Deploy field. This will re-deploy your
-application every time you push to main.
 
-Now, you are finally ready to deploy! Click "Create Web Service" to deploy your
-project. The deployment process will likely take about 10-15 minutes if
-everything works as expected. You can monitor the logs to see your build and
-start commands being executed, and see any errors in the build process.
 
-When deployment is complete, open your deployed site and check to see if you
-successfully deployed your Flask application to Render! You can find the URL for
-your site just below the name of the Web Service at the top of the page.
+    ## Log out user
 
-[Render.com]: https://render.com/
-[Dashboard]: https://dashboard.render.com/
+Logs out  a current user with valid credentinal 
+    
+* Require Authentication: true
+
+* Request
+  * Method: GET
+  * URL: /api/logout/
+  * 
+  Body: none
+
+* Successful Response
+  * Status Code: 200
+  * Headers:
+    * Content-Type: application/json
+  * Body:none
+  *message:"logged out"
+
+
+
+
+## Get  all  Spots
+
+Gets all spots .
+
+* Require Authentication: false
+
+* Request
+  * Method: GET
+  * URL: /api/spots
+  * Body: none
+
+* Successful Response
+  * Status Code: 200
+  * Headers:
+    * Content-Type: application/json
+  * Body:
+
+    ```json
+   [
+    {
+      "title": "Townhouse",
+      "description": "2 bedroom 2 bath",
+      "address": "355 London Street",
+      "city": "San Francisco",
+       "state": "California",
+      "country": "United States",
+     "lat": "5.6416",
+      "long": "0.8764",
+      "price":"100",
+      "owner_id":"1",
+      "images":["https://res.cloudinary.com/dr1ekjmf4/image/upload/v1684203061/pokerEventImages/Dmytro_real_estate_ea3dcef7-6358-4488-bcb3-e47362ec3c44_h9o6sx.png"]
+    }
+   ] 
+    ```
+
+
+
+## Get   Spot by id
+
+Gets spot by id.
+
+* Require Authentication: false
+
+* Request
+  * Method: GET
+  * URL: /api/spots/:id
+  * Body: none
+
+* Successful Response
+  * Status Code: 200
+  * Headers:
+    * Content-Type: application/json
+  * Body:
+
+    ```json
+   
+    {
+        "id":"1",
+      "title": "Townhouse",
+      "description": "2 bedroom 2 bath",
+      "address": "355 London Street",
+      "city": "San Francisco",
+       "state": "California",
+      "country": "United States",
+     "lat": "5.6416",
+      "long": "0.8764",
+      "price":"100",
+      "owner_id":"1",
+      "spot_image_url":["https://res.cloudinary.com/dr1ekjmf4/image/upload/v1673016575/samples/landscapes/architecture-signs.jpg"]
+      
+    }
+   
+    ```
+  * Error response: Couldn't find a Spot with the specified id
+  * Status Code: 404
+  * Headers:
+    * Content-Type: application/json
+  * Body:
+
+    ```json
+    {
+      "message": "Spot couldn't be found",
+      "statusCode": 404
+    }
+    ```
+
+
+
+
+## Create  Spot 
+
+Creates spot.
+
+* Require Authentication: true
+
+* Request
+  * Method: POST
+  * URL: /api/spots/
+  * Body: 
+    ```json
+   
+    {
+        
+      "title": "Townhouse",
+      "description": "2 bedroom 2 bath",
+      "address": "355 London Street",
+      "city": "San Francisco",
+       "state": "California",
+      "country": "United States",
+     "lat": "5.6416",
+      "long": "0.8764",
+      "price":"100",
+      "owner_id":"1",
+      
+    }
+
+* Successful Response
+  * Status Code: 200
+  * Headers:
+    * Content-Type: application/json
+  * Body:
+
+    ```json
+   
+    {
+        "id":"1",
+      "title": "Townhouse",
+      "description": "2 bedroom 2 bath",
+      "address": "355 London Street",
+      "city": "San Francisco",
+       "state": "California",
+      "country": "United States",
+     "lat": "5.6416",
+      "long": "0.8764",
+      "price":"100",
+      "owner_id":"1",
+      "created_at":"2023-08-29",
+      "updated_at":"2023-08-29",
+    }
+
+
+
+
+## Edit  Spot 
+
+Edit spot.
+
+* Require Authentication: true
+
+* Request
+  * Method: PUT
+  * URL: /api/spots/:id
+  * Body: 
+    ```json
+   
+    {
+        "id":"1",
+      "title": "Townhouse",
+      "description": "2 bedroom 2 bath",
+      "address": "355 London Street",
+      "city": "San Francisco",
+       "state": "California",
+      "country": "United States",
+     "lat": "5.6416",
+      "long": "0.8764",
+      "price":"100",
+      "owner_id":"1",
+      
+    }
+
+* Successful Response
+  * Status Code: 200
+  * Headers:
+    * Content-Type: application/json
+  * Body:
+
+    ```json
+   
+    {
+        "id":"1",
+      "title": "Townhouse",
+      "description": "2 bedroom 2 bath",
+      "address": "355 London Street",
+      "city": "San Francisco",
+       "state": "California",
+      "country": "United States",
+     "lat": "5.6416",
+      "long": "0.8764",
+      "price":"100",
+      "owner_id":"1",
+      "created_at":"2023-08-29",
+      "updated_at":"2023-08-29",
+    }
+   
+
+
+
+
+
+
+
+
+## Delete a Spot
+
+Deletes an existing spot.
+
+* Require Authentication: true
+* Require proper authorization: Spot must belong to the current user
+* Request
+  * Method: DELETE
+  * URL: api/spots/:id
+  * Body: none
+
+* Successful Response
+  * Status Code: 200
+  * Headers:
+    * Content-Type: application/json
+  * Body:
+
+    ```json
+    {
+      "message": "Successfully deleted",
+      "statusCode": 200 
+    }
+    ```
+
+* Error response: Couldn't find a Spot with the specified id
+  * Status Code: 404
+  * Headers:
+    * Content-Type: application/json
+  * Body:
+
+    ```json
+    {
+      "message": "Spot couldn't be found",
+      "statusCode": 404
+    }
+    ```
+
+
+
+
+    ## GET all bookings
+Gets all bookings.
+
+* Require Authentication: true
+* Require proper authorization: Booking must belong to the current user
+* Request
+  * Method: GET
+  * URL: api/bookings
+  * Body: none
+
+* Successful Response
+  * Status Code: 200
+  * Headers:
+    * Content-Type: application/json
+  * Body:
+
+    ```json
+   [ {
+      "user_id": "1",
+      "spot_id":"1",
+      "check_in":"08-31-2023",
+      "check_in":"09-01-2023",
+      "spot":    {
+        "id":"1",
+      "title": "Townhouse",
+      "description": "2 bedroom 2 bath",
+      "address": "355 London Street",
+      "city": "San Francisco",
+       "state": "California",
+      "country": "United States",
+     "lat": "5.6416",
+      "long": "0.8764",
+      "price":"100",
+      "owner_id":"1",
+      "created_at":"2023-08-29",
+      "updated_at":"2023-08-29",
+    }
+    }
+    ]
+    ```
+
+
+    ## Get   booking by id
+
+Gets booking by id.
+
+* Require Authentication: false
+
+* Request
+  * Method: GET
+  * URL: /api/bookings/:id
+  * Body: none
+
+* Successful Response
+  * Status Code: 200
+  * Headers:
+    * Content-Type: application/json
+  * Body:
+
+    ```json
+   {
+      "user_id": "1",
+      "spot_id":"1",
+      "check_in":"08-31-2023",
+      "check_in":"09-01-2023",
+      "spot":    {
+        "id":"1",
+      "title": "Townhouse",
+      "description": "2 bedroom 2 bath",
+      "address": "355 London Street",
+      "city": "San Francisco",
+       "state": "California",
+      "country": "United States",
+     "lat": "5.6416",
+      "long": "0.8764",
+      "price":"100",
+      "owner_id":"1",
+      "created_at":"2023-08-29",
+      "updated_at":"2023-08-29",
+    }
+    }
+ 
+   
+    ```
+  * Error response: Couldn't find a booking with the specified id
+  * Status Code: 404
+  * Headers:
+    * Content-Type: application/json
+  * Body:
+
+    ```json
+    {
+      "message": "Booking couldn't be found",
+      "statusCode": 404
+    }
+    ```
+
+
+
+    ## Create  Booking 
+
+Creates booking.
+
+* Require Authentication: true
+
+* Request
+  * Method: POST
+  * URL: /api/bookings/
+  * Body: 
+    ```json
+   
+    {
+        "user_id":1, 
+        "spot_id":1,
+        "check_in":"08-29-2023", 
+        "spot_id":"08-30-2023",
+    }
+
+* Successful Response
+  * Status Code: 200
+  * Headers:
+    * Content-Type: application/json
+  * Body:
+
+    ```json
+   
+    {
+        "id":"1",
+       {
+        "user_id":1, 
+        "spot_id":1,
+        "check_in":"08-29-2023", 
+        "spot_id":"08-30-2023",
+        "created_at":"2023-08-29",
+         "updated_at":"2023-08-29",
+    }
+    }
+
+
+      ## Update  Booking 
+
+Updates booking.
+
+* Require Authentication: true
+
+* Request
+  * Method: PUT
+  * URL: /api/bookings/:booking_id
+  * Body: 
+    ```json
+   
+    {
+        "user_id":1, 
+        "spot_id":1,
+        "check_in":"08-29-2023", 
+        "check_out":"08-30-2023",
+    }
+
+* Successful Response
+  * Status Code: 200
+  * Headers:
+    * Content-Type: application/json
+  * Body:
+
+    ```json
+   
+    {
+         "user_id":1, 
+        "spot_id":1,
+        "check_in":"08-29-2023", 
+        "spot_id":"08-30-2023", 
+        "created_at":"2023-08-29",
+         "updated_at":"2023-08-29",
+    
+    }
+
+
+    ## Delete a Booking
+
+Deletes an existing spot.
+
+* Require Authentication: true
+* Require proper authorization: Spot must belong to the current user
+* Request
+  * Method: DELETE
+  * URL: api/bookings/:id
+  * Body: none
+
+* Successful Response
+  * Status Code: 200
+  * Headers:
+    * Content-Type: application/json
+  * Body:
+
+    ```json
+    {
+      "message": "Successfully deleted",
+      "statusCode": 200 
+    }
+    ```
+
+* Error response: Couldn't find a Booking with the specified id
+  * Status Code: 404
+  * Headers:
+    * Content-Type: application/json
+  * Body:
+
+    ```json
+    {
+      "message": "Booking couldn't be found",
+      "statusCode": 404
+    }
+    ```
+
+
+
+
+
+
+
+
+ 
+
+
+    ## Get   review by id
+
+Gets review by id.
+
+* Require Authentication: false
+
+* Request
+  * Method: GET
+  * URL: /api/reviews/:id
+  * Body: none
+
+* Successful Response
+  * Status Code: 200
+  * Headers:
+    * Content-Type: application/json
+  * Body:
+
+    ```json
+   {
+      "user_id": "1",
+      "spot_id":"1",
+      "review":"Good spot",
+      "rating":"5",
+      "created_at":"2023-08-29",
+      "updated_at":"2023-08-29",
+    }
+ 
+   
+    ```
+  * Error response: Couldn't find a review with the specified id
+  * Status Code: 404
+  * Headers:
+    * Content-Type: application/json
+  * Body:
+
+    ```json
+    {
+      "message": "Review couldn't be found",
+      "statusCode": 404
+    }
+    ```
+
+
+
+    ## Create  Review
+
+Creates booking.
+
+* Require Authentication: true
+
+* Request
+  * Method: POST
+  * URL: /api/reviewss/
+  * Body: 
+    ```json
+   
+    {
+        "user_id":1, 
+        "spot_id":1,
+        "review":"Good spot", 
+        "rating":"5",
+    }
+
+* Successful Response
+  * Status Code: 200
+  * Headers:
+    * Content-Type: application/json
+  * Body:
+
+    ```json
+   
+    {
+        "id":"1",
+        "user_id":1, 
+        "spot_id":1,
+        "review":"Good spot", 
+        "rating":"5",
+        "created_at":"2023-08-29",
+         "updated_at":"2023-08-29",
+    
+    }
+
+
+
+Updates Review.
+
+* Require Authentication: true
+
+* Request
+  * Method: PUT
+  * URL: /api/reviwes/:review_id
+  * Body: 
+    ```json
+   
+    {
+        "user_id":1, 
+        "spot_id":1,
+
+        "review":"Great spot", 
+        "rating":"5",
+    }
+
+* Successful Response
+  * Status Code: 200
+  * Headers:
+    * Content-Type: application/json
+  * Body:
+
+    ```json
+   
+    {
+        "review_id":"1",
+         "user_id":1, 
+        "spot_id":1,
+        "review":"Great spot", 
+        "rating":"5", 
+        "created_at":"2023-08-29",
+         "updated_at":"2023-08-29",
+    
+    }
+
+
+
+## Delete a review
+
+Deletes an existing review.
+
+* Require Authentication: true
+* Require proper authorization: Spot must belong to the current user
+* Request
+  * Method: DELETE
+  * URL: api/reviews/:id
+  * Body: none
+
+* Successful Response
+  * Status Code: 200
+  * Headers:
+    * Content-Type: application/json
+  * Body:
+
+    ```json
+    {
+      "message": "Successfully deleted",
+      "statusCode": 200 
+    }
+    ```
+
+* Error response: Couldn't find a review with the specified id
+  * Status Code: 404
+  * Headers:
+    * Content-Type: application/json
+  * Body:
+
+    ```json
+    {
+      "message": "Review couldn't be found",
+      "statusCode": 404
+    }
+    ```

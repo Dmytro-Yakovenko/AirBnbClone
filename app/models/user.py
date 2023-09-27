@@ -19,10 +19,15 @@ class User(db.Model, UserMixin):
     updated_at=db.Column(db.DateTime, nullable=False, default = datetime.utcnow, onupdate=datetime.utcnow)
     
    
-    # spot = db.relationship("Spot", secondary=add_prefix_for_prod('booking'), back_populates="user")
+    
     bookings = db.relationship("Booking", back_populates="user")
     reviews = db.relationship("Review", back_populates = "user")
     review_images = db.relationship("Review_image", back_populates = "user")
+    spots = db.relationship("Spot", back_populates = "user")
+    
+    
+    
+    
     @property 
     def password(self):
         return self.hashed_password

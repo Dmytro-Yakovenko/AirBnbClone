@@ -1,0 +1,29 @@
+.login-title {
+    font-size: 30px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.login {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    padding: 15px;
+    gap: 20px;
+
+
+}
+
+.login-input-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.login-input-wrapper> input{
+    width: 100%;
+    padding: 10px;
+    font-size: 20px;
+    border-radius: 5px;
+  }
