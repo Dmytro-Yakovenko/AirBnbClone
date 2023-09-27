@@ -1,11 +1,15 @@
 import React, { useState, useEffect, useRef } from "react";
+import {NavLink} from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { logout } from "../../store/session";
 import OpenModalButton from "../OpenModalButton";
 import LoginFormModal from "../LoginFormModal";
 import SignupFormModal from "../SignupFormModal";
+import Button from "../Button";
 
-function ProfileButton({ user }) {
+const  ProfileButton =({ user }) =>{
+console.log(user, 111111)
+
   const dispatch = useDispatch();
   const [showMenu, setShowMenu] = useState(false);
   const ulRef = useRef();
@@ -26,6 +30,9 @@ function ProfileButton({ user }) {
 
     document.addEventListener("click", closeMenu);
 
+
+
+
     return () => document.removeEventListener("click", closeMenu);
   }, [showMenu]);
 
@@ -38,9 +45,12 @@ function ProfileButton({ user }) {
   const closeMenu = () => setShowMenu(false);
 
   return (
-    <>
-      <button onClick={openMenu}>
-        <i className="fas fa-user-circle" />
+    <div className="profile-wrapper">
+      <button className="profile-btn" onClick={openMenu}>
+       {!user && <i className="fas fa-user-circle header-profile-icon" />} 
+       {
+        user &&<img className="profile-img" alt={`${user?.name}`} src="https://res.cloudinary.com/dr1ekjmf4/image/upload/v1691812110/776229ef8d0028f88330a492116ab40b_zelqge.jpg"/>
+       } 
       </button>
       <ul className={ulClassName} ref={ulRef}>
         {user ? (
@@ -48,12 +58,12 @@ function ProfileButton({ user }) {
             <li>{user.username}</li>
             <li>{user.email}</li>
             <li>
-              <button onClick={handleLogout}>Log Out</button>
+              <Button onClick={handleLogout} id="logOut"/>
             </li>
           </>
         ) : (
           <>
-            <OpenModalButton
+            {/* <OpenModalButton
               buttonText="Log In"
               onItemClick={closeMenu}
               modalComponent={<LoginFormModal />}
@@ -63,11 +73,19 @@ function ProfileButton({ user }) {
               buttonText="Sign Up"
               onItemClick={closeMenu}
               modalComponent={<SignupFormModal />}
-            />
+            /> */}
+    <NavLink className = "prifile-link"  to ="/login">
+      Log in
+    </NavLink>
+
+    <NavLink className = "prifile-link" to ="/signup">
+      Sign Up
+    </NavLink>
+
           </>
         )}
       </ul>
-    </>
+    </div>
   );
 }
 
