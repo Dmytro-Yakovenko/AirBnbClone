@@ -14,7 +14,7 @@ function Navigation({ isLoaded }) {
           <ul className="nav-list">
             <li>
               <NavLink exact to="/">
-               <img className="logo" src="https://res.cloudinary.com/dr1ekjmf4/image/upload/v1695613454/logoAbnb_cwzp8x.jpg"/>
+               <img className="logo" alt="logo" src="https://res.cloudinary.com/dr1ekjmf4/image/upload/v1695613454/logoAbnb_cwzp8x.jpg"/>
               </NavLink>
             </li>
             {isLoaded && (

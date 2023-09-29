@@ -2,11 +2,10 @@ import React, { useState, useEffect, useRef } from "react";
 import {NavLink} from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { logout } from "../../store/session";
-import OpenModalButton from "../OpenModalButton";
 import Button from "../Button";
 
 const  ProfileButton =({ user }) =>{
-console.log(user, 111111)
+
 
   const dispatch = useDispatch();
   const [showMenu, setShowMenu] = useState(false);
@@ -40,14 +39,13 @@ console.log(user, 111111)
   };
 
   const ulClassName = "profile-dropdown" + (showMenu ? "" : " hidden");
-  const closeMenu = () => setShowMenu(false);
 
   return (
     <div className="profile-wrapper">
       <button className="profile-btn" onClick={openMenu}>
        {!user && <i className="fas fa-user-circle header-profile-icon" />} 
        {
-        user &&<img className="profile-img" alt={`${user?.name}`} src="https://res.cloudinary.com/dr1ekjmf4/image/upload/v1691812110/776229ef8d0028f88330a492116ab40b_zelqge.jpg"/>
+        user &&<img className="profile-img" alt={`${user?.name}`} src={user.user_image_url}/>
        } 
       </button>
       <ul className={ulClassName} ref={ulRef}>
@@ -61,17 +59,7 @@ console.log(user, 111111)
           </>
         ) : (
           <>
-            {/* <OpenModalButton
-              buttonText="Log In"
-              onItemClick={closeMenu}
-              modalComponent={<LoginFormModal />}
-            />
-
-            <OpenModalButton
-              buttonText="Sign Up"
-              onItemClick={closeMenu}
-              modalComponent={<SignupFormModal />}
-            /> */}
+     
     <NavLink className = "profile-link"  to ="/login">
       Log in
     </NavLink>

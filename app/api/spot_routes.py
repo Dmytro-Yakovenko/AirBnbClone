@@ -11,9 +11,12 @@ spot_routes = Blueprint("spots", __name__)
 @spot_routes.route("/")
 def get_all_spots():
     spots=Spot.query.all()
+    
     spot_list=[]
     for spot in spots:
+      
         spot_dict = spot.to_dict()
+        
         spot_list.append(spot_dict)
     return jsonify({"spots":spot_list})
 

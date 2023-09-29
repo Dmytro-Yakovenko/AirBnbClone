@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { login } from "../../store/session";
+import { login, userLoading } from "../../store/session";
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect } from "react-router-dom";
 import './LoginPage.css';
@@ -16,6 +16,7 @@ const LoginPage = () => {
 
   const handleDemoSubmit =async (e) =>{
     e.preventDefault()
+    dispatch(userLoading())
     const data = await dispatch(login("demo@aa.io", "password"));
       if (data) {
         setErrors(data);
@@ -25,6 +26,7 @@ const LoginPage = () => {
   
     const handleSubmit = async (e) => {
       e.preventDefault();
+      dispatch(userLoading())
       const data = await dispatch(login(email, password));
       if (data) {
         setErrors(data);

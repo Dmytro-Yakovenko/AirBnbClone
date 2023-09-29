@@ -378,3 +378,8 @@ a {
     max-width: 1400px;
     margin: 0 auto;
 }
+
+.loader-wrapper {
+    display: flex;
+    justify-content: center;
+}

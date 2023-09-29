@@ -7,13 +7,18 @@ import NotFoundPage from "./pages/NotFoundPage";
 import HomePage from "./pages/HomePage";
 import { authenticate } from "./store/session";
 import Navigation from "./components/Navigation";
-
+import {getSpots} from "./store/spot"
 function App() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
   useEffect(() => {
     dispatch(authenticate()).then(() => setIsLoaded(true));
   }, [dispatch]);
+
+
+  useEffect(()=>{
+    dispatch(getSpots())
+  }, [dispatch])
 
   return (
     <>
