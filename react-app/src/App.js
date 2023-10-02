@@ -8,6 +8,7 @@ import HomePage from "./pages/HomePage";
 import { authenticate } from "./store/session";
 import Navigation from "./components/Navigation";
 import {getSpots} from "./store/spot"
+import SpotDetailsPage from "./pages/SpotDetailsPage";
 function App() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
@@ -34,7 +35,9 @@ function App() {
           <Route path="/signup">
             <SignupFormPage />
           </Route>
-
+          <Route path="/spots/:id">
+            <SpotDetailsPage />
+          </Route>
           <Route >
             <NotFoundPage />
           </Route>
