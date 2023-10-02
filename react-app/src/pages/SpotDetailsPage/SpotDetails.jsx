@@ -8,7 +8,7 @@ import { getOneSpot } from "../../store/spot";
 
 
 
-const SpotDetails = () => {
+const SpotDetailsPage = () => {
     const isLoading = useSelector((state)=>state.spots.isLoading)
     const {id} = useParams()
     const dispatch = useDispatch()
@@ -28,4 +28,4 @@ const SpotDetails = () => {
   )
 }
 
-export default SpotDetails
+export default SpotDetailsPage
