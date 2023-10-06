@@ -42,6 +42,7 @@ class Spot(db.Model):
             'price':self.price,
             'owner_id':self.owner_id,
             "spot_image":[spot_image.to_dict() for spot_image in self.spot_images],
+            "reviews":[review.to_dict() for review in self.reviews],
             "created_at":self.created_at,
             "updated_at":self.updated_at,
         }
