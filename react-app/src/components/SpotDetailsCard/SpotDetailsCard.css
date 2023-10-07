@@ -38,7 +38,7 @@
     color:rgb(227, 27, 27);
     position: absolute;
     bottom: 0;
-    left: 0;
+    left: 15px;
 }
 
 .spot-form-container {
@@ -46,5 +46,26 @@
     position: relative;
     display: flex;
     gap: 30px;
+    padding: 30px;
+    
 
+}
+
+.spot-reviews {
+    display: flex;
+    gap:20px;
+    flex-direction: column;
+}
+
+.spot-review-wrapper {
+    justify-content: start;
+    align-items: center;
+    display: flex;
+    gap:10px;
+}
+
+.user-image {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
 }

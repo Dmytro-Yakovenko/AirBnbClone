@@ -2,6 +2,22 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import Button from "../Button";
 import "./SpotDetailsCard.css";
+import Rating from "@mui/material/Rating";
+import Stack from "@mui/material/Stack";
+let months = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
+];
 const SpotDetailsCard = () => {
   const spot = useSelector((state) => state.spots.spot);
   const [checkIn, setCheckIn] = useState(new Date());
@@ -15,6 +31,14 @@ const SpotDetailsCard = () => {
     console.log(error);
     setError(error);
   }, [checkIn, checkOut]);
+
+  const formatData = (data) => {
+    const date = new Date(data);
+    const day = date.getDate();
+    const month = months[date.getMonth()];
+    const year = date.getFullYear();
+    return ` ${month} ${day}, ${year}`;
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -82,22 +106,40 @@ const SpotDetailsCard = () => {
           </div>
 
           <Button id="booking" disabled />
-        </div>
 
-        <span className="spot-error">{error.message} </span>
+          <span className="spot-error">{error.message} </span>
+        </div>
       </form>
 
       <ul>
         {spot.reviews?.length &&
           spot.reviews.map((item) => (
-            <li key={item.id}>
-              <p>{item.rating}</p>
-              <p>{item.review}</p>
-              <p> {item.created_at}</p>
+            <li className="spot-reviews" key={item.id}>
+              <p>
+                {" "}
+                Rating:
+                <Stack spacing={1}>
+                  <Rating
+                    name="half-rating-read"
+                    defaultValue={item.rating}
+                    precision={0.5}
+                    readOnly
+                  />
+                </Stack>
+              </p>
+              <div>
+                <p>Review: </p>
+                <p> {item.review}</p>
+              </div>
 
-              <img src={item.user.user_image_url} alt="" />
-              <p>{item.user.first_name}</p>
-              <p>{item.user.last_name}</p>
+              <div className="spot-review-wrapper">
+                <p> {formatData(item.created_at)}</p>
+
+                <img className="user-image" src={item.user.user_image_url} alt="" />
+                <p>
+                  {item.user.first_name} {item.user.last_name}
+                </p>
+              </div>
               {item.review_image.length && (
                 <ul>
                   {item.review_image.map((el) => (
