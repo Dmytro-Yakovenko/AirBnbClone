@@ -4,6 +4,9 @@ import Loader from '../../components/Loader'
 import "./HomePage.css"
 import SpotsList from '../../components/SpotsList'
 
+
+
+
 const HomePage = () => {
   const isLoading = useSelector((state)=>state.spots.isLoading)
   

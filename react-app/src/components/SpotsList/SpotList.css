@@ -1,0 +1,9 @@
+.spot-card-image {
+    max-width: 302px;
+    height: 340px;
+    border-radius: 5px;
+}
+
+.spot-card-item {
+    list-style: none;
+}
