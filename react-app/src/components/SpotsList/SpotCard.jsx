@@ -4,18 +4,9 @@ import { NavLink } from "react-router-dom";
 import "./SpotList.css";
 import { styled } from "@mui/material/styles";
 import Paper from "@mui/material/Paper";
-
-// Import Swiper React components
-import { Swiper, SwiperSlide } from "swiper/react";
-
-// Import Swiper styles
+import Carousel from "../Carousel";
 
 
-
-
-
-// import required modules
-import { Navigation } from "swiper/modules";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -31,17 +22,7 @@ const SpotCard = ({ id }) => {
   return (
     <Item>
       <li className="spot-card-item">
-        <Swiper navigation={true} modules={[Navigation]} className="mySwiper">
-          {spot?.spot_image?.map((item) => (
-            <SwiperSlide key={item.id}>
-              <img
-                className="spot-card-image"
-                src={item.spot_image_url}
-                alt={spot.title}
-              />
-            </SwiperSlide>
-          ))}
-        </Swiper>
+        <Carousel images = {spot.image_url}/>
 
         <p>{spot.rating} </p>
         <p>

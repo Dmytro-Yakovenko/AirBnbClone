@@ -9,6 +9,8 @@ import { authenticate } from "./store/session";
 import Navigation from "./components/Navigation";
 import {getSpots} from "./store/spot"
 import SpotDetailsPage from "./pages/SpotDetailsPage";
+import Footer from "./components/Footer"
+
 function App() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
@@ -43,6 +45,7 @@ function App() {
           </Route>
         </Switch>
       )}
+      <Footer/>
      
     </>
   );
