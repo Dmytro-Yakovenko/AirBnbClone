@@ -7,9 +7,10 @@ import NotFoundPage from "./pages/NotFoundPage";
 import HomePage from "./pages/HomePage";
 import { authenticate } from "./store/session";
 import Navigation from "./components/Navigation";
-import {getSpots} from "./store/spot"
+import {getSpots} from "./store/spotReducer"
 import SpotDetailsPage from "./pages/SpotDetailsPage";
 import Footer from "./components/Footer"
+import BookingPage from "./pages/BookingPage/BookingPage";
 
 function App() {
   const dispatch = useDispatch();
@@ -42,6 +43,10 @@ function App() {
           </Route>
           <Route >
             <NotFoundPage />
+          </Route>
+
+          <Route>
+            <BookingPage path="/book"/>
           </Route>
         </Switch>
       )}

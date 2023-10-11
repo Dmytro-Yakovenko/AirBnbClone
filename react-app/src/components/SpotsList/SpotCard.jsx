@@ -22,7 +22,7 @@ const SpotCard = ({ id }) => {
   return (
     <Item>
       <li className="spot-card-item">
-        <Carousel images = {spot.image_url}/>
+        <Carousel images = {spot.spot_image} title={spot.title}/>
 
         <p>{spot.rating} </p>
         <p>

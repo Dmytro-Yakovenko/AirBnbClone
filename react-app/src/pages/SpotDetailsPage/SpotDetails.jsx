@@ -4,7 +4,7 @@ import {useParams} from "react-router-dom"
 import Loader from "../../components/Loader";
 import "./SpotDetails.css"
 import SpotDetailsCard from "../../components/SpotDetailsCard";
-import { getOneSpot } from "../../store/spot";
+import { getOneSpot } from "../../store/spotReducer";
 
 
 
