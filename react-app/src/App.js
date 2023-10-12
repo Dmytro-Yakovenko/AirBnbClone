@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch} from "react-router-dom";
 import SignupFormPage from "./pages/SignupPage";
 import LoginPage from "./pages/LoginPage";
 import NotFoundPage from "./pages/NotFoundPage";
@@ -13,6 +13,8 @@ import Footer from "./components/Footer"
 import BookingPage from "./pages/BookingPage/BookingPage";
 
 function App() {
+
+ 
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
   useEffect(() => {
@@ -29,26 +31,25 @@ function App() {
       <Navigation isLoaded={isLoaded} />
       {isLoaded && (
         <Switch>
-              <Route exact path="/">
-            <HomePage />
-          </Route>
-          <Route path="/login">
-            <LoginPage />
-          </Route>
-          <Route path="/signup">
-            <SignupFormPage />
-          </Route>
-          <Route path="/spots/:id">
-            <SpotDetailsPage />
-          </Route>
-          <Route >
-            <NotFoundPage />
-          </Route>
-
-          <Route>
-            <BookingPage path="/book"/>
-          </Route>
-        </Switch>
+        <Route exact path="/">
+          <HomePage />
+        </Route>
+        <Route path="/login">
+          <LoginPage />
+        </Route>
+        <Route path="/signup">
+          <SignupFormPage />
+        </Route>
+        <Route path="/spots/:id">
+          <SpotDetailsPage />
+        </Route>
+        <Route path={`/booking`}>
+          <BookingPage />
+        </Route>
+        <Route path="*">
+          <NotFoundPage />
+        </Route>
+      </Switch>
       )}
       <Footer/>
      

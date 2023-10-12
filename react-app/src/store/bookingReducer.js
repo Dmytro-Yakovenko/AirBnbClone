@@ -12,7 +12,7 @@ export const setDate =(data)=>({
 //initial state
 
 const initialState = {
-    dates:{},
+    dates:null,
 }
 
 //reducers

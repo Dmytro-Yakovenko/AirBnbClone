@@ -1,9 +1,12 @@
-import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect, useState} from "react";
+import {useHistory} from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
 import Button from "../Button";
 import "./SpotDetailsCard.css";
 import Rating from "@mui/material/Rating";
 import Stack from "@mui/material/Stack";
+import { setDate } from "../../store/bookingReducer";
+
 let months = [
   "January",
   "February",
@@ -18,11 +21,14 @@ let months = [
   "November",
   "December",
 ];
+
 const SpotDetailsCard = () => {
   const spot = useSelector((state) => state.spots.spot);
   const [checkIn, setCheckIn] = useState(new Date());
   const [checkOut, setCheckOut] = useState(new Date());
   const [error, setError] = useState({});
+  const dispatch = useDispatch()
+  const history = useHistory()
   useEffect(() => {
     const error = {};
     if (new Date(checkIn) > new Date(checkOut)) {
@@ -42,6 +48,13 @@ const SpotDetailsCard = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    dispatch(setDate({
+      checkIn,
+      checkOut,
+      price:spot.price,
+
+    }))
+history.push(`/booking?id=${spot.id}&checkIn=${checkIn}&checkOut=${checkOut}&price=${spot.price} `)
   };
   return (
     <section>
