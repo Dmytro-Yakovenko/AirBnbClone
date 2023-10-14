@@ -25,5 +25,10 @@ const configBtn = {
     type: "Submit",
     className: "btn booking-btn",
   },
+  continue: {
+    text: "Continue",
+    type: "button",
+    className: "btn continue-btn",
+  },
 };
 export default configBtn;

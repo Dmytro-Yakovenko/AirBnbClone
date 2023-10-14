@@ -5,15 +5,18 @@ import { setDate } from '../../store/bookingReducer';
 import { getOneSpot } from '../../store/spotReducer';
 import { NavLink } from 'react-router-dom';
 import {AiOutlineArrowLeft} from  'react-icons/ai';
+import {AiOutlineMail} from "react-icons/ai"
 import BookDetails from '../../components/BookDetails';
+import Button from '../../components/Button';
 
 const BookingPage = () => {
     const dispatch = useDispatch()
     const { search } = useLocation();
- 
+  const user = useSelector(state=>state.session.user)
+  console.log(user ,55555555)
     const dates = useSelector(state=>state.booking.dates)
    const searchArr = search.slice(1).split("&")
-   console.log(dates, 3333333)
+
     const searchObj = searchArr.reduce((acc, curr)=>{
       let temp = curr.split("=")
       acc[temp[0]]=temp[1]
@@ -30,6 +33,11 @@ useEffect(()=>{
 },[search, dispatch])
 
 
+
+const handleClick=()=>{
+
+}
+
   return (
     <main>
       <div className='container'>
@@ -38,7 +46,15 @@ useEffect(()=>{
       </NavLink>
       <h2>Confirm and pay</h2>
       <BookDetails/>
-
+      <p>
+      Welcome back, {user.first_name}
+      </p>
+    
+      <p>
+      <AiOutlineMail /> {user.email}
+      </p>
+     
+<Button id ="continue" onClick={handleClick}/>
       </div>
      
 
