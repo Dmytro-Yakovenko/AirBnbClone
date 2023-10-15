@@ -11,6 +11,7 @@ import {getSpots} from "./store/spotReducer"
 import SpotDetailsPage from "./pages/SpotDetailsPage";
 import Footer from "./components/Footer"
 import BookingPage from "./pages/BookingPage/BookingPage";
+import  Modal  from "./components/Modal";
 
 function App() {
 
@@ -52,7 +53,7 @@ function App() {
       </Switch>
       )}
       <Footer/>
-     
+     <Modal/>
     </>
   );
 }

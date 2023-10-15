@@ -1,15 +1,49 @@
 import React from 'react'
-import "Modal.css"
-const Modal = () => {
-  return (
-    <div id="myModal" class="modal">
+import "./Modal.css"
 
-    <div class="modal-content">
-      <span class="close">&times;</span>
-      <p>Some text in the Modal..</p>
-    </div>
+import { useDispatch, useSelector } from 'react-redux'
+import { setModalId } from '../../store/modalReducer'
+import Button from '../Button'
+const Modal = () => {
+  const id  = useSelector(state=>state.modal.modalId)
+
+  const modalConfig = {
+    featureComing: {
+      title: "Pay services",
+      text: "Feature coming soon",
+     
+      action: (
+        <div className="btn-wrapper">
+          <Button onClick={handleClose} id="featureSubmit" />
   
-  </div>
+          <Button onClick={handleClose}  id="featureCancel" />
+        </div>
+      ),
+    },
+  };
+  const modal = modalConfig[id]
+  const dispatch = useDispatch()
+  function handleClose(){
+    dispatch(setModalId(null))
+  }
+  return (
+    <>
+   {id && 
+ <div className='modal' >
+
+ <div className="modal-content">
+   <span onClick={handleClose} className="close">&times;</span>
+   <h2>{modal.title}</h2>
+   <p>{modal.text}</p>
+   {modal.action}
+ </div>
+
+</div>
+    
+   }
+   
+
+  </>
   )
 }
 

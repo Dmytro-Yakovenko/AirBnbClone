@@ -8,7 +8,7 @@ import {AiOutlineArrowLeft} from  'react-icons/ai';
 import {AiOutlineMail} from "react-icons/ai"
 import BookDetails from '../../components/BookDetails';
 import Button from '../../components/Button';
-
+import { setModalId } from '../../store/modalReducer';
 const BookingPage = () => {
     const dispatch = useDispatch()
     const { search } = useLocation();
@@ -35,7 +35,7 @@ useEffect(()=>{
 
 
 const handleClick=()=>{
-
+dispatch(setModalId("featureComing"))
 }
 
   return (
