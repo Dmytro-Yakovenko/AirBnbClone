@@ -31,7 +31,7 @@ const SpotDetailsCard = () => {
   const history = useHistory()
   useEffect(() => {
     const error = {};
-    if (new Date(checkIn) > new Date(checkOut)) {
+    if (new Date(checkIn) >= new Date(checkOut)) {
       error.message = "checkOut after checkIn";
     }
     console.log(error);
@@ -65,7 +65,7 @@ history.push(`/booking?id=${spot.id}&checkIn=${checkIn}&checkOut=${checkOut}&pri
               <img src={spot.spot_image[0].spot_image_url} alt="" />
             </li>
             {spot.spot_image.map((item, index) => (
-              <li key={item.id}>
+              <li key={`spot_img_${item.id}`}>
                 <img src={item.spot_image_url} alt="" />
               </li>
             ))}
@@ -128,7 +128,7 @@ history.push(`/booking?id=${spot.id}&checkIn=${checkIn}&checkOut=${checkOut}&pri
         {spot.reviews?.length &&
           spot.reviews.map((item) => (
             <li className="spot-reviews" key={item.id}>
-              <p>
+              <div>
                 {" "}
                 Rating:
                 <Stack spacing={1}>
@@ -139,7 +139,7 @@ history.push(`/booking?id=${spot.id}&checkIn=${checkIn}&checkOut=${checkOut}&pri
                     readOnly
                   />
                 </Stack>
-              </p>
+              </div>
               <div>
                 <p>Review: </p>
                 <p> {item.review}</p>
@@ -156,7 +156,7 @@ history.push(`/booking?id=${spot.id}&checkIn=${checkIn}&checkOut=${checkOut}&pri
               {item.review_image.length && (
                 <ul>
                   {item.review_image.map((el) => (
-                    <li>
+                    <li key={`review_image_${el.id}`}>
                       <img src={el.review_image_url} alt="" />
                     </li>
                   ))}

@@ -1,0 +1,22 @@
+.booking-page-wrapper {
+    gap: 80px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.booking-page-title {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.booking-page-link {
+    display: flex;
+    color: #000;
+    gap: 20px;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.booking-page-main {
+    margin-top: 20px;
+}
