@@ -20,3 +20,8 @@
 .booking-page-main {
     margin-top: 20px;
 }
+
+.booking-page-container {
+    max-width: 800px;
+    margin: 0 auto;
+}

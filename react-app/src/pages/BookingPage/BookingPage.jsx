@@ -38,7 +38,7 @@ const BookingPage = () => {
 
   return (
     <main className="booking-page-main">
-      <div className="container">
+      <div className="booking-page-container">
         <NavLink className="booking-page-link" to={`/spots/${id}` }>
           <AiOutlineArrowLeft />
           <h2 className="booking-page-title">Confirm and pay</h2>

@@ -40,5 +40,11 @@ const configBtn = {
     type: "button",
     className: "btn continue-btn",
   },
+
+  editDates: {
+    text: "edit",
+    type: "button",
+    className: "edit-btn",
+  },
 };
 export default configBtn;

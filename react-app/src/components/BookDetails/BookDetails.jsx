@@ -19,13 +19,18 @@ const BookDetails = () => {
   return (
     <section className="book-details-section">
       <h3 className="book-details-title"> Your trip</h3>
-      <p>dates: {formatDate(dates)}</p>
-
+  
+   <div className="book-details-edit-dates">
+    <p>dates: {formatDate(dates)}</p>
+    
+    <Button id="editDates"/>
+    </div>
       <p>Welcome back, {user.first_name}</p>
 
-<p>
+<p className="book-details-mail-icon">
   <AiOutlineMail /> {user.email}
 </p>
+  
 
 <Button id="continue" onClick={handleClick} />
     </section>

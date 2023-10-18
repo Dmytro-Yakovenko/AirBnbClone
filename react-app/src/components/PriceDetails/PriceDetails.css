@@ -1,0 +1,59 @@
+.price-details-image {
+    height: 150px;
+    width: 150px;
+}
+
+.price-details-spot-info {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 20px;
+   
+
+
+}
+
+.page-details-text-info {
+    display: flex;
+    flex-direction: column;
+    font-size: 20px;
+    gap: 10px;
+}
+
+.page-details-section {
+    padding: 20px;
+    border: 1px solid rgba(0,0,0,0.5);
+    border-radius: 5px;
+}
+
+.page-details-star {
+    font-size: 20px;
+    color: rgb(215, 190, 48);
+}
+
+.page-details-rating {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.price-details-title{
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.price-detils-fees {
+    display: flex;
+    justify-content: space-between;
+}
+
+.price-details-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.page-detais-total {
+    font-weight: bold;
+}
+
