@@ -49,3 +49,9 @@ padding: 15px;
 
 }
 
+.cancel-btn {
+  background-color: rgb(255, 56, 92);
+  border-radius: 5px;
+  padding: 15px;
+}
+

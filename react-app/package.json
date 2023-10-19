@@ -7,9 +7,11 @@
     "@emotion/styled": "^11.11.0",
     "@mui/lab": "latest",
     "@mui/material": "^5.14.12",
+    "@mui/x-date-pickers": "latest",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
+    "dayjs": "latest",
     "http-proxy-middleware": "^1.0.5",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
@@ -26,8 +28,12 @@
     "@types/react-swipeable-views": "latest",
     "@types/react-swipeable-views-utils": "latest",
     "react-swipeable-views": "latest",
-    "react-swipeable-views-utils": "latest",
-    "typescript": "latest"
+    "react-swipeable-views-utils": "latest"
+    
+    
+    
+    
+    
   },
   "scripts": {
     "start": "react-scripts start",

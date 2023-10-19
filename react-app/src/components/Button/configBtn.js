@@ -46,5 +46,20 @@ const configBtn = {
     type: "button",
     className: "edit-btn",
   },
+
+  editSubmit: {
+    text: "update",
+    type: "button",
+    
+    className: " btn cancel-btn",
+  },
+
+  editCancel: {
+    text: "cancel",
+    type: "button",
+    className: " btn cancel-btn",
+  },
+
+
 };
 export default configBtn;
