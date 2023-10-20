@@ -1,0 +1,10 @@
+.payment-form {
+    flex-direction: column;
+    display: flex;
+    gap:20px
+}
+
+.payment-label{
+    display: flex;
+    justify-content: space-between;
+}

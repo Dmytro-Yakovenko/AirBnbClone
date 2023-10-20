@@ -6,6 +6,7 @@ import { AiOutlineMail } from "react-icons/ai";
 import Button from "../../components/Button";
 import { setModalId } from "../../store/modalReducer";
 import "./BookDetails.css";
+import Payment from "../Payment";
 
 const BookDetails = () => {
   const dispatch = useDispatch();
@@ -28,6 +29,9 @@ const BookDetails = () => {
 
         <Button onClick={handleEdit} id="editDates" />
       </div>
+
+    <Payment/>
+
       <p>Welcome back, {user.first_name}</p>
 
       <p className="book-details-mail-icon">
