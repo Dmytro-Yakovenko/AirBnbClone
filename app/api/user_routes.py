@@ -3,6 +3,7 @@ from flask_login import login_required
 from app.models import db, User, Booking
 from app.forms import BookingForm 
 from app.api.auth_routes import validation_errors_to_error_messages
+from datetime import datetime
 
 user_routes = Blueprint('users', __name__)
 
@@ -45,31 +46,31 @@ def get_bookings(user_id):
 
     return bookings.to_dict()
         
-        
+
 @user_routes.route("/<int:user_id>/bookings", methods=["POST"]) 
 @login_required  
 def create_booking(user_id):
-    
     user = User.query.get(user_id)
     if not user:
         return {'errors': f"User {user_id} does not exist"}, 404
-    
-    
     """
     Creates a new booking
     """
     form = BookingForm()
-    form['csrf_token'].data = request.cookies['csrf_token']
+   
+    
     """
     Query for a booking  by id and returns that booking in a dictionary
     """
-  
+    form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
+       
         booking = Booking(
-            check_in=form.data['check_in'],
-            check_out=form.data['check_out'],
+            check_in=datetime.strptime(form.data['check_in'],'%Y-%m-%d'),
+            check_out=datetime.strptime(form.data['check_out'],'%Y-%m-%d'),
+            user_id =user_id,
+            spot_id = form.data['spot_id']
         )
-        
         db.session.add(booking)
         db.session.commit()
         return booking.to_dict(), 201
