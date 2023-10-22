@@ -1,5 +1,6 @@
 import React from 'react'
 import "./Modal.css"
+import { NavLink } from 'react-router-dom'
 
 import { useDispatch, useSelector } from 'react-redux'
 import { setModalId } from '../../store/modalReducer'
@@ -7,8 +8,20 @@ import Button from '../Button'
 import Dates from '../Dates'
 const Modal = () => {
   const id  = useSelector(state=>state.modal.modalId)
-
+  const booking = useSelector(state => state.booking.bookDetails)
+  console.log(booking, 444444)
   const modalConfig = {
+    bookingOk:{
+      title:"Booking",
+      text:"Your booking reserved",
+      body:"",
+      className:'modal-content-standart',
+      action: (
+        <div className="btn-wrapper">
+          <NavLink to={`/bookings/${booking?.id}`}>OK</NavLink>
+        </div>
+      ),
+    },
     featureComing: {
       title: "Pay services",
       text: "Feature coming soon",

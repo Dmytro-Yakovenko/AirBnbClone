@@ -13,21 +13,27 @@ const BookDetails = () => {
   const dispatch = useDispatch();
   const dates = useSelector((state) => state.booking.dates);
   const user = useSelector((state) => state.session.user);
-  const spot = useSelector((state)=>state.spots.spot)
+  const spot = useSelector((state) => state.spots.spot);
 
+  const handleEdit = () => {
+    dispatch(setModalId("editDates"));
+  };
 
-  const handleEdit=()=>{
-    dispatch(setModalId("editDates"))
-  }
-
-  const handleClick = () => {
-    dispatch(createNewBooking({
-      check_in:dates.checkIn,
-      check_out:dates.checkOut,
-      spot_id:spot.id,
-
-      
-    }, user.id));
+  const handleClick =async () => {
+    const res =await dispatch(
+      createNewBooking(
+        {
+          check_in: dates.checkIn,
+          check_out: dates.checkOut,
+          spot_id: spot.id,
+        },
+        user.id
+      )
+     
+    );
+    if(res){
+      dispatch(setModalId("bookingOk"))
+    }
   };
   return (
     <section className="book-details-section">
@@ -39,7 +45,7 @@ const BookDetails = () => {
         <Button onClick={handleEdit} id="editDates" />
       </div>
 
-    <Payment/>
+      <Payment />
 
       <p>Welcome back, {user.first_name}</p>
 

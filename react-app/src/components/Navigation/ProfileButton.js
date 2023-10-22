@@ -1,16 +1,15 @@
 import React, { useState, useEffect, useRef } from "react";
-import {NavLink} from "react-router-dom";
+import { NavLink, useHistory} from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { logout } from "../../store/session";
+
 import Button from "../Button";
 
-const  ProfileButton =({ user }) =>{
-
-
+const ProfileButton = ({ user }) => {
   const dispatch = useDispatch();
   const [showMenu, setShowMenu] = useState(false);
   const ulRef = useRef();
-
+  const history = useHistory()
   const openMenu = () => {
     if (showMenu) return;
     setShowMenu(true);
@@ -27,15 +26,14 @@ const  ProfileButton =({ user }) =>{
 
     document.addEventListener("click", closeMenu);
 
-
-
-
     return () => document.removeEventListener("click", closeMenu);
   }, [showMenu]);
 
   const handleLogout = (e) => {
     e.preventDefault();
     dispatch(logout());
+    // dispatch()
+    history.push("/")
   };
 
   const ulClassName = "profile-dropdown" + (showMenu ? "" : " hidden");
@@ -43,10 +41,14 @@ const  ProfileButton =({ user }) =>{
   return (
     <div className="profile-wrapper">
       <button className="profile-btn" onClick={openMenu}>
-       {!user && <i className="fas fa-user-circle header-profile-icon" />} 
-       {
-        user &&<img className="profile-img" alt={`${user?.name}`} src={user.user_image_url}/>
-       } 
+        {!user && <i className="fas fa-user-circle header-profile-icon" />}
+        {user && (
+          <img
+            className="profile-img"
+            alt={`${user?.name}`}
+            src={user.user_image_url}
+          />
+        )}
       </button>
       <ul className={ulClassName} ref={ulRef}>
         {user ? (
@@ -54,25 +56,23 @@ const  ProfileButton =({ user }) =>{
             <li>{user.username}</li>
             <li>{user.email}</li>
             <li>
-              <Button onClick={handleLogout} id="logOut"/>
+              <Button onClick={handleLogout} id="logOut" />
             </li>
           </>
         ) : (
           <>
-     
-    <NavLink className = "profile-link"  to ="/login">
-      Log in
-    </NavLink>
+            <NavLink className="profile-link" to="/login">
+              Log in
+            </NavLink>
 
-    <NavLink className = "profile-link" to ="/signup">
-      Sign Up
-    </NavLink>
-
+            <NavLink className="profile-link" to="/signup">
+              Sign Up
+            </NavLink>
           </>
         )}
       </ul>
     </div>
   );
-}
+};
 
 export default ProfileButton;

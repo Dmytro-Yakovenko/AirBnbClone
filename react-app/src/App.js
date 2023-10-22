@@ -12,6 +12,7 @@ import SpotDetailsPage from "./pages/SpotDetailsPage";
 import Footer from "./components/Footer"
 import BookingPage from "./pages/BookingPage/BookingPage";
 import  Modal  from "./components/Modal";
+import ConfirmedBookDetails from "./pages/ConfirmedBookDetails";
 
 function App() {
 
@@ -47,6 +48,11 @@ function App() {
         <Route path={`/booking`}>
           <BookingPage />
         </Route>
+
+        <Route path={`/bookings/:id`}>
+          <ConfirmedBookDetails />
+        </Route>
+
         <Route path="*">
           <NotFoundPage />
         </Route>
