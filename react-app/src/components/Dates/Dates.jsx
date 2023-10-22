@@ -1,15 +1,24 @@
-import * as React from 'react';
+import React, {useState} from 'react';
 import dayjs from 'dayjs';
 import Grid from '@mui/material/Grid';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
+import { useSelector } from 'react-redux';
+
 
 
 
 
 const Dates =()=> {
-    const today = dayjs();
+    
+    const dates= useSelector(state =>state.booking.dates)
+
+    const [checkIn, setCheckIn] = useState(dates?.checkIn ? new Date(dates.checkIn) : new Date());
+const [checkOut, setCheckOut] = useState(dates?.checkOut ? new Date(dates.checkOut) : new Date());
+
+    console.log(checkIn,11111)
+    console.log(checkOut,222222)
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <Grid
@@ -20,10 +29,10 @@ const Dates =()=> {
         justifyContent="center"
       >
         <Grid item>
-          <DateCalendar defaultValue={today} disableFuture />
+          <DateCalendar onChange={(e)=>setCheckIn(e.target.value)} value={checkIn} disablePast />
         </Grid>
         <Grid item>
-        <DateCalendar defaultValue={today} disableFuture />
+        <DateCalendar onChange={(e)=>setCheckOut(e.target.value)} value={checkOut} disablePast />
         </Grid>
       </Grid>
     </LocalizationProvider>

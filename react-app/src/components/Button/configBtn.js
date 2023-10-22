@@ -60,6 +60,12 @@ const configBtn = {
     className: " btn cancel-btn",
   },
 
+  bookOk: {
+    text: "Ok",
+    type: "button",
+    className: " btn cancel-btn",
+  },
+
 
 };
 export default configBtn;

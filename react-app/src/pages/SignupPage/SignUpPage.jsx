@@ -3,10 +3,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { Redirect } from "react-router-dom";
 import { signUp } from "../../store/session";
 import Button from "../../components/Button";
+import { AiOutlineEyeInvisible } from 'react-icons/ai';
+import { AiOutlineEye } from 'react-icons/ai';
+
+
 import "./SignupForm.css";
 
 function SignupFormPage() {
   const dispatch = useDispatch();
+
   const sessionUser = useSelector((state) => state.session.user);
   const [first_name, setFirst_name] = useState("");
   const [last_name, setLast_name] = useState("");
@@ -17,6 +22,8 @@ function SignupFormPage() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errors, setErrors] = useState([]);
 
+  const [isPasswordShow, setIsPasswordShow]= useState(false)
+  const [isConfirmPasswordShow, setIsConfirmPasswordShow]= useState(false)
   if (sessionUser) return <Redirect to="/" />;
 
   const handleSubmit = async (e) => {

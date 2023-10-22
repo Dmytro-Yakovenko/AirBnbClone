@@ -69,3 +69,12 @@
     height: 50px;
     border-radius: 50%;
 }
+
+.spot-review-image {
+    width: 250px;
+    height: 250px;
+}
+
+.spot-section {
+    margin-bottom: 100px;
+}

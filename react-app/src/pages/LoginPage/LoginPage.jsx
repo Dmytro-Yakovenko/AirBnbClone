@@ -2,6 +2,11 @@ import React, { useState } from "react";
 import { login, userLoading } from "../../store/session";
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect } from "react-router-dom";
+import { AiOutlineEyeInvisible } from 'react-icons/ai';
+import { AiOutlineEye} from 'react-icons/ai';
+
+
+
 import './LoginPage.css';
 import Button from "../../components/Button";
 
@@ -11,6 +16,9 @@ const LoginPage = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [errors, setErrors] = useState([]);
+
+    const [isPasswordShow, setIsPasswordShow]= useState(false)
+    const [isConfirmPasswordShow, setIsConfirmPasswordShow]= useState(false)
   
     if (sessionUser) return <Redirect to="/" />;
 

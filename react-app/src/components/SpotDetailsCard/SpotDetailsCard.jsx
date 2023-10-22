@@ -6,6 +6,7 @@ import "./SpotDetailsCard.css";
 import Rating from "@mui/material/Rating";
 import Stack from "@mui/material/Stack";
 import { setDate } from "../../store/bookingReducer";
+import { NavLink } from "react-router-dom/cjs/react-router-dom.min";
 
 let months = [
   "January",
@@ -57,7 +58,7 @@ const SpotDetailsCard = () => {
 history.push(`/booking?id=${spot.id}&checkIn=${checkIn}&checkOut=${checkOut}&price=${spot.price} `)
   };
   return (
-    <section>
+    <section className="spot-section">
       <ul className="spot-image-wrapper">
         {spot.spot_image?.length && (
           <>
@@ -139,6 +140,8 @@ history.push(`/booking?id=${spot.id}&checkIn=${checkIn}&checkOut=${checkOut}&pri
                     readOnly
                   />
                 </Stack>
+
+                <NavLink to ={`/spots/${spot.id}/review`}>Review</NavLink>
               </div>
               <div>
                 <p>Review: </p>
@@ -157,7 +160,7 @@ history.push(`/booking?id=${spot.id}&checkIn=${checkIn}&checkOut=${checkOut}&pri
                 <ul>
                   {item.review_image.map((el) => (
                     <li key={`review_image_${el.id}`}>
-                      <img src={el.review_image_url} alt="" />
+                      <img className="spot-review-image" src={el.review_image_url} alt="" />
                     </li>
                   ))}
                 </ul>
