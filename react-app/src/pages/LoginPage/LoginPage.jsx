@@ -18,7 +18,7 @@ const LoginPage = () => {
     const [errors, setErrors] = useState([]);
 
     const [isPasswordShow, setIsPasswordShow]= useState(false)
-    const [isConfirmPasswordShow, setIsConfirmPasswordShow]= useState(false)
+  
   
     if (sessionUser) return <Redirect to="/" />;
 
@@ -68,17 +68,20 @@ const LoginPage = () => {
          
 
          <div className="login-input-wrapper">
-         <label>
+         <label className="login-label">
             Password
-            </label>
+
             <input
-              type="password"
+            className="login-input"
+              type={isPasswordShow?"text":"password"}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
             />
+         {!isPasswordShow && < AiOutlineEyeInvisible className="login-icon" onClick={()=>setIsPasswordShow(true)}/> }
+         {isPasswordShow && <  AiOutlineEye className="login-icon" onClick={()=>setIsPasswordShow(false)}/> }
+            </label>
          
-
          </div>
           
           <Button id ="logIn"/>

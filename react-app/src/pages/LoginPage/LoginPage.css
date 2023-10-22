@@ -35,3 +35,22 @@
     gap: 20px;
     width: 100%;
 }
+
+.login-label {
+    position: relative;
+}
+
+.login-icon {
+    position: absolute;
+    font-size: 30px;
+    right: 3%;
+    bottom: 15%;
+}
+
+.login-input {
+    display: block;
+    padding: 15px;
+    width: 100%;
+    margin-top: 10px;
+    border-radius: 5px;
+}

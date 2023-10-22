@@ -4,17 +4,31 @@ import { AiOutlineCamera } from 'react-icons/ai';
 import "./ReviewPage.css"
 const ReviewPage = () => {
   return (
-    <form>
+    <main>
+      <div className='review-container'>
+      <form className='review-form'>
+        <h2>Describe your expirience and add some photos</h2>
         <label>
-            <textarea placeholder='leave your review'/> 
+            <textarea 
+            className='review-input'
+            rows={10}
+            placeholder='leave your review'/> 
         </label>
 
-        <label>
-            <input placeholder=''/>
-            <AiOutlineCamera/>
+        <label className='review-label'>
+            <input 
+            
+            className='review-input'
+            placeholder='insert your link'/>
+            <AiOutlineCamera className='review-icon'/>
         </label>
 
     </form>
+      </div>
+
+
+    </main>
+    
   )
 }
 

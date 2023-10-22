@@ -103,23 +103,41 @@ function SignupFormPage() {
         </div>
 
         <div className="signup-input-wrapper">
-          <label>Password</label>
-          <input
-            type="password"
+          <label
+           className="signup-label">
+            Password
+            <input 
+            className="signup-input"
+            type={isPasswordShow?"text":"password"}
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
           />
+            {!isPasswordShow && < AiOutlineEyeInvisible className="signup-icon" onClick={()=>setIsPasswordShow(true)}/> }
+         {isPasswordShow && <  AiOutlineEye className="signup-icon" onClick={()=>setIsPasswordShow(false)}/> }
+          </label>
+        
+         
         </div>
 
         <div className="signup-input-wrapper">
-          <label>Confirm Password</label>
-          <input
-            type="password"
+          <label
+          className="signup-label"
+          >
+            Confirm Password
+            <input 
+            className="signup-input"
+            type={isPasswordShow?"text":"password"}
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
             required
           />
+         {!isConfirmPasswordShow && < AiOutlineEyeInvisible className="signup-icon" onClick={()=>setIsConfirmPasswordShow(true)}/> }
+         {isConfirmPasswordShow && <  AiOutlineEye className="signup-icon" onClick={()=>setIsConfirmPasswordShow(false)}/> }
+
+
+            </label>
+          
         </div>
 
         <Button id="signUp"/>

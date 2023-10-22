@@ -141,7 +141,11 @@ history.push(`/booking?id=${spot.id}&checkIn=${checkIn}&checkOut=${checkOut}&pri
                   />
                 </Stack>
 
-                <NavLink to ={`/spots/${spot.id}/review`}>Review</NavLink>
+                <NavLink 
+                className="spot-review-link"
+                to ={`/spots/${spot.id}/review`}>
+                  Write a review
+                  </NavLink>
               </div>
               <div>
                 <p>Review: </p>
