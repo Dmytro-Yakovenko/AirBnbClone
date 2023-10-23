@@ -1,7 +1,8 @@
 .review-container {
     max-width: 500px;
     margin: 0 auto;
-    margin-top: 100px;
+    margin-top: 50px;
+
 
 }
 
@@ -15,7 +16,8 @@
 .review-input {
     width: 100%;
     resize: none;
-    padding: 10px;
+    padding: 10px 40px 10px 10px;
+
 }
 
 .review-label {
@@ -28,4 +30,5 @@
     position: absolute;
     right: 3%;
     font-size: 20px;
+    top: 10px;
 }

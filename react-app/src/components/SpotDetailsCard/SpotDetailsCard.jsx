@@ -57,6 +57,11 @@ const SpotDetailsCard = () => {
     }))
 history.push(`/booking?id=${spot.id}&checkIn=${checkIn}&checkOut=${checkOut}&price=${spot.price} `)
   };
+
+  const handleError=(e)=>{
+    e.target.src ="https://res.cloudinary.com/dr1ekjmf4/image/upload/v1691726195/bc2d04276b5bfde9bce68c7a91914b7f_mi6kmp.jpg"
+    }
+
   return (
     <section className="spot-section">
       <ul className="spot-image-wrapper">
@@ -67,7 +72,7 @@ history.push(`/booking?id=${spot.id}&checkIn=${checkIn}&checkOut=${checkOut}&pri
             </li>
             {spot.spot_image.map((item, index) => (
               <li key={`spot_img_${item.id}`}>
-                <img src={item.spot_image_url} alt="" />
+                <img onError={handleError} src={item.spot_image_url} alt="" />
               </li>
             ))}
           </>

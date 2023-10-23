@@ -66,6 +66,12 @@ const configBtn = {
     className: " btn cancel-btn",
   },
 
+  createReview: {
+    text: "Leave Review",
+    type: "button",
+    className: " btn cancel-btn",
+  },
+
 
 };
 export default configBtn;
