@@ -16,7 +16,7 @@ if(review.length>1000){
   error.review="review is to long"
 }
 if(!link.match(/^https?/)){
-error.link = "provide correvt http link"
+error.link = "provide correct http link"
 }
 setErrors(error)
 },[review,link])

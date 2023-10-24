@@ -29,7 +29,7 @@ export const getSpots =()=> async (dispatch)=>{
 
 
 export const getOneSpot=(id)=>async(dispatch)=>{
-    console.log(id,77777)
+  
     const response = await fetch(`/api/spots/${id}`)
     if(response.ok){
         const data = await response.json()
