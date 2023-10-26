@@ -72,6 +72,14 @@ const configBtn = {
     className: " btn cancel-btn",
   },
 
+  createSpot: {
+    text: "Create spot",
+    type: "button",
+    className: " btn cancel-btn",
+  },
+
+
+
 
 };
 export default configBtn;

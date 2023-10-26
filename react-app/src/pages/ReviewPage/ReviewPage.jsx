@@ -23,7 +23,7 @@ setErrors(error)
 const handleSubmit=(e)=>{
 
 e.preventDefault()
-console.log(review, 222222222)
+
 }
 
   return (

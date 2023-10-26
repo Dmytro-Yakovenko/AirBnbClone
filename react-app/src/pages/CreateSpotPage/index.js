@@ -1,2 +1,2 @@
-import CreeateSpotPage from "./CreateSpotPage"
-export default CreeateSpotPage
+import CreateSpotPage from "./CreateSpotPage"
+export default CreateSpotPage

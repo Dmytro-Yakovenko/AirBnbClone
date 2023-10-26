@@ -14,6 +14,7 @@ import BookingPage from "./pages/BookingPage/BookingPage";
 import  Modal  from "./components/Modal";
 import ReviewPage from "./pages/ReviewPage";
 import ConfirmedBookDetails from "./pages/ConfirmedBookDetails";
+import CreateSpotPage from "./pages/CreateSpotPage/CreateSpotPage";
 
 function App() {
 
@@ -43,16 +44,21 @@ function App() {
         <Route path="/signup">
           <SignupFormPage />
         </Route>
+        <Route exact path={`/spots/create`}>
+          <CreateSpotPage />
+        </Route>
+
         <Route exact path="/spots/:id">
           <SpotDetailsPage />
         </Route>
         <Route path={`/booking`}>
           <BookingPage />
         </Route>
-        <Route path={`/spots/:id/review`}>
+        <Route exact path={`/spots/:id/review`}>
           <ReviewPage />
         </Route>
 
+       
         <Route path="*">
           <NotFoundPage />
         </Route>
