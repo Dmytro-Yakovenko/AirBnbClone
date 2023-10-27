@@ -74,7 +74,7 @@ const configBtn = {
 
   createSpot: {
     text: "Create spot",
-    type: "button",
+    type: "submit",
     className: " btn cancel-btn",
   },
 
