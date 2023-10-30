@@ -1,5 +1,6 @@
 from flask import Blueprint, jsonify, session, request
-from app.models import db, Spot, Review
+from app.models import db, Spot, Review, Spot_image
+
 from app.forms import SpotForm, ReviewForm
 from flask_login import current_user,login_required
 from app.api.auth_routes import validation_errors_to_error_messages
@@ -57,7 +58,14 @@ def create_spot():
             price=form.data['price'],
             owner_id=form.data['owner_id']
         )
+       
         db.session.add(spot)
+        db.session.commit()
+        spot_image =Spot_image(
+            spot_image_url=form.data['spot_image_url'],
+            spot_id = spot.id
+        )
+        db.session.add(spot_image)
         db.session.commit()
         return spot.to_dict(), 201
     return {'errors': validation_errors_to_error_messages(form.errors)}, 400

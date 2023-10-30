@@ -45,7 +45,7 @@ export const getOneSpot=(id)=>async(dispatch)=>{
 
 
 export const createNewSpot=(data)=>async(dispatch)=>{
-    const response = await fetch(`/api/spots`,{
+    const response = await fetch(`/api/spots/`,{
         method:"POST",
         body:JSON.stringify(data), 
         headers: {

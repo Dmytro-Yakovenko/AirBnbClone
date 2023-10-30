@@ -5,8 +5,6 @@ import "./CreateSpotPage.css";
 import { useDispatch, useSelector } from "react-redux";
 import { createNewSpot } from "../../store/spotReducer";
 
-
-
 const CreateSpotPage = () => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -15,14 +13,34 @@ const CreateSpotPage = () => {
   const [state, setState] = useState("");
   const [country, setCountry] = useState("");
   const [price, setPrice] = useState("");
+  const [imageUrl, setImageUrl] = useState("");
+  const [imageUrl1, setImageUrl1] = useState("");
+  const [imageUrl2, setImageUrl2] = useState("");
+  const [imageUrl3, setImageUrl3] = useState("");
   const [long, setLong] = useState("");
   const [lat, setLat] = useState("");
   const [isSubmited, setIsSubmited] = useState(false);
   const [error, setError] = useState({});
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
-  const user = useSelector(state=>state.session.user)
+  const user = useSelector((state) => state.session.user);
+
+
+  useEffect(()=>{
+    if(imageUrl.length<1){
+      setImageUrl1("")
+      setImageUrl2("")
+      setImageUrl3("")
+    }
+    if(imageUrl1.length<1){
+      setImageUrl2("")
+      setImageUrl3("")
+    }
+    if(imageUrl2.length<1){
+      setImageUrl3("")
+    }
+  },[imageUrl,imageUrl1,imageUrl2])
 
   useEffect(() => {
     const error = {};
@@ -66,14 +84,41 @@ const CreateSpotPage = () => {
     if (!price.match(/^[0-9]*\.?[0-9]+$/gm)) {
       error["price"] = "price is incorect format";
     }
+    if (!imageUrl.match(/^https:\/\/.*\.(?:jpeg|jpg|png)$/gm)) {
+      error["imageUrl"] = "image url is incorect format";
+    }
+    if (!imageUrl1.match(/^https:\/\/.*\.(?:jpeg|jpg|png)$/gm)) {
+      error["imageUrl1"] = "image url is incorect format";
+    }
+    if (!imageUrl2.match(/^https:\/\/.*\.(?:jpeg|jpg|png)$/gm)) {
+      error["imageUrl2"] = "image url is incorect format";
+    }
+    if (!imageUrl3.match(/^https:\/\/.*\.(?:jpeg|jpg|png)$/gm)) {
+      error["imageUrl3"] = "image url is incorect format";
+    }
 
     setError(error);
-  }, [description, title, address, city, country, state, lat, long, price]);
+  }, [
+    description,
+    title,
+    address,
+    city,
+    country,
+    state,
+    lat,
+    long,
+    price,
+    imageUrl,
+    imageUrl1,
+    imageUrl2,
+    imageUrl3
+  ]);
 
   const handleSubmit = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     setIsSubmited(true);
-    if(error.title ||
+    if (
+      error.title ||
       error.description ||
       error.address ||
       error.city ||
@@ -81,11 +126,15 @@ const CreateSpotPage = () => {
       error.lat ||
       error.long ||
       error.price ||
+      error.imageUrl ||
+      error.imageUrl1||
+      error.imageUrl2||
+      error.imageUrl3||
       error.owner_id
-      ){
-        return 
-      }
-    const formData ={
+    ) {
+      return;
+    }
+    const formData = {
       title,
       description,
       address,
@@ -95,10 +144,21 @@ const CreateSpotPage = () => {
       lat,
       long,
       price,
-      owner_id:user.id
+      spot_image_url: imageUrl,
+      
+      owner_id: user.id,
+    };
+    if(imageUrl1){
+      formData['spot_image_url1']=imageUrl1
     }
-
-    dispatch(createNewSpot)
+    if(imageUrl2){
+      formData['spot_image_url2']=imageUrl2
+    }
+    if(imageUrl3){
+      formData['spot_image_url3']=imageUrl3
+    }
+    console.log(formData, 444444);
+    // dispatch(createNewSpot(formData));
   };
 
   return (
@@ -227,6 +287,60 @@ const CreateSpotPage = () => {
               <span className="create-spot-page-error">{error.price}</span>
             )}
           </label>
+
+          <label className="create-spot-page-label">
+            Image Url
+            <input
+              placeholder="image url"
+              value={imageUrl}
+              onChange={(e) => {
+                setImageUrl(e.target.value)
+             
+              }}
+              required
+            />
+            {error.imageUrl && isSubmited && (
+              <span className="create-spot-page-error">{error.imageUrl}</span>
+            )}
+          </label>
+          {imageUrl &&   <label className="create-spot-page-label">
+           Add more Image Url
+            <input
+              placeholder="image url"
+              value={imageUrl1}
+              onChange={(e) => setImageUrl1(e.target.value)}
+              
+            />
+            {error.imageUrl1 && isSubmited && (
+              <span className="create-spot-page-error">{error.imageUrl}</span>
+            )}
+          </label>}
+
+          {imageUrl1 &&   <label className="create-spot-page-label">
+           Add more Image Url
+            <input
+              placeholder="image url"
+              value={imageUrl2}
+              onChange={(e) => setImageUrl2(e.target.value)}
+              
+            />
+            {error.imageUrl2 && isSubmited && (
+              <span className="create-spot-page-error">{error.imageUrl2}</span>
+            )}
+          </label>}
+
+          {imageUrl2 &&   <label className="create-spot-page-label">
+           Add more Image Url
+            <input
+              placeholder="image url"
+              value={imageUrl3}
+              onChange={(e) => setImageUrl3(e.target.value)}
+              
+            />
+            {error.imageUrl3 && isSubmited && (
+              <span className="create-spot-page-error">{error.imageUrl3}</span>
+            )}
+          </label>}
 
           <Button id="createSpot" />
         </form>
