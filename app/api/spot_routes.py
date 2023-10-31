@@ -67,6 +67,34 @@ def create_spot():
         )
         db.session.add(spot_image)
         db.session.commit()
+        
+        
+        if(form.data["spot_image_url1"]):
+            spot_image1 =Spot_image(
+            spot_image_url=form.data['spot_image_url1'],
+            spot_id = spot.id
+            )
+            db.session.add(spot_image1)
+            db.session.commit()
+            
+        if(form.data["spot_image_url2"]):
+            spot_image2 =Spot_image(
+            spot_image_url=form.data['spot_image_url2'],
+            spot_id = spot.id
+            )
+            db.session.add(spot_image2)
+            db.session.commit()
+            
+        if(form.data["spot_image_url3"]):
+            spot_image3 =Spot_image(
+            spot_image_url=form.data['spot_image_url3'],
+            spot_id = spot.id
+            )
+            db.session.add(spot_image3)
+            db.session.commit()
+        
+
+    
         return spot.to_dict(), 201
     return {'errors': validation_errors_to_error_messages(form.errors)}, 400
 

@@ -53,10 +53,11 @@ export const createNewSpot=(data)=>async(dispatch)=>{
 		},
       
     })
-    console.log(response,2222222)
+
     if(response.ok){
         const data = await response.json() 
         dispatch(createSpot(data))  
+        return data
     }
 }
 
@@ -87,6 +88,15 @@ const spotReducer=(state=initialState, action)=>{
 
         case GET_SPOT_BY_ID:
             return {...state, spot:action.payload, isLoading:false}  
+
+        case CREATE_SPOT:
+                return {
+                    ...state,
+                    spots: {
+                        ...state.spots,
+                        [action.payload.id]: action.payload
+                    }
+                };
         default:
             return state
     }

@@ -88,3 +88,8 @@
     margin-top: 20px;
     border-radius: 5px;
 }
+
+.spot-details-card-image {
+    height: 300px;  
+    width: 300px;
+}

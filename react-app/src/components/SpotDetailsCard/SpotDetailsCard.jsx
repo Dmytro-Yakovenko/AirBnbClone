@@ -68,11 +68,15 @@ history.push(`/booking?id=${spot.id}&checkIn=${checkIn}&checkOut=${checkOut}&pri
         {spot.spot_image?.length && (
           <>
             <li>
-              <img src={spot.spot_image[0].spot_image_url} alt="" />
+              <img 
+              className="spot-details-card-image"
+              src={spot.spot_image[0].spot_image_url} alt="" />
             </li>
             {spot.spot_image.map((item, index) => (
-              <li key={`spot_img_${item.id}`}>
-                <img onError={handleError} src={item.spot_image_url} alt="" />
+              index>0 && <li key={`spot_img_${item.id}`}>
+                <img 
+                className="spot-details-card-image"
+                onError={handleError} src={item.spot_image_url} alt="" />
               </li>
             ))}
           </>
@@ -129,10 +133,10 @@ history.push(`/booking?id=${spot.id}&checkIn=${checkIn}&checkOut=${checkOut}&pri
           <span className="spot-error">{error.message} </span>
         </div>
       </form>
-
+      {!!spot.reviews?.length &&
       <ul>
-        {spot.reviews?.length &&
-          spot.reviews.map((item) => (
+     
+         { spot.reviews.map((item) => (
             <li className="spot-reviews" key={item.id}>
               <div>
                 {" "}
@@ -173,10 +177,12 @@ history.push(`/booking?id=${spot.id}&checkIn=${checkIn}&checkOut=${checkOut}&pri
                     </li>
                   ))}
                 </ul>
+                
               )}
             </li>
           ))}
-      </ul>
+      </ul>}
+      {!spot.reviews?.length && <p>No reviews yet. You can leave you review <NavLink to={`/spots/${spot.id}/review/new`}></NavLink></p>}
     </section>
   );
 };

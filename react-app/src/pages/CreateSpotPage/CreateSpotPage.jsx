@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Button from "../../components/Button";
-
+import {useHistory} from "react-router-dom"
 import "./CreateSpotPage.css";
 import { useDispatch, useSelector } from "react-redux";
 import { createNewSpot } from "../../store/spotReducer";
@@ -23,6 +23,8 @@ const CreateSpotPage = () => {
   const [error, setError] = useState({});
 
   const dispatch = useDispatch();
+
+  const history=useHistory()
 
   const user = useSelector((state) => state.session.user);
 
@@ -87,13 +89,14 @@ const CreateSpotPage = () => {
     if (!imageUrl.match(/^https:\/\/.*\.(?:jpeg|jpg|png)$/gm)) {
       error["imageUrl"] = "image url is incorect format";
     }
-    if (!imageUrl1.match(/^https:\/\/.*\.(?:jpeg|jpg|png)$/gm)) {
+    if (!imageUrl1.match(/^https:\/\/.*\.(?:jpeg|jpg|png)$/gm) && imageUrl1.length>0) {
       error["imageUrl1"] = "image url is incorect format";
+      console.log(error,7777777)
     }
-    if (!imageUrl2.match(/^https:\/\/.*\.(?:jpeg|jpg|png)$/gm)) {
+    if (!imageUrl2.match(/^https:\/\/.*\.(?:jpeg|jpg|png)$/gm)&& imageUrl2.length>0) {
       error["imageUrl2"] = "image url is incorect format";
     }
-    if (!imageUrl3.match(/^https:\/\/.*\.(?:jpeg|jpg|png)$/gm)) {
+    if (!imageUrl3.match(/^https:\/\/.*\.(?:jpeg|jpg|png)$/gm)&& imageUrl3.length>0) {
       error["imageUrl3"] = "image url is incorect format";
     }
 
@@ -114,7 +117,7 @@ const CreateSpotPage = () => {
     imageUrl3
   ]);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmited(true);
     if (
@@ -146,6 +149,7 @@ const CreateSpotPage = () => {
       price,
       spot_image_url: imageUrl,
       
+      
       owner_id: user.id,
     };
     if(imageUrl1){
@@ -157,8 +161,13 @@ const CreateSpotPage = () => {
     if(imageUrl3){
       formData['spot_image_url3']=imageUrl3
     }
-    console.log(formData, 444444);
-    // dispatch(createNewSpot(formData));
+    const data = await dispatch(createNewSpot(formData));
+console.log(data, 333333)
+
+    if(data.id){
+      
+      history.push(`/spots/${data.id}`)
+    }
   };
 
   return (
@@ -312,7 +321,8 @@ const CreateSpotPage = () => {
               
             />
             {error.imageUrl1 && isSubmited && (
-              <span className="create-spot-page-error">{error.imageUrl}</span>
+            
+              <span className="create-spot-page-error">{error.imageUrl1}</span>
             )}
           </label>}
 
