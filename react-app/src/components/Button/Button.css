@@ -39,6 +39,8 @@ padding: 15px;
   background-color: rgb(255, 56, 92);
   border-radius: 5px;
   padding: 15px;
+  color: #000;
+  display: inline-block;
 }
 
 .edit-btn {

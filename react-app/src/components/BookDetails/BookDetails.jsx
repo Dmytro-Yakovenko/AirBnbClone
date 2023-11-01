@@ -16,6 +16,7 @@ const BookDetails = () => {
   const spot = useSelector((state) => state.spots.spot);
 
   const handleEdit = () => {
+  
     dispatch(setModalId("editDates"));
   };
 

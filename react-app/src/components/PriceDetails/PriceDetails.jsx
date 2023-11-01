@@ -19,7 +19,7 @@ const PriceDetails = () => {
       <div className="page-details-text-info">
       <p>{spot.title}</p>
       <p>{spot.description}</p>
-      <p className="page-details-rating"> <AiFillStar className="page-details-star"/> {  spot?.reviews && spot.reviews[0].rating}</p>
+      <p className="page-details-rating"> <AiFillStar className="page-details-star"/> {  spot?.reviews && spot?.reviews[0]?.rating}</p>
 
       </div>
       </div>

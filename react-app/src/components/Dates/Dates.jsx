@@ -13,12 +13,12 @@ import { useSelector } from 'react-redux';
 const Dates =()=> {
     
     const dates= useSelector(state =>state.booking.dates)
+    
+    const [checkIn, setCheckIn] = useState(dates?.checkIn ? new Date(dates?.checkIn) : new Date());
+const [checkOut, setCheckOut] = useState(dates?.checkOut ? new Date(dates?.checkOut) : new Date());
 
-    const [checkIn, setCheckIn] = useState(dates?.checkIn ? new Date(dates.checkIn) : new Date());
-const [checkOut, setCheckOut] = useState(dates?.checkOut ? new Date(dates.checkOut) : new Date());
-
-    console.log(checkIn,11111)
-    console.log(checkOut,222222)
+    console.log(checkIn,1001111)
+    console.log(checkOut,2022222)
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <Grid
@@ -31,9 +31,9 @@ const [checkOut, setCheckOut] = useState(dates?.checkOut ? new Date(dates.checkO
         <Grid item>
           <DateCalendar onChange={(e)=>setCheckIn(e.target.value)} value={checkIn} disablePast />
         </Grid>
-        <Grid item>
+        {/* <Grid item>
         <DateCalendar onChange={(e)=>setCheckOut(e.target.value)} value={checkOut} disablePast />
-        </Grid>
+        </Grid> */}
       </Grid>
     </LocalizationProvider>
   );

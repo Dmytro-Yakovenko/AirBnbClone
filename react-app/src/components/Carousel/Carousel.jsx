@@ -12,7 +12,8 @@ import SwipeableViews from 'react-swipeable-views';
 import { autoPlay } from 'react-swipeable-views-utils';
 
 const Carousel = ({images, title}) => {
- 
+  console.log(images,333333)
+images =(images.length<1)?[{spot_image_url:"https://res.cloudinary.com/dr1ekjmf4/image/upload/v1698849695/1e461b4afb5755045f2c2d841cc3c946_bf9cro.jpg"}]:images
     const theme = useTheme();
   const [activeStep, setActiveStep] = useState(0);
   const maxSteps = images.length;
@@ -41,7 +42,7 @@ const Carousel = ({images, title}) => {
         bgcolor: 'background.default',
       }}
     >
-      <Typography>{images[activeStep].label}</Typography>
+      <Typography>{images[activeStep]?.label}</Typography>
     </Paper>
     <AutoPlaySwipeableViews
       axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}

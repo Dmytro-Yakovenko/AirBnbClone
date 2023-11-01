@@ -65,7 +65,7 @@ history.push(`/booking?id=${spot.id}&checkIn=${checkIn}&checkOut=${checkOut}&pri
   return (
     <section className="spot-section">
       <ul className="spot-image-wrapper">
-        {spot.spot_image?.length && (
+        {!!spot.spot_image?.length && (
           <>
             <li>
               <img 
@@ -81,6 +81,11 @@ history.push(`/booking?id=${spot.id}&checkIn=${checkIn}&checkOut=${checkOut}&pri
             ))}
           </>
         )}
+        {!spot.spot_image?.length && (   <li>
+              <img 
+              className="spot-details-card-image"
+              src="https://res.cloudinary.com/dr1ekjmf4/image/upload/v1698849695/1e461b4afb5755045f2c2d841cc3c946_bf9cro.jpg" alt="" />
+            </li>)}
       </ul>
       <div className="spot-text-wrapper">
         <h2 className="spot-title">
@@ -182,7 +187,11 @@ history.push(`/booking?id=${spot.id}&checkIn=${checkIn}&checkOut=${checkOut}&pri
             </li>
           ))}
       </ul>}
-      {!spot.reviews?.length && <p>No reviews yet. You can leave you review <NavLink to={`/spots/${spot.id}/review/new`}></NavLink></p>}
+      {!spot.reviews?.length &&
+      <div className="input-wrapper">
+  <p>No reviews yet. You can leave you review <NavLink className="continue-btn" to={`/spots/${spot.id}/review/new`}>Leave review</NavLink></p>
+      </div>
+}
     </section>
   );
 };
