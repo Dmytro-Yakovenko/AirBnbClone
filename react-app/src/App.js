@@ -15,6 +15,7 @@ import  Modal  from "./components/Modal";
 import ReviewPage from "./pages/ReviewPage";
 import ConfirmedBookDetails from "./pages/ConfirmedBookDetails";
 import CreateSpotPage from "./pages/CreateSpotPage/CreateSpotPage";
+import CreateReviewPage from "./pages/CreateReviewPage";
 
 function App() {
 
@@ -56,6 +57,10 @@ function App() {
         </Route>
         <Route exact path={`/spots/:id/review`}>
           <ReviewPage />
+        </Route>
+
+        <Route exact path={`/spots/:id/review/new`}>
+          <CreateReviewPage />
         </Route>
 
        

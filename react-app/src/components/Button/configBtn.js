@@ -1,3 +1,5 @@
+import { BsFillCameraFill } from 'react-icons/bs';
+
 const configBtn = {
   logOut: {
     text: "Log Out",
@@ -74,6 +76,19 @@ const configBtn = {
 
   createSpot: {
     text: "Create spot",
+    type: "submit",
+    className: " btn cancel-btn",
+  },
+
+  addPhoto: {
+    text:<BsFillCameraFill className='camera'/>,
+    type:"submit",
+    className: "btn camera-btn",
+  },
+
+
+  postReview: {
+    text: "Post review",
     type: "submit",
     className: " btn cancel-btn",
   },

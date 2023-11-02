@@ -1,5 +1,5 @@
-import React, { useEffect, useState} from "react";
-import {useHistory} from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import Button from "../Button";
 import "./SpotDetailsCard.css";
@@ -28,8 +28,8 @@ const SpotDetailsCard = () => {
   const [checkIn, setCheckIn] = useState(new Date());
   const [checkOut, setCheckOut] = useState(new Date());
   const [error, setError] = useState({});
-  const dispatch = useDispatch()
-  const history = useHistory()
+  const dispatch = useDispatch();
+  const history = useHistory();
   useEffect(() => {
     const error = {};
     if (new Date(checkIn) >= new Date(checkOut)) {
@@ -49,18 +49,22 @@ const SpotDetailsCard = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(setDate({
-      checkIn,
-      checkOut,
-      price:spot.price,
-
-    }))
-history.push(`/booking?id=${spot.id}&checkIn=${checkIn}&checkOut=${checkOut}&price=${spot.price} `)
+    dispatch(
+      setDate({
+        checkIn,
+        checkOut,
+        price: spot.price,
+      })
+    );
+    history.push(
+      `/booking?id=${spot.id}&checkIn=${checkIn}&checkOut=${checkOut}&price=${spot.price} `
+    );
   };
 
-  const handleError=(e)=>{
-    e.target.src ="https://res.cloudinary.com/dr1ekjmf4/image/upload/v1691726195/bc2d04276b5bfde9bce68c7a91914b7f_mi6kmp.jpg"
-    }
+  const handleError = (e) => {
+    e.target.src =
+      "https://res.cloudinary.com/dr1ekjmf4/image/upload/v1691726195/bc2d04276b5bfde9bce68c7a91914b7f_mi6kmp.jpg";
+  };
 
   return (
     <section className="spot-section">
@@ -68,24 +72,36 @@ history.push(`/booking?id=${spot.id}&checkIn=${checkIn}&checkOut=${checkOut}&pri
         {!!spot.spot_image?.length && (
           <>
             <li>
-              <img 
-              className="spot-details-card-image"
-              src={spot.spot_image[0].spot_image_url} alt="" />
-            </li>
-            {spot.spot_image.map((item, index) => (
-              index>0 && <li key={`spot_img_${item.id}`}>
-                <img 
+              <img
                 className="spot-details-card-image"
-                onError={handleError} src={item.spot_image_url} alt="" />
-              </li>
-            ))}
+                src={spot.spot_image[0].spot_image_url}
+                alt=""
+              />
+            </li>
+            {spot.spot_image.map(
+              (item, index) =>
+                index > 0 && (
+                  <li key={`spot_img_${item.id}`}>
+                    <img
+                      className="spot-details-card-image"
+                      onError={handleError}
+                      src={item.spot_image_url}
+                      alt=""
+                    />
+                  </li>
+                )
+            )}
           </>
         )}
-        {!spot.spot_image?.length && (   <li>
-              <img 
+        {!spot.spot_image?.length && (
+          <li>
+            <img
               className="spot-details-card-image"
-              src="https://res.cloudinary.com/dr1ekjmf4/image/upload/v1698849695/1e461b4afb5755045f2c2d841cc3c946_bf9cro.jpg" alt="" />
-            </li>)}
+              src="https://res.cloudinary.com/dr1ekjmf4/image/upload/v1698849695/1e461b4afb5755045f2c2d841cc3c946_bf9cro.jpg"
+              alt=""
+            />
+          </li>
+        )}
       </ul>
       <div className="spot-text-wrapper">
         <h2 className="spot-title">
@@ -134,14 +150,12 @@ history.push(`/booking?id=${spot.id}&checkIn=${checkIn}&checkOut=${checkOut}&pri
           </div>
 
           <Button id="booking" disabled />
-
-          <span className="spot-error">{error.message} </span>
         </div>
+        {error.message && <span className="spot-error">{error.message} </span>}
       </form>
-      {!!spot.reviews?.length &&
-      <ul>
-     
-         { spot.reviews.map((item) => (
+      {!!spot.reviews?.length && (
+        <ul>
+          {spot.reviews.map((item) => (
             <li className="spot-reviews" key={item.id}>
               <div>
                 {" "}
@@ -154,12 +168,12 @@ history.push(`/booking?id=${spot.id}&checkIn=${checkIn}&checkOut=${checkOut}&pri
                     readOnly
                   />
                 </Stack>
-
-                <NavLink 
-                className="spot-review-link"
-                to ={`/spots/${spot.id}/review`}>
+                <NavLink
+                  className="spot-review-link"
+                  to={`/spots/${spot.id}/review`}
+                >
                   Write a review
-                  </NavLink>
+                </NavLink>
               </div>
               <div>
                 <p>Review: </p>
@@ -169,7 +183,11 @@ history.push(`/booking?id=${spot.id}&checkIn=${checkIn}&checkOut=${checkOut}&pri
               <div className="spot-review-wrapper">
                 <p> {formatData(item.created_at)}</p>
 
-                <img className="user-image" src={item.user.user_image_url} alt="" />
+                <img
+                  className="user-image"
+                  src={item.user.user_image_url}
+                  alt=""
+                />
                 <p>
                   {item.user.first_name} {item.user.last_name}
                 </p>
@@ -178,20 +196,27 @@ history.push(`/booking?id=${spot.id}&checkIn=${checkIn}&checkOut=${checkOut}&pri
                 <ul>
                   {item.review_image.map((el) => (
                     <li key={`review_image_${el.id}`}>
-                      <img className="spot-review-image" src={el.review_image_url} alt="" />
+                      <img
+                        className="spot-review-image"
+                        src={el.review_image_url}
+                        alt=""
+                      />
                     </li>
                   ))}
                 </ul>
-                
               )}
             </li>
           ))}
-      </ul>}
-      {!spot.reviews?.length &&
-      <div className="input-wrapper">
-  <p>No reviews yet. You can leave you review <NavLink className="continue-btn" to={`/spots/${spot.id}/review/new`}>Leave review</NavLink></p>
-      </div>
-}
+        </ul>
+      )}
+      {!spot.reviews?.length && (
+        <div className="spot-form-container">
+          <p>No reviews yet. You can leave you review </p>
+          <NavLink className="continue-btn" to={`/spots/${spot.id}/review/new`}>
+            Write a review
+          </NavLink>
+        </div>
+      )}
     </section>
   );
 };
