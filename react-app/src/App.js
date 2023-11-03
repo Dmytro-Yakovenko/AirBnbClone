@@ -55,9 +55,9 @@ function App() {
         <Route path={`/booking`}>
           <BookingPage />
         </Route>
-        <Route exact path={`/spots/:id/review`}>
+        {/* <Route exact path={`/spots/:id/review`}>
           <ReviewPage />
-        </Route>
+        </Route> */}
 
         <Route exact path={`/spots/:id/review/new`}>
           <CreateReviewPage />

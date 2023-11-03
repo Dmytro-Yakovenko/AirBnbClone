@@ -8,38 +8,91 @@ import { getOneSpot } from "../../store/spotReducer";
 
 const CreateReviewPage = () => {
   const [review, setReview] = useState("");
-  const dispatch = useDispatch()
-  const {id} = useParams()
-  const spot = useSelector(state=>state.spots.spot)
-  useEffect(()=>{
-    dispatch(getOneSpot(id))
-  },[dispatch, id])
+  const [imageInputShow, setImageInputShow] = useState(false);
+  const [newImage, setNewImage] = useState("");
+  const [errors, setErrors]=useState({})
+
+
+
+  const dispatch = useDispatch();
+  const { id } = useParams();
+  const spot = useSelector((state) => state.spots.spot);
+  useEffect(() => {
+    dispatch(getOneSpot(id));
+  }, [dispatch, id]);
+
+ useEffect(()=>{
+const error = {}
+if(review.length<5 && review.length>1000){
+  error.review="review shoud be longer than 5 and shorter than 1000 characters"
+
+}
+if (!newImage.match(/^https:\/\/.*\.(?:jpeg|jpg|png)$/gm)) {
+  error["newImage"] = "image is incorect format";
+}
+ },[review, newImage])
+
   return (
     <main className="create-review-page-main">
-        <div className="container">
-        <h2>{spot?.title}</h2>
-        <img src={spot?.spot_image[0]?.spot_image_url} alt={spot.title}/>
-      <div className="create-review-page-container">
-        <h4 className="create-review-page-title">Create Review</h4>
-        <form className="create-review-page-form">
-          <label>
-            <div className="create-review-page-rating-wrapper">
-              <CreateRating />
+      <div className="container">
+        <div className="create-review-page-image-wrapper">
+          <h2>{spot?.title}</h2>
+          {spot?.spot_image?.length > 0 && (
+            <img src={spot?.spot_image[0]?.spot_image_url} alt={spot?.title} />
+          )}
+          {!spot?.spot_image?.length && (
+            <img
+              src="https://res.cloudinary.com/dr1ekjmf4/image/upload/v1699019340/2cb95b1cbd97bb8c57797bab4d406884_pjx2rq.jpg"
+              alt={spot?.title}
+            />
+          )}
+        </div>
+
+        <div className="create-review-page-container">
+          <h4 className="create-review-page-title">Create Review</h4>
+          <form className="create-review-page-form">
+            <label>
+              {" "}
+              Leave your review
+              <div className="create-review-page-rating-wrapper">
+                <CreateRating />
+              </div>
+              <textarea
+                value={review}
+                onChange={(e) => setReview(e.target.value)}
+                placeholder="leave a review"
+                rows={6}
+              ></textarea>
+            </label>
+            {imageInputShow && (
+              <label>
+                add new image
+                <input
+                  value={newImage}
+                  onChange={(e) => setNewImage(e.target.value)}
+                  placeholder="add new image"
+                />
+              </label>
+            )}
+            <div className="create-review-page-review-wrapper">
+              <div>
+              {!imageInputShow &&
+                    <Button
+                    onClick={() => {
+                      setImageInputShow(true);
+                    }}
+                    id="addPhoto"
+                  />
+                
+              }
+          
+
+              </div>
+ 
+              <Button id="postReview" />
             </div>
-            <textarea
-              value={review}
-              onChange={(e) => setReview(e.target.value)}
-              placeholder="leave a review"
-              rows={10}
-            ></textarea>
-          </label>
-<div className="create-review-page-review-wrapper">
-<Button id="addPhoto"/>
-          <Button id="postReview"/>
-</div>
-      
-        </form>
-      </div>
+          </form>
+        </div>
       </div>
     </main>
   );

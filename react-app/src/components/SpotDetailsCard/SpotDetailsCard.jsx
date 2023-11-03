@@ -170,7 +170,7 @@ const SpotDetailsCard = () => {
                 </Stack>
                 <NavLink
                   className="spot-review-link"
-                  to={`/spots/${spot.id}/review`}
+                  to={`/spots/${spot.id}/review/new`}
                 >
                   Write a review
                 </NavLink>

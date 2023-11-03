@@ -82,7 +82,7 @@ const configBtn = {
 
   addPhoto: {
     text:<BsFillCameraFill className='camera'/>,
-    type:"submit",
+    type:"button",
     className: "btn camera-btn",
   },
 

@@ -50,7 +50,7 @@ e.preventDefault()
             <AiOutlineCamera className='review-icon'/>
             {errors.link && <span>{errors.link}</span>} 
         </label>
-
+      {}
         <Button id="createReview" disabled={!errors.review && !errors.link} />
 
     </form>
