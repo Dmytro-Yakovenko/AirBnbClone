@@ -1,7 +1,7 @@
 .profile-dropdown {
   position: absolute;
   width: 180px;
-  height: 210px;
+  height: 250px;
   padding: 15px;
   background-color: rgba(61, 101, 229, 0.5);
   top: 87px;
@@ -67,8 +67,11 @@
 color: #fff !important;
 background-color: rgb(255, 56, 92) !important;
 border-radius: 5px;
-padding: 15px;
+padding: 5px 0;
 display: inline-block;
+width: 100%;
+text-align: center;
+margin-top: 20px;
 }
 
 

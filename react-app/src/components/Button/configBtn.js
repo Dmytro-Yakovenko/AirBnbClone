@@ -94,6 +94,20 @@ const configBtn = {
   },
 
 
+  updateProfile: {
+    text: "Update Profile",
+    type: "button",
+    className: " btn cancel-btn",
+  },
+
+
+  deleteProfile: {
+    text: "Delete Profile",
+    type: "button",
+    className: " btn cancel-btn",
+  },
+
+
 
 
 };

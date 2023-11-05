@@ -8,6 +8,7 @@ import { AiOutlineEye } from 'react-icons/ai';
 
 
 import "./SignupForm.css";
+import { NavLink } from "react-router-dom";
 
 function SignupFormPage() {
   const dispatch = useDispatch();
@@ -139,7 +140,7 @@ function SignupFormPage() {
             </label>
           
         </div>
-
+<p>Have account? <NavLink to="/login">Log In</NavLink></p>
         <Button id="signUp"/>
       </form>
     </div>

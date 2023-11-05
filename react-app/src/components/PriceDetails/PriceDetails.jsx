@@ -10,12 +10,26 @@ const PriceDetails = () => {
   const spot = useSelector((state) => state.spots.spot);
   const amounts = calculatePrice(date);
 
+  const handleError = (e) => {
+    console.log(e,4444444)
+    e.target.src =
+      "https://res.cloudinary.com/dr1ekjmf4/image/upload/v1691726195/bc2d04276b5bfde9bce68c7a91914b7f_mi6kmp.jpg";
+  };
+
+  console.log(4444444)
   return (
     <section className="page-details-section">
       <div className="price-details-spot-info">
-      {spot?.spot_image && (
-        <img className="price-details-image" src={spot?.spot_image[0]?.spot_image_url} alt={spot.title} />
-      )}
+      {spot?.spot_image?.length>0 && (
+     
+       <img className="price-details-image" 
+        onError={handleError} 
+        src={spot?.spot_image[0]?.spot_image_url} alt={spot.title} />
+      )}{spot?.spot_image?.length===0 && 
+        <img className="price-details-image" 
+      
+        src=  "https://res.cloudinary.com/dr1ekjmf4/image/upload/v1699155634/031bf1de0a04795094b6b3a463aaa2d0_oo8jxj.jpg" alt={spot.title} />
+      }
       <div className="page-details-text-info">
       <p>{spot.title}</p>
       <p>{spot.description}</p>

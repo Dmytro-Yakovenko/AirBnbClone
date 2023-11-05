@@ -8,7 +8,10 @@ padding: 15px;
 .logout-btn {
   background-color: rgb(255, 56, 92);
   color: #fff;
-  
+  width: 100%;
+  padding: 5px 0 !important;
+  display: inline-block;
+  text-align: center;
 }
 
 .logout-btn:hover {
@@ -75,3 +78,4 @@ padding: 15px;
 .camera {
   font-size: 24px;
 }
+

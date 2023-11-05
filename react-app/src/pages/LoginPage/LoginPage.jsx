@@ -7,27 +7,35 @@ import { AiOutlineEye} from 'react-icons/ai';
 
 
 
+
 import './LoginPage.css';
 import Button from "../../components/Button";
+import { NavLink, useHistory } from "react-router-dom";
 
 const LoginPage = () => {
     const dispatch = useDispatch();
     const sessionUser = useSelector((state) => state.session.user);
+    const dates = useSelector(state=>state.booking.dates)
+    const spot = useSelector(state=>state.spots.spot)
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [errors, setErrors] = useState([]);
 
     const [isPasswordShow, setIsPasswordShow]= useState(false)
-  
-  
-    if (sessionUser) return <Redirect to="/" />;
+    const history = useHistory()
 
+ 
+   
   const handleDemoSubmit =async (e) =>{
     e.preventDefault()
     dispatch(userLoading())
     const data = await dispatch(login("demo@aa.io", "password"));
       if (data) {
         setErrors(data);
+      }
+      if(dates){
+        console.log(dates,22222)
+        return history.push(  `/booking?id=${spot.id}&checkIn=${dates.checkIn}&checkOut=${dates.checkOut}&price=${dates.price}`)
       }
   }
 
@@ -39,8 +47,11 @@ const LoginPage = () => {
       if (data) {
         setErrors(data);
       }
+      if(dates){
+        return <Redirect to={   `/booking?id=${spot.id}&checkIn=${dates.checkIn}&checkOut=${dates.checkOut}&price=${dates.price}`}/>
+      }
     };
-  
+    if (sessionUser) return <Redirect to="/" />;
     return (
       <div className="login">
         <h1 className="login-title">Log In</h1>
@@ -83,7 +94,7 @@ const LoginPage = () => {
             </label>
          
          </div>
-          
+          <p>do not have account <NavLink to="/signup">Sign Up</NavLink></p>
           <Button id ="logIn"/>
           <Button onClick={handleDemoSubmit} id="demo"/>
         </form>

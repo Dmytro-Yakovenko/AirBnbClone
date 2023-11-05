@@ -16,6 +16,7 @@ import ReviewPage from "./pages/ReviewPage";
 import ConfirmedBookDetails from "./pages/ConfirmedBookDetails";
 import CreateSpotPage from "./pages/CreateSpotPage/CreateSpotPage";
 import CreateReviewPage from "./pages/CreateReviewPage";
+import ProfilePage from "./pages/ProfilePage";
 
 function App() {
 
@@ -63,6 +64,9 @@ function App() {
           <CreateReviewPage />
         </Route>
 
+        <Route exact path={`/profile`}>
+          <ProfilePage />
+        </Route>
        
         <Route path="*">
           <NotFoundPage />

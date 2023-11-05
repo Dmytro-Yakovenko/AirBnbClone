@@ -33,6 +33,19 @@ export const authenticate = () => async (dispatch) => {
 	}
 };
 
+
+export const deleteUser = (id)=> async (dispatch) =>{
+	const response = await fetch("/api", {
+		headers: {
+			"Content-Type": "application/json",
+		},
+		method:"DELETE"
+	});
+	if(response.ok){
+		dispatch(removeUser())
+	}
+}
+
 export const login = (email, password) => async (dispatch) => {
 	const response = await fetch("/api/auth/login", {
 		method: "POST",

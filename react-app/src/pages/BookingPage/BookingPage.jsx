@@ -12,12 +12,14 @@ import BookDetails from "../../components/BookDetails";
 import PriceDetails from "../../components/PriceDetails";
 
 import "./BookingPage.css"
+import { Redirect } from "react-router-dom";
 
 const BookingPage = () => {
   const dispatch = useDispatch();
   const { search } = useLocation();
  
-  
+  const user = useSelector(state=>state.session.user)
+ 
   const dates = useSelector((state) => state.booking.dates);
   const searchArr = search.slice(1).split("&");
 
@@ -35,7 +37,9 @@ const BookingPage = () => {
   }, [search, dispatch]);
 
  
-
+if(!user){
+  return <Redirect to="/login"/>
+}
   return (
     <main className="booking-page-main">
       <div className="booking-page-container">

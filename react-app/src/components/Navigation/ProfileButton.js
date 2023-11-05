@@ -59,6 +59,12 @@ const ProfileButton = ({ user }) => {
               <NavLink className="profile-link" to="/spots/create">
                 Create your spot
               </NavLink>
+
+              <NavLink className="profile-link" to="/profile">
+                Profile
+              </NavLink>
+
+
             </li>
             <li>
               <Button onClick={handleLogout} id="logOut" />

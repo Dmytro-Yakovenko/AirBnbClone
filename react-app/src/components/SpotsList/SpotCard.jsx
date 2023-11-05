@@ -18,7 +18,7 @@ const Item = styled(Paper)(({ theme }) => ({
 
 const SpotCard = ({ id }) => {
   const spot = useSelector((state) => state.spots.spots[id]);
-  console.log(spot, 333333);
+
   return (
     <Item>
       <li className="spot-card-item">

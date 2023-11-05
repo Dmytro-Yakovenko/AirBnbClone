@@ -6,7 +6,7 @@ import "./SpotDetailsCard.css";
 import Rating from "@mui/material/Rating";
 import Stack from "@mui/material/Stack";
 import { setDate } from "../../store/bookingReducer";
-import { NavLink } from "react-router-dom/cjs/react-router-dom.min";
+import { NavLink, Redirect } from "react-router-dom";
 
 let months = [
   "January",
@@ -25,6 +25,8 @@ let months = [
 
 const SpotDetailsCard = () => {
   const spot = useSelector((state) => state.spots.spot);
+  const user = useSelector((state) => state.session.user);
+
   const [checkIn, setCheckIn] = useState(new Date());
   const [checkOut, setCheckOut] = useState(new Date());
   const [error, setError] = useState({});
@@ -35,7 +37,7 @@ const SpotDetailsCard = () => {
     if (new Date(checkIn) >= new Date(checkOut)) {
       error.message = "checkOut after checkIn";
     }
-    console.log(error);
+  
     setError(error);
   }, [checkIn, checkOut]);
 
@@ -56,8 +58,12 @@ const SpotDetailsCard = () => {
         price: spot.price,
       })
     );
+    if (!user) {
+      history.push("/login")
+      return 
+    }
     history.push(
-      `/booking?id=${spot.id}&checkIn=${checkIn}&checkOut=${checkOut}&price=${spot.price} `
+      `/booking?id=${spot.id}&checkIn=${checkIn}&checkOut=${checkOut}&price=${spot.price}`
     );
   };
 

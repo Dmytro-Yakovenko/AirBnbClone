@@ -37,7 +37,7 @@ export const calculatePrice = (dates) => {
   const price = days * dates?.price;
   const cleaningFee = Math.ceil(price*0.22)
   const airbnbFee = Math.ceil(price*0.11)
-  console.log(airbnbFee, price, 11111111)
+  
   const taxes = Math.ceil(price*0.09)
   const totalPrice = Math.ceil(price+cleaningFee+airbnbFee+taxes)
   return {price, cleaningFee, airbnbFee,taxes,totalPrice,days};

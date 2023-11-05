@@ -17,8 +17,7 @@ const Dates =()=> {
     const [checkIn, setCheckIn] = useState(dates?.checkIn ? new Date(dates?.checkIn) : new Date());
 const [checkOut, setCheckOut] = useState(dates?.checkOut ? new Date(dates?.checkOut) : new Date());
 
-    console.log(checkIn,1001111)
-    console.log(checkOut,2022222)
+   
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <Grid

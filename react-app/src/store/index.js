@@ -4,12 +4,14 @@ import session from './session'
 import spotReducer from './spotReducer';
 import bookReducer from './bookingReducer';
 import modalReducer from './modalReducer';
+import reviewReducer from './reviewReducer';
 
 const rootReducer = combineReducers({
   session,
   spots:spotReducer,
   booking:bookReducer,
-  modal:modalReducer
+  modal:modalReducer,
+  reviews:reviewReducer
 });
 
 
