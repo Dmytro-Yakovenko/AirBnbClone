@@ -108,6 +108,13 @@ const configBtn = {
   },
 
 
+  deleteModalProfile: {
+    text: "OK",
+    type: "button",
+    className: " btn cancel-btn",
+  },
+
+
 
 
 };

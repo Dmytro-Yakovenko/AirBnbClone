@@ -28,7 +28,20 @@ def user(id):
     return user.to_dict()
 
 
-
+@user_routes.route('/<int:user_id>', methods=["DELETE"])
+@login_required
+def userDelete(user_id):
+    """
+    deletes user
+    
+    """
+    user = User.query.get(user_id)
+    if not user:
+        return {'errors': f"User {user_id} does not exist"}, 404
+    db.session.delete(user)
+    db.session.commit()
+    return {'message': 'Delete successful.'}
+    
 
 
 @user_routes.route('/<int:user_id>/bookings')

@@ -1,3 +1,5 @@
+import { createReview } from "./reviewReducer";
+
 // constants
 const SET_USER = "session/SET_USER";
 const REMOVE_USER = "session/REMOVE_USER";
@@ -34,15 +36,18 @@ export const authenticate = () => async (dispatch) => {
 };
 
 
-export const deleteUser = (id)=> async (dispatch) =>{
-	const response = await fetch("/api", {
+export const deleteProfile = (id)=> async (dispatch) =>{
+	
+	const response = await fetch(`/api/users/${id}`, {
 		headers: {
 			"Content-Type": "application/json",
 		},
 		method:"DELETE"
 	});
+	
 	if(response.ok){
 		dispatch(removeUser())
+		dispatch(createReview({}))
 	}
 }
 

@@ -9,12 +9,13 @@ import Dates from "../Dates";
 
 const Modal = () => {
   const id = useSelector((state) => state.modal.modalId);
-  
+  const dispatch = useDispatch()
   const history = useHistory()
 
   const handleEdit=()=>{
-    
+  
   }
+ 
 
   const handleBookOk = () => {
     history.push("/")
@@ -57,12 +58,42 @@ const Modal = () => {
         <div className="btn-wrapper">
           <Button id="editSubmit"  onClick={handleEdit}/>
           <Button id="editCancel" onClick={handleClose}/>
+
         </div>
       ),
     },
+
+    deleteProfile: {
+      title: "Delete Profile",
+      text: "You can not delete demo user",
+      body: "",
+      className: "modal-content-edit",
+      action: (
+        <div className="btn-wrapper">
+          <Button id="deleteModalProfile"  onClick={handleClose}/>
+        
+        </div>
+      ),
+    },
+
+
+    updateProfile: {
+      title: "Update Profile",
+      text: "You can not update demo user",
+      body: "",
+      className: "modal-content-edit",
+      action: (
+        <div className="btn-wrapper">
+          <Button id="deleteModalProfile"  onClick={handleClose}/>
+        
+        </div>
+      ),
+    },
+
+
   };
   const modal = modalConfig[id];
-  const dispatch = useDispatch();
+
 
 
   function handleClose() {

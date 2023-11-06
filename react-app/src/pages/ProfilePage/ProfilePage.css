@@ -3,3 +3,23 @@
     
     gap: 20px;
 }
+
+.profile-page-user-image{
+    height: 200px;
+    width: 200px;
+}
+
+.profile-page-container {
+    margin: 0 auto;
+    max-width: 600px;
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap:30px;
+}
+
+.profile-page-container span {
+    cursor: pointer;
+    font-size: 22px;
+    font-weight: bold;
+}
