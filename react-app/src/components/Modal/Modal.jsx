@@ -6,12 +6,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { setModalId } from "../../store/modalReducer";
 import Button from "../Button";
 import Dates from "../Dates";
+import { deleteProfile } from "../../store/session";
 
 const Modal = () => {
-  const id = useSelector((state) => state.modal.modalId);
+  const modalInfo = useSelector((state) => state.modal.modalInfo);
   const dispatch = useDispatch()
   const history = useHistory()
-
+  console.log(modalInfo?.currentId,55555555)
   const handleEdit=()=>{
   
   }
@@ -77,6 +78,25 @@ const Modal = () => {
     },
 
 
+
+    deleteUser: {
+      title: "Delete User",
+      text: "Are you sure you want to delete user?",
+      body: "",
+      className: "modal-content-edit",
+      action: (
+        <div className="btn-wrapper">
+          <Button id="deleteModalProfile"  onClick={()=>{
+            handleClose()
+            dispatch(deleteProfile(modalInfo?.currentId))
+            history.push('/')
+          }}/>
+        
+        </div>
+      ),
+    },
+
+
     updateProfile: {
       title: "Update Profile",
       text: "You can not update demo user",
@@ -92,7 +112,7 @@ const Modal = () => {
 
 
   };
-  const modal = modalConfig[id];
+  const modal = modalConfig[modalInfo?.modalId];
 
 
 
@@ -101,7 +121,7 @@ const Modal = () => {
   }
   return (
     <>
-      {id && (
+      {modalInfo?.modalId && (
         <div className="modal">
           <div className={`modal-content ${modal.className}`}>
             <span onClick={handleClose} className="close">

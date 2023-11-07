@@ -17,7 +17,9 @@ const BookDetails = () => {
 
   const handleEdit = () => {
   
-    dispatch(setModalId("editDates"));
+    dispatch(setModalId({
+      modalId:"editDates"
+    }));
   };
 
   const handleClick =async () => {
@@ -33,7 +35,9 @@ const BookDetails = () => {
      
     );
     if(res){
-      dispatch(setModalId("bookingOk"))
+      dispatch(setModalId({
+        modalId:"bookingOk"
+      }))
     }
   };
   return (

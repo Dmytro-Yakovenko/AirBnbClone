@@ -114,6 +114,18 @@ const configBtn = {
     className: " btn cancel-btn",
   },
 
+  saveProfile: {
+    text: "Save",
+    type: "submit",
+    className: " btn cancel-btn",
+  },
+
+  cancelEditProfile: {
+    text: "Cancel",
+    type: "button",
+    className: " btn cancel-btn",
+  },
+
 
 
 

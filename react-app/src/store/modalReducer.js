@@ -11,7 +11,7 @@ export const setModalId =(data)=>({
 //initial state
 
 const initialState = {
-    modalId :null,
+    modalInfo :null,
     isOpen:false,
 }
 
@@ -20,7 +20,7 @@ const initialState = {
 const modalReducer = (state=initialState, action)=>{
     switch(action.type){
         case MODAL_ID:
-            return {...state, modalId:action.payload, isOpen:!state.isOpen}
+            return {...state, modalInfo:action.payload, isOpen:!state.isOpen}
             default:
                 return state
     }

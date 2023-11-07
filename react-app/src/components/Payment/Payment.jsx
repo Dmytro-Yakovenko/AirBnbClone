@@ -12,7 +12,9 @@ const dispatch = useDispatch()
 
     const handleChange =(e)=>{
        setPayment(e)
-       dispatch(setModalId("featureComing"))
+       dispatch(setModalId({
+        modalId:"featureComing"
+       }))
     }
 
 
