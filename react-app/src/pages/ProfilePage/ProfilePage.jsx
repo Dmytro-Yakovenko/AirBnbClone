@@ -4,9 +4,10 @@ import { useDispatch, useSelector } from "react-redux";
 import Button from "../../components/Button";
 import { setModalId } from "../../store/modalReducer";
 import EditProfileForm from "../../components/EditProfileForm";
+import { setEditProfile } from "../../store/profileReducer";
 
 const ProfilePage = () => {
-  const [isUpdate, setUpdate] = useState(false);
+  const isUpdate = useSelector((state)=>state.profile.editProfile)
   const user = useSelector((state) => state.session.user);
 
   const dispatch = useDispatch();
@@ -26,6 +27,7 @@ const ProfilePage = () => {
       })
     );
   };
+  
 
   const handleUpdate = async () => {
     if (user.id === 1) {
@@ -35,7 +37,7 @@ const ProfilePage = () => {
         })
       );
     }
-    setUpdate(true)
+   dispatch(setEditProfile())
   };
 
   return (

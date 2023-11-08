@@ -5,13 +5,15 @@ import spotReducer from './spotReducer';
 import bookReducer from './bookingReducer';
 import modalReducer from './modalReducer';
 import reviewReducer from './reviewReducer';
+import editProfileReducer from './profileReducer';
 
 const rootReducer = combineReducers({
   session,
   spots:spotReducer,
   booking:bookReducer,
   modal:modalReducer,
-  reviews:reviewReducer
+  reviews:reviewReducer,
+  profile:editProfileReducer
 });
 
 

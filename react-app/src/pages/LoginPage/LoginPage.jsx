@@ -34,7 +34,7 @@ const LoginPage = () => {
         setErrors(data);
       }
       if(dates){
-        console.log(dates,22222)
+        
         return history.push(  `/booking?id=${spot.id}&checkIn=${dates.checkIn}&checkOut=${dates.checkOut}&price=${dates.price}`)
       }
   }

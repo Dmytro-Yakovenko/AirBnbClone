@@ -91,7 +91,7 @@ const CreateSpotPage = () => {
     }
     if (!imageUrl1.match(/^https:\/\/.*\.(?:jpeg|jpg|png)$/gm) && imageUrl1.length>0) {
       error["imageUrl1"] = "image url is incorect format";
-      console.log(error,7777777)
+     
     }
     if (!imageUrl2.match(/^https:\/\/.*\.(?:jpeg|jpg|png)$/gm)&& imageUrl2.length>0) {
       error["imageUrl2"] = "image url is incorect format";
