@@ -1,7 +1,7 @@
 from flask import Blueprint, request, jsonify
 from flask_login import login_required
 from app.models import db, User, Booking
-from app.forms import BookingForm 
+from app.forms import BookingForm, ProfileForm
 from app.api.auth_routes import validation_errors_to_error_messages
 from datetime import datetime
 
@@ -26,6 +26,29 @@ def user(id):
     """
     user = User.query.get(id)
     return user.to_dict()
+
+@user_routes.route('/<int:user_id>', methods=["PUT"])
+@login_required
+def userUpdate(user_id):
+    
+    """
+    updates user
+    
+    """
+    user = User.query.get(user_id)
+    
+    if not user:
+        return {'errors': f"User {user_id} does not exist"}, 404
+    form = ProfileForm()
+    
+    form['csrf_token'].data = request.cookies['csrf_token']
+    if form.validate_on_submit():
+        form.populate_obj(user)
+        db.session.commit()
+        return user.to_dict()
+    return {'errors': validation_errors_to_error_messages(form.errors)}, 400
+
+
 
 
 @user_routes.route('/<int:user_id>', methods=["DELETE"])

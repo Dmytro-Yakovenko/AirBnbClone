@@ -1,0 +1,51 @@
+.edit-profile-page-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap:40px;
+
+    
+}
+
+.edit-profile-page-form {
+    display: flex;
+    flex-direction: column;
+    gap:20px;
+    
+}
+.edit-profile-page-form input  {
+   width: 100%;
+   padding: 5px;
+   margin-top: 10px;
+   font-size: 18px;
+    
+}
+
+.edit-profile-page-form label  {
+    position: relative;
+    margin-bottom: 20px;
+    font-size: 20px;
+    font-weight: bold;
+
+     
+ }
+
+ .edit-profile-page-error {
+    color: rgb(239, 10, 55);
+    position: absolute;
+    bottom: -20px;
+    left:0;
+ }
+
+.edit-profile-page-wrapper h2  {
+    font-size: 28px;
+    font-weight: bold;
+    text-align: center;
+     
+ }
+
+
+.edit-profile-page-buttons {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+}

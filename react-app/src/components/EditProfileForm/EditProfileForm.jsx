@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Button from "../Button";
 import { setEditProfile } from "../../store/profileReducer";
 import { useEffect } from "react";
+import { updateUser } from "../../store/session";
 
 const EditProfileForm = () => {
   const user = useSelector((state) => state.session.user);
@@ -13,7 +14,7 @@ const EditProfileForm = () => {
   const [email, setEmail] = useState(user.email);
   const [userImageUrl, setUserImageUrl] = useState(user.user_image_url);
   const [error, setError] = useState({});
-  const [isSubmitted, setIsSubmitted] = useState(false)
+  const [isSubmitted, setIsSubmitted] = useState(false);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -23,7 +24,7 @@ const EditProfileForm = () => {
     }
 
     if (lastName.length < 5 || lastName.lenght > 255) {
-      error.lasttName = "write correct last name";
+      error.lastName = "write correct last name";
     }
     if (username.length < 5 || username.lenght > 255) {
       error.username = "write correct  username";
@@ -32,30 +33,60 @@ const EditProfileForm = () => {
       error.email = "email is incorect format";
     }
 
-    if (!userImageUrl.match(/^https:\/\/.*\.(?:jpeg|jpg|png)$/gm)) {
-      error.userImageUrl = "user image url is incorect format";
+    if (!userImageUrl.match(/^https:\/\/.*\.(?:jpeg|jpg|png)$/gm) && userImageUrl.length>0) {
+      error["userImageUrl"] = "image url is incorect format";
+     
     }
 
     setError(error);
   }, [firstName, lastName, username, email, userImageUrl]);
 
-  const handleSubmit = ()=>{
-    
-  }
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setIsSubmitted(true);
+  
+    if (
+      error.firstName ||
+      error.lastName ||
+      error.username ||
+      error.email ||
+      error.userImageUrl
+    ) {
+      console.log(error,222222)
+      return;
+    }
 
+    const formData = {
+      first_name: firstName,
+      last_name: lastName,
+      username: username,
+      email: email,
+      user_image_url: userImageUrl,
+    };
 
+    dispatch(updateUser(formData));
+    dispatch(setEditProfile());
+    setIsSubmitted(false);
+    setFirstName("");
+    setLastName("");
+    setUsername("");
+    setEmail("");
+    setUserImageUrl("");
+  };
 
   return (
-    <div>
+    <div className="edit-profile-page-wrapper">
       <h2>Update Profile</h2>
-      <form onSubmit={handleSubmit}>
+      <form className="edit-profile-page-form" onSubmit={handleSubmit}>
         <label>
           First Name
           <input
             value={firstName}
             onChange={(e) => setFirstName(e.target.value)}
           />
-          {error.firstName && <span>{error.firstName}</span>}
+          {error.firstName && isSubmitted && (
+            <span className="edit-profile-page-error">{error.firstName}</span>
+          )}
         </label>
 
         <label>
@@ -64,7 +95,9 @@ const EditProfileForm = () => {
             value={lastName}
             onChange={(e) => setLastName(e.target.value)}
           />
-          {error.lastName && <span>{error.lastName}</span>}
+          {error.lastName && isSubmitted && (
+            <span className="edit-profile-page-error">{error.lastName}</span>
+          )}
         </label>
 
         <label>
@@ -73,13 +106,17 @@ const EditProfileForm = () => {
             value={username}
             onChange={(e) => setUsername(e.target.value)}
           />
-          {error.username && <span>{error.username}</span>}
+          {error.username && isSubmitted && (
+            <span className="edit-profile-page-error">{error.username}</span>
+          )}
         </label>
 
         <label>
           Email
           <input value={email} onChange={(e) => setEmail(e.target.value)} />
-          {error.email && <span>{error.email}</span>}
+          {error.email && isSubmitted && (
+            <span className="edit-profile-page-error">{error.email}</span>
+          )}
         </label>
 
         <label>
@@ -88,17 +125,21 @@ const EditProfileForm = () => {
             value={userImageUrl}
             onChange={(e) => setUserImageUrl(e.target.value)}
           />
-          {error.userImageUrl && <span>{error.userImageUrl}</span>}
+          {error.userImageUrl && isSubmitted && (
+            <span className="edit-profile-page-error">{error.userImageUrl}</span>
+          )}
         </label>
 
-        <Button id="saveProfile" />
+        <div className="edit-profile-page-buttons">
+          <Button id="saveProfile" />
 
-        <Button
-          id="cancelEditProfile"
-          onClick={() => {
-            dispatch(setEditProfile());
-          }}
-        />
+          <Button
+            id="cancelEditProfile"
+            onClick={() => {
+              dispatch(setEditProfile());
+            }}
+          />
+        </div>
       </form>
     </div>
   );
