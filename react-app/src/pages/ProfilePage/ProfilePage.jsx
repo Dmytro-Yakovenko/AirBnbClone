@@ -47,14 +47,15 @@ const ProfilePage = () => {
         {!isUpdate && (
           <>
             <p>
-              First name:{" "}
-              <span onDoubleClick={() => console.log(11111)}>
+              First name:
+              <span >
                 {user.first_name}
-              </span>{" "}
+              </span>
             </p>
-            <p>Last name: {user.last_name}</p>
-            <p>User name: {user.username}</p>
-            <p>Email: {user.email}</p>
+            
+            <p>Last name: <span>{user.last_name}</span></p>
+            <p>User name: <span>{user.username} </span></p>
+            <p>Email:<span> {user.email} </span></p>
             <img
               src={user.user_image_url}
               alt=""

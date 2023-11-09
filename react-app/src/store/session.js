@@ -44,12 +44,15 @@ export const authenticate = () => async (dispatch) => {
 };
 
 export const updateUser = (id, data) => async (dispatch) => {
-  const response = await fetch(`/api/auth/${id}`, {
+  const response = await fetch(`/api/users/${id}`, {
+    method:"PUT",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(data),
   });
+
+  console.log(response, 55555)
   if (response.ok) {
     const data = await response.json();
     dispatch(setUser(data));

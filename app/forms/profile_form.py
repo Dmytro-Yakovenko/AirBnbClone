@@ -7,7 +7,7 @@ from wtforms.validators import DataRequired
 
 
 class ProfileForm(FlaskForm):
-    firs_name  = StringField('first_name', validators=[DataRequired("first name is required")])
+    first_name  = StringField('first_name', validators=[DataRequired("first name is required")])
     last_name  = StringField('last_name', validators=[DataRequired("last name is required")])
     username  = StringField('username', validators=[DataRequired("username is required")])
     email  = StringField('email', validators=[DataRequired("email is required")])

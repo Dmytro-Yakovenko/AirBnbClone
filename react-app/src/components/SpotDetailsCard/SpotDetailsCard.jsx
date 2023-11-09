@@ -25,6 +25,7 @@ let months = [
 
 const SpotDetailsCard = () => {
   const spot = useSelector((state) => state.spots.spot);
+  console.log(spot, 4444444)
   const user = useSelector((state) => state.session.user);
 
   const [checkIn, setCheckIn] = useState(new Date());
@@ -37,7 +38,7 @@ const SpotDetailsCard = () => {
     if (new Date(checkIn) >= new Date(checkOut)) {
       error.message = "checkOut after checkIn";
     }
-  
+
     setError(error);
   }, [checkIn, checkOut]);
 
@@ -59,8 +60,8 @@ const SpotDetailsCard = () => {
       })
     );
     if (!user) {
-      history.push("/login")
-      return 
+      history.push("/login");
+      return;
     }
     history.push(
       `/booking?id=${spot.id}&checkIn=${checkIn}&checkOut=${checkOut}&price=${spot.price}`
@@ -113,11 +114,25 @@ const SpotDetailsCard = () => {
         <h2 className="spot-title">
           {spot.title}, in {spot.city}, {spot.state}
         </h2>
+        <div className="spot-details-card-text-wrapper">
+          <div className="spot-details-text-wrapper">
+            <p>{spot.address} </p>
+            <p>{spot.description}</p>
+            <p>{spot.lat}</p>
+            <p>{spot.long}</p>
+          </div>
+          {(user.id===spot.owner_id) && 
+          
+          <div className="spot-details-button-wrapper">
+            <NavLink 
+            
+            to={`/spots/${spot.id}/edit`}>Edit Spot</NavLink>
 
-        <p>{spot.address} </p>
-        <p>{spot.description}</p>
-        <p>{spot.lat}</p>
-        <p>{spot.long}</p>
+            <Button id="deleteSpot"/>
+            
+            </div>
+            }
+        </div>
 
         <iframe
           src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.1222073449103!2d106.77590781537452!3d-6.2476228629146675!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f11b12c11ab7%3A0xcd48f5c775249316!2sHumanity%20First%20Indonesia!5e0!3m2!1sid!2sid!4v1605684563677!5m2!1sid!2sid"

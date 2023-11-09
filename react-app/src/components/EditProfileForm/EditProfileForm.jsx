@@ -52,7 +52,7 @@ const EditProfileForm = () => {
       error.email ||
       error.userImageUrl
     ) {
-      console.log(error,222222)
+      
       return;
     }
 
@@ -64,7 +64,7 @@ const EditProfileForm = () => {
       user_image_url: userImageUrl,
     };
 
-    dispatch(updateUser(formData));
+    dispatch(updateUser(user.id, formData));
     dispatch(setEditProfile());
     setIsSubmitted(false);
     setFirstName("");

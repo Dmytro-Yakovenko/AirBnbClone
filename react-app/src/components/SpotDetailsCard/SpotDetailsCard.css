@@ -97,3 +97,33 @@
     height: 300px;  
     width: 300px;
 }
+
+
+.spot-details-card-text-wrapper {
+    display: flex;
+    justify-content: space-between;
+
+}
+
+.spot-details-text-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.spot-details-button-wrapper {
+    display: flex;
+    gap:15px;
+    justify-content: center;
+    align-items: center;
+}
+
+.spot-details-button-wrapper a {
+    color: #000;
+    background-color: rgb(255, 56, 92);
+    padding: 16px;
+    display: block;
+    border-radius: 5px;
+   
+  
+}

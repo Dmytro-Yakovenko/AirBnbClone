@@ -127,6 +127,16 @@ const configBtn = {
   },
 
 
+  deleteSpot: {
+    text: "Delete",
+    type: "button",
+    className: " btn cancel-btn",
+  },
+
+
+
+
+
 
 
 };
