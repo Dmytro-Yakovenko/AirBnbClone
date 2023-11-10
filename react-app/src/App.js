@@ -17,6 +17,7 @@ import ConfirmedBookDetails from "./pages/ConfirmedBookDetails";
 import CreateSpotPage from "./pages/CreateSpotPage/CreateSpotPage";
 import CreateReviewPage from "./pages/CreateReviewPage";
 import ProfilePage from "./pages/ProfilePage";
+import EditSpotPage from "./pages/EditSpotPage";
 
 function App() {
 
@@ -66,6 +67,10 @@ function App() {
 
         <Route exact path={`/profile`}>
           <ProfilePage />
+        </Route>
+
+        <Route exact path="/spots/:id/edit">
+          <EditSpotPage />
         </Route>
        
         <Route path="*">
