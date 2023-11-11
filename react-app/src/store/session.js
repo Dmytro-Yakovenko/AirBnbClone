@@ -52,7 +52,6 @@ export const updateUser = (id, data) => async (dispatch) => {
     body: JSON.stringify(data),
   });
 
-  console.log(response, 55555)
   if (response.ok) {
     const data = await response.json();
     dispatch(setUser(data));

@@ -3,6 +3,7 @@
 const GET_SPOTS = "spots/GET_SPOTS"
 const GET_SPOT_BY_ID = "spots/GET_SPOT_BY_ID"
 const CREATE_SPOT = "spots/CREATE_SPOT"
+const REMOVE_SPOT = "spots/REMOVE_SPOT"
 
 //actions
 const getAllSpots=(data)=>({
@@ -18,6 +19,11 @@ const getSpotById = (data)=>({
 const createSpot = (data)=>({
     type:CREATE_SPOT,
     payload:data
+})
+
+const removeSpot=(id)=>({
+    type:REMOVE_SPOT,
+    payload:id
 })
 
 
@@ -62,6 +68,21 @@ export const createNewSpot=(data)=>async(dispatch)=>{
 }
 
 
+export const deleteSpot=(id)=>async(dispatch)=>{
+    const response = await fetch(`/api/spots/${id}`,{
+        method:"DELETE",
+        headers: {
+			"Content-Type": "application/json",
+		},
+       
+    })
+
+    if(response.ok){
+        dispatch(removeSpot(id))
+    }
+}
+
+
 
 
 
@@ -97,6 +118,11 @@ const spotReducer=(state=initialState, action)=>{
                         [action.payload.id]: action.payload
                     }
                 };
+        case REMOVE_SPOT:
+            const removeState = {...state}
+            delete removeState[action.payload]
+        return removeState
+               
         default:
             return state
     }

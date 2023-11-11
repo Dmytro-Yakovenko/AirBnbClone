@@ -20,10 +20,10 @@ class User(db.Model, UserMixin):
     
    
     
-    bookings = db.relationship("Booking", back_populates="user")
-    reviews = db.relationship("Review", back_populates = "user")
-    review_images = db.relationship("Review_image", back_populates = "user")
-    spots = db.relationship("Spot", back_populates = "user")
+    bookings = db.relationship("Booking", back_populates="user",  cascade="all, delete, delete-orphan")
+    reviews = db.relationship("Review", back_populates = "user",   cascade="all, delete, delete-orphan")
+    review_images = db.relationship("Review_image", back_populates = "user",  cascade="all, delete, delete-orphan")
+    spots = db.relationship("Spot", back_populates = "user",  cascade="all, delete, delete-orphan")
     
     
     

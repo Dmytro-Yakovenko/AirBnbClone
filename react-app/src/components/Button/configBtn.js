@@ -134,6 +134,13 @@ const configBtn = {
   },
 
 
+  deleteModalSpot: {
+    text: "Delete",
+    type: "button",
+    className: " btn cancel-btn",
+  },
+
+
 
 
 

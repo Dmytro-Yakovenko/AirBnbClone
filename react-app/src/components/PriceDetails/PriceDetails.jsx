@@ -11,12 +11,12 @@ const PriceDetails = () => {
   const amounts = calculatePrice(date);
 
   const handleError = (e) => {
-    console.log(e,4444444)
+   
     e.target.src =
       "https://res.cloudinary.com/dr1ekjmf4/image/upload/v1691726195/bc2d04276b5bfde9bce68c7a91914b7f_mi6kmp.jpg";
   };
 
-  console.log(4444444)
+
   return (
     <section className="page-details-section">
       <div className="price-details-spot-info">

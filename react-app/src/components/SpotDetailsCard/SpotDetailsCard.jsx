@@ -7,6 +7,7 @@ import Rating from "@mui/material/Rating";
 import Stack from "@mui/material/Stack";
 import { setDate } from "../../store/bookingReducer";
 import { NavLink, Redirect } from "react-router-dom";
+import { setModalId } from "../../store/modalReducer";
 
 let months = [
   "January",
@@ -25,7 +26,7 @@ let months = [
 
 const SpotDetailsCard = () => {
   const spot = useSelector((state) => state.spots.spot);
-  console.log(spot, 4444444)
+  
   const user = useSelector((state) => state.session.user);
 
   const [checkIn, setCheckIn] = useState(new Date());
@@ -128,7 +129,13 @@ const SpotDetailsCard = () => {
             
             to={`/spots/${spot.id}/edit`}>Edit Spot</NavLink>
 
-            <Button id="deleteSpot"/>
+            <Button id="deleteSpot" 
+            onClick={()=>{
+              
+              dispatch(  setModalId({modalId:"deleteSpot",currentId:spot.id}))
+            }
+            }
+            />
             
             </div>
             }

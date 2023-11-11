@@ -162,7 +162,7 @@ const CreateSpotPage = () => {
       formData['spot_image_url3']=imageUrl3
     }
     const data = await dispatch(createNewSpot(formData));
-console.log(data, 333333)
+
 
     if(data.id){
       

@@ -7,14 +7,22 @@ import { setModalId } from "../../store/modalReducer";
 import Button from "../Button";
 import Dates from "../Dates";
 import { deleteProfile } from "../../store/session";
+import { deleteSpot } from "../../store/spotReducer";
 
 const Modal = () => {
   const modalInfo = useSelector((state) => state.modal.modalInfo);
   const dispatch = useDispatch()
   const history = useHistory()
-  console.log(modalInfo?.currentId,55555555)
+
   const handleEdit=()=>{
   
+  }
+
+  const handleDeleteSpot=()=>{
+    dispatch(deleteSpot(modalInfo.currentId))
+    handleClose()
+    history.push("/")
+    
   }
  
 
@@ -110,10 +118,26 @@ const Modal = () => {
       ),
     },
 
+    deleteSpot: {
+      title: "Delete Spot",
+      text : "Are you sure you want to delete your spot",
+      body: "",
+      className: "modal-content-edit",
+
+      action: (
+        <div className="btn-wrapper">
+          <Button id="deleteModalSpot"  onClick={handleDeleteSpot}/>
+          <Button id="editCancel" onClick={handleClose}/>
+
+        </div>
+      ),
+
+    }
+
+
 
   };
   const modal = modalConfig[modalInfo?.modalId];
-
 
 
   function handleClose() {

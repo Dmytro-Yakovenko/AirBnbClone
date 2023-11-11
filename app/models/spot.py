@@ -22,8 +22,8 @@ class Spot(db.Model):
     updated_at=db.Column(db.DateTime, nullable=False, default = datetime.utcnow, onupdate=datetime.utcnow)
 
     # user = db.relationship("User", secondary=add_prefix_for_prod('booking'), back_populates="spot")
-    bookings = db.relationship("Booking", back_populates="spot")
-    reviews = db.relationship("Review", back_populates="spot")
+    bookings = db.relationship("Booking", back_populates="spot",  cascade="all, delete, delete-orphan")
+    reviews = db.relationship("Review", back_populates="spot",   cascade="all, delete, delete-orphan")
     
     spot_images = db.relationship("Spot_image", back_populates="spots")
     user = db.relationship("User", back_populates="spots")

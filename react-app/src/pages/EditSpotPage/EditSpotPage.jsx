@@ -1,15 +1,16 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import "./EditSpotPage.css"
 import { useParams } from 'react-router-dom'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { getOneSpot } from '../../store/spotReducer'
 
 const EditSpotPage = () => {
-     
+  const dispatch = useDispatch()   
   const {id}= useParams()
-  const spot = useSelector(state=>state.spots.spots[id])
+  const spot = useSelector(state=>state.spots.spot)
 
-  console.log(spot, 777777)
-  const [title, setTitle]= useState(spot?.title)
+ 
+  const [title, setTitle]= useState("")
   const [description,setDescription] = useState(spot?.description)
   const [address, setAddress] = useState(spot?.address)
   const [city, setCity] = useState(spot?.city)
@@ -17,12 +18,20 @@ const EditSpotPage = () => {
   const [country, setCountry] = useState(spot?.country)
   const [lat, setLat] = useState(spot?.lat)
   const [long, setLong] = useState(spot?.long)
-  const [images, setImages]= useState(spot?.image?.reduce((acc,curr)=>{
-    acc[curr.id]=curr.spot_image_url
-    return acc
-}
-    ,{}))
-  console.log(images, 66666)
+//   const [images, setImages]= useState(spot?.spot_image?.reduce((acc,curr)=>{
+//     acc[curr.id]=curr.spot_image_url
+   
+//     return acc
+// }
+//     ,{}))
+useEffect(()=>{
+dispatch(getOneSpot(id))
+},[id, dispatch])
+
+
+  useEffect(()=>{
+setTitle(spot?.title)
+  },[spot])
   return (
     <div className='edit-spot-page-container'>
         <h2> Update Spot</h2>
@@ -67,7 +76,7 @@ const EditSpotPage = () => {
             <input value={long} onChange={(e)=>setLong(e.target.value)}/>
             </label>
          <>
-         {/* {spot?.spot_image?.map((item, index)=>(
+         {/* {spot?.spot_image?.length >0 && images && spot?.spot_image?.map((item, index)=>(
               <label>
               Image url
               <input value={images[item.id]} onChange={(e)=>setLong(e.target.value)}/>
