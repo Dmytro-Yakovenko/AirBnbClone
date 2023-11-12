@@ -1,3 +1,40 @@
 .edit-spot-page-container {
-    max-width: 600px;
+   
+    max-width: 450px;
+    margin: 50px auto;
+}
+
+.edit-spot-page-container h2 {
+   font-size: 28px;
+   margin-bottom: 10px;
+   font-weight: bold;
+}
+
+.edit-spot-page-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.edit-spot-page-form input {
+    display: block;
+    width: 100%;
+    margin-top: 5px;
+}
+
+.edit-spot-page-form span{
+    display: flex;
+    flex-direction: column;
+}
+
+.edit-spot-page-buttons {
+    display: flex;
+    gap: 20px;
+    justify-content: space-between;
+    
+}
+
+.edit-spot-page-buttons button {
+    max-width: 200px;
+    width: 100%;
 }

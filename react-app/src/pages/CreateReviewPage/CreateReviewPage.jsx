@@ -11,6 +11,10 @@ const CreateReviewPage = () => {
   const [imageInputShow, setImageInputShow] = useState(false);
   const [newImage, setNewImage] = useState("");
   const [errors, setErrors]=useState({})
+  const [isSubmitted, setIsSubmitted]= useState(false)
+  const [newImage1, setNewImage1]= useState("")
+  const [newImage2, setNewImage2]= useState("")
+  const [newImage3, setNewImage3]= useState("")
 
 
 
@@ -30,7 +34,31 @@ if(review.length<5 && review.length>1000){
 if (!newImage.match(/^https:\/\/.*\.(?:jpeg|jpg|png)$/gm)) {
   error["newImage"] = "image is incorect format";
 }
- },[review, newImage])
+if (!newImage1.match(/^https:\/\/.*\.(?:jpeg|jpg|png)$/gm)) {
+  error["newImage1"] = "image is incorect format";
+}
+
+if (!newImage2.match(/^https:\/\/.*\.(?:jpeg|jpg|png)$/gm)) {
+  error["newImage2"] = "image is incorect format";
+}
+
+if (!newImage3.match(/^https:\/\/.*\.(?:jpeg|jpg|png)$/gm)) {
+  error["newImage3"] = "image is incorect format";
+}
+
+
+setErrors(error)
+ },[review, newImage, newImage1, newImage2, newImage3])
+
+
+ const handleCreateReview = (e)=>{
+  e.preventDefault()
+  setIsSubmitted(true)
+  console.log(isSubmitted)
+  if(errors.review || errors.newImage){
+
+  }
+ }
 
   return (
     <main className="create-review-page-main">
@@ -50,7 +78,10 @@ if (!newImage.match(/^https:\/\/.*\.(?:jpeg|jpg|png)$/gm)) {
 
         <div className="create-review-page-container">
           <h4 className="create-review-page-title">Create Review</h4>
-          <form className="create-review-page-form">
+          <form 
+          className="create-review-page-form"
+          onSubmit={handleCreateReview}
+          >
             <label>
               {" "}
               Leave your review
@@ -63,15 +94,55 @@ if (!newImage.match(/^https:\/\/.*\.(?:jpeg|jpg|png)$/gm)) {
                 placeholder="leave a review"
                 rows={6}
               ></textarea>
+              {errors.review && isSubmitted && <span className="create-review-page-error">{errors.review};</span>}
             </label>
             {imageInputShow && (
               <label>
                 add new image
                 <input
+
                   value={newImage}
                   onChange={(e) => setNewImage(e.target.value)}
                   placeholder="add new image"
                 />
+                 {errors.newImage && isSubmitted && <span className="create-review-page-error">{errors.review};</span>}
+              </label>
+            )}
+
+
+            {imageInputShow && newImage && (
+              <label>
+                one more
+                <input
+                  value={newImage1}
+                  onChange={(e) => setNewImage1(e.target.value)}
+                  placeholder="add new image"
+                />
+                 {errors.newImage1 && isSubmitted && <span className="create-review-page-error">{errors.review};</span>}
+              </label>
+            )}
+
+{imageInputShow && newImage1 && (
+              <label>
+                one more
+                <input
+                  value={newImage2}
+                  onChange={(e) => setNewImage2(e.target.value)}
+                  placeholder="add new image"
+                />
+                 {errors.newImage2 && isSubmitted && <span className="create-review-page-error">{errors.review};</span>}
+              </label>
+            )}
+
+{imageInputShow && newImage2 && (
+              <label>
+                lastone
+                <input
+                  value={newImage3}
+                  onChange={(e) => setNewImage3(e.target.value)}
+                  placeholder="add new image"
+                />
+                 {errors.newImage3 && isSubmitted && <span className="create-review-page-error">{errors.review};</span>}
               </label>
             )}
             <div className="create-review-page-review-wrapper">

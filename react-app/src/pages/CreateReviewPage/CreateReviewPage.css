@@ -37,6 +37,7 @@
     top: 5px;
     left: 5px;
     font-size: 24px;
+    margin-bottom: 20px;
  
 }
 
@@ -68,3 +69,12 @@ font-weight: bold;
 .create-review-page-form input {
     width: 100%;
 }
+
+.create-review-page-error {
+    position: absolute;
+    color: rgb(235, 11, 56);
+    font-size: 14px;
+    bottom: 0;
+    left: 0;
+}
+

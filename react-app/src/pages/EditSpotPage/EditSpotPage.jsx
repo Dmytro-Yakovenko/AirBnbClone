@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from 'react'
 import "./EditSpotPage.css"
-import { useParams } from 'react-router-dom'
+import { useParams, useHistory} from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { getOneSpot } from '../../store/spotReducer'
+import  Button from '../../components/Button'
+
 
 const EditSpotPage = () => {
   const dispatch = useDispatch()   
   const {id}= useParams()
   const spot = useSelector(state=>state.spots.spot)
-
+  const history = useHistory
  
   const [title, setTitle]= useState("")
   const [description,setDescription] = useState(spot?.description)
@@ -25,13 +27,19 @@ const EditSpotPage = () => {
 // }
 //     ,{}))
 useEffect(()=>{
-dispatch(getOneSpot(id))
+  if(id){
+    dispatch(getOneSpot(id))
+  }
+
+// if(spot.title){
+//   setTitle(spot?.title)
+// }
 },[id, dispatch])
 
 
-  useEffect(()=>{
-setTitle(spot?.title)
-  },[spot])
+//   useEffect(()=>{
+// setTitle(spot?.title)
+//   },[spot])
   return (
     <div className='edit-spot-page-container'>
         <h2> Update Spot</h2>
@@ -83,8 +91,17 @@ setTitle(spot?.title)
               </label>
          ))} */}
          </>
+
+         <div className='edit-spot-page-buttons'>
+         <Button id='editSpot'/>
+         <Button 
+         onClick={()=>{history.push(`/spots/${id}`)}}
+         id='cancelEditSpot'/>
+
          
-         
+
+         </div>
+     
          
 
         </form>

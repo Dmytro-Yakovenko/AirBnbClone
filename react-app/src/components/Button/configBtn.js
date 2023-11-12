@@ -140,6 +140,18 @@ const configBtn = {
     className: " btn cancel-btn",
   },
 
+  editSpot:{
+    text:"Edit",
+    type:'button',
+    className: " btn cancel-btn",
+  },
+
+  cancelEditSpot:{
+    text:"Cancel",
+    type:'button',
+    className: " btn cancel-btn",
+  }
+
 
 
 
