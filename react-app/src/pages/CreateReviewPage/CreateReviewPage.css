@@ -73,8 +73,8 @@ font-weight: bold;
 .create-review-page-error {
     position: absolute;
     color: rgb(235, 11, 56);
-    font-size: 14px;
-    bottom: 0;
+    font-size: 20px;
+    bottom: -20px;
     left: 0;
 }
 

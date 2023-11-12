@@ -5,17 +5,20 @@ import CreateRating from "../../components/CreateRating";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getOneSpot } from "../../store/spotReducer";
+import { createNewReview } from "../../store/reviewReducer";
 
 const CreateReviewPage = () => {
   const [review, setReview] = useState("");
   const [imageInputShow, setImageInputShow] = useState(false);
   const [newImage, setNewImage] = useState("");
-  const [errors, setErrors]=useState({})
-  const [isSubmitted, setIsSubmitted]= useState(false)
-  const [newImage1, setNewImage1]= useState("")
-  const [newImage2, setNewImage2]= useState("")
-  const [newImage3, setNewImage3]= useState("")
+  const [errors, setErrors] = useState({});
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [newImage1, setNewImage1] = useState("");
+  const [newImage2, setNewImage2] = useState("");
+  const [newImage3, setNewImage3] = useState("");
 
+const user = useSelector(state=>state.session.user)
+const rating = useSelector(state=>state.rating.rating)
 
 
   const dispatch = useDispatch();
@@ -25,40 +28,61 @@ const CreateReviewPage = () => {
     dispatch(getOneSpot(id));
   }, [dispatch, id]);
 
- useEffect(()=>{
-const error = {}
-if(review.length<5 && review.length>1000){
-  error.review="review shoud be longer than 5 and shorter than 1000 characters"
+  useEffect(() => {
+    const error = {};
+    if (review.length < 5 && review.length > 1000) {
+      error.review =
+        "review shoud be longer than 5 and shorter than 1000 characters";
+    }
+    if (!newImage.match(/^https:\/\/.*\.(?:jpeg|jpg|png)$/gm)) {
+      error["newImage"] = "image is incorect format";
+    }
+    if (!newImage1.match(/^https:\/\/.*\.(?:jpeg|jpg|png)$/gm)) {
+      error["newImage1"] = "image is incorect format";
+    }
 
-}
-if (!newImage.match(/^https:\/\/.*\.(?:jpeg|jpg|png)$/gm)) {
-  error["newImage"] = "image is incorect format";
-}
-if (!newImage1.match(/^https:\/\/.*\.(?:jpeg|jpg|png)$/gm)) {
-  error["newImage1"] = "image is incorect format";
-}
+    if (!newImage2.match(/^https:\/\/.*\.(?:jpeg|jpg|png)$/gm)) {
+      error["newImage2"] = "image is incorect format";
+    }
 
-if (!newImage2.match(/^https:\/\/.*\.(?:jpeg|jpg|png)$/gm)) {
-  error["newImage2"] = "image is incorect format";
-}
+    if (!newImage3.match(/^https:\/\/.*\.(?:jpeg|jpg|png)$/gm)) {
+      error["newImage3"] = "image is incorect format";
+    }
 
-if (!newImage3.match(/^https:\/\/.*\.(?:jpeg|jpg|png)$/gm)) {
-  error["newImage3"] = "image is incorect format";
-}
+    setErrors(error);
+  }, [review, newImage, newImage1, newImage2, newImage3]);
 
+  const handleCreateReview = (e) => {
+    e.preventDefault();
+    setIsSubmitted(true);
+   
+    if (
+      errors.review ||
+      errors.newImage 
+    ) {
+      return;
+    }
 
-setErrors(error)
- },[review, newImage, newImage1, newImage2, newImage3])
-
-
- const handleCreateReview = (e)=>{
-  e.preventDefault()
-  setIsSubmitted(true)
-  console.log(isSubmitted)
-  if(errors.review || errors.newImage){
-
-  }
- }
+    const formData={
+      review, 
+      user_id:user.id,
+      rating:rating,
+    }
+    if(newImage){
+      formData['review_images']=newImage
+    }
+    if(newImage1){
+      formData['review_images']=newImage1
+    }
+    if(newImage2){
+      formData['review_images']=newImage2
+    }
+    if(newImage3){
+      formData['review_images']=newImage3
+    }
+    console.log(formData, 444444)
+    dispatch(createNewReview(formData, id))
+  };
 
   return (
     <main className="create-review-page-main">
@@ -78,9 +102,9 @@ setErrors(error)
 
         <div className="create-review-page-container">
           <h4 className="create-review-page-title">Create Review</h4>
-          <form 
-          className="create-review-page-form"
-          onSubmit={handleCreateReview}
+          <form
+            className="create-review-page-form"
+            onSubmit={handleCreateReview}
           >
             <label>
               {" "}
@@ -94,21 +118,27 @@ setErrors(error)
                 placeholder="leave a review"
                 rows={6}
               ></textarea>
-              {errors.review && isSubmitted && <span className="create-review-page-error">{errors.review};</span>}
+              {errors.review && isSubmitted && (
+                <span className="create-review-page-error">
+                  {errors.review}
+                </span>
+              )}
             </label>
             {imageInputShow && (
               <label>
                 add new image
                 <input
-
                   value={newImage}
                   onChange={(e) => setNewImage(e.target.value)}
                   placeholder="add new image"
                 />
-                 {errors.newImage && isSubmitted && <span className="create-review-page-error">{errors.review};</span>}
+                {errors.newImage && isSubmitted && (
+                  <span className="create-review-page-error">
+                    {errors.newImage}
+                  </span>
+                )}
               </label>
             )}
-
 
             {imageInputShow && newImage && (
               <label>
@@ -118,11 +148,15 @@ setErrors(error)
                   onChange={(e) => setNewImage1(e.target.value)}
                   placeholder="add new image"
                 />
-                 {errors.newImage1 && isSubmitted && <span className="create-review-page-error">{errors.review};</span>}
+                {errors.newImage1 && isSubmitted && (
+                  <span className="create-review-page-error">
+                    {errors.newImage1}
+                  </span>
+                )}
               </label>
             )}
 
-{imageInputShow && newImage1 && (
+            {imageInputShow && newImage1 && (
               <label>
                 one more
                 <input
@@ -130,11 +164,15 @@ setErrors(error)
                   onChange={(e) => setNewImage2(e.target.value)}
                   placeholder="add new image"
                 />
-                 {errors.newImage2 && isSubmitted && <span className="create-review-page-error">{errors.review};</span>}
+                {errors.newImage2 && isSubmitted && (
+                  <span className="create-review-page-error">
+                    {errors.newImage2}
+                  </span>
+                )}
               </label>
             )}
 
-{imageInputShow && newImage2 && (
+            {imageInputShow && newImage2 && (
               <label>
                 lastone
                 <input
@@ -142,24 +180,25 @@ setErrors(error)
                   onChange={(e) => setNewImage3(e.target.value)}
                   placeholder="add new image"
                 />
-                 {errors.newImage3 && isSubmitted && <span className="create-review-page-error">{errors.review};</span>}
+                {errors.newImage3 && isSubmitted && (
+                  <span className="create-review-page-error">
+                    {errors.newImage3}
+                  </span>
+                )}
               </label>
             )}
             <div className="create-review-page-review-wrapper">
               <div>
-              {!imageInputShow &&
-                    <Button
+                {!imageInputShow && (
+                  <Button
                     onClick={() => {
                       setImageInputShow(true);
                     }}
                     id="addPhoto"
                   />
-                
-              }
-          
-
+                )}
               </div>
- 
+
               <Button id="postReview" />
             </div>
           </form>

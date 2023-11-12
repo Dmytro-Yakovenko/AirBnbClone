@@ -6,6 +6,7 @@ import bookReducer from './bookingReducer';
 import modalReducer from './modalReducer';
 import reviewReducer from './reviewReducer';
 import editProfileReducer from './profileReducer';
+import ratingReducer from './ratingReducer';
 
 const rootReducer = combineReducers({
   session,
@@ -13,7 +14,8 @@ const rootReducer = combineReducers({
   booking:bookReducer,
   modal:modalReducer,
   reviews:reviewReducer,
-  profile:editProfileReducer
+  profile:editProfileReducer,
+  rating:ratingReducer,
 });
 
 

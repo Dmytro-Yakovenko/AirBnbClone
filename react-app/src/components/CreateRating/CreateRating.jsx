@@ -1,9 +1,11 @@
-import   React, {useState} from 'react';
+import   React, {useEffect, useState} from 'react';
 import Rating from '@mui/material/Rating';
 import Box from '@mui/material/Box';
 import StarIcon from '@mui/icons-material/Star';
 
 import "./CreateRating.css"
+import { createRating } from '../../store/ratingReducer';
+import { useDispatch } from 'react-redux';
 
 const labels = {
   0.5: 'Useless',
@@ -26,6 +28,10 @@ export default function HoverRating() {
   const [value, setValue] = useState(5);
   const [hover, setHover] =useState(-1);
 
+const dispatch = useDispatch()
+useEffect(()=>{
+  dispatch(createRating)
+}, [value, dispatch])
   return (
     <Box
       sx={{
