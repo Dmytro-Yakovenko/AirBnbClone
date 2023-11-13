@@ -78,3 +78,21 @@ font-weight: bold;
     left: 0;
 }
 
+.create-review-page-icon-wrapper {
+    position: relative;
+  
+}
+
+.create-review-page-icon-error {
+    position: absolute;
+    right: -20px;
+    bottom: 15px;
+    color: rgb(171, 13, 45);
+}
+
+.create-review-page-review-container {
+    max-width: 250px;
+    width: 100%;
+    
+}
+

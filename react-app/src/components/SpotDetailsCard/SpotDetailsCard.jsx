@@ -181,6 +181,14 @@ const SpotDetailsCard = () => {
         </div>
         {error.message && <span className="spot-error">{error.message} </span>}
       </form>
+      <div>
+      <NavLink
+                  className="spot-review-link"
+                  to={`/spots/${spot.id}/review/new`}
+                >
+                  Write a review
+                </NavLink>
+      </div>
       {!!spot.reviews?.length && (
         <ul>
           {spot.reviews.map((item) => (
@@ -196,12 +204,7 @@ const SpotDetailsCard = () => {
                     readOnly
                   />
                 </Stack>
-                <NavLink
-                  className="spot-review-link"
-                  to={`/spots/${spot.id}/review/new`}
-                >
-                  Write a review
-                </NavLink>
+            
               </div>
               <div>
                 <p>Review: </p>

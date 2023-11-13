@@ -2,10 +2,11 @@ import React, { useEffect, useState } from "react";
 import Button from "../../components/Button";
 import "./CreateReviewPage.css";
 import CreateRating from "../../components/CreateRating";
-import { useParams } from "react-router-dom";
+import { useParams, useHistory} from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getOneSpot } from "../../store/spotReducer";
 import { createNewReview } from "../../store/reviewReducer";
+
 
 const CreateReviewPage = () => {
   const [review, setReview] = useState("");
@@ -17,10 +18,9 @@ const CreateReviewPage = () => {
   const [newImage2, setNewImage2] = useState("");
   const [newImage3, setNewImage3] = useState("");
 
-const user = useSelector(state=>state.session.user)
-const rating = useSelector(state=>state.rating.rating)
-
-
+  const user = useSelector((state) => state.session.user);
+  const rating = useSelector((state) => state.rating.rating);
+  const history = useHistory()
   const dispatch = useDispatch();
   const { id } = useParams();
   const spot = useSelector((state) => state.spots.spot);
@@ -37,15 +37,15 @@ const rating = useSelector(state=>state.rating.rating)
     if (!newImage.match(/^https:\/\/.*\.(?:jpeg|jpg|png)$/gm)) {
       error["newImage"] = "image is incorect format";
     }
-    if (!newImage1.match(/^https:\/\/.*\.(?:jpeg|jpg|png)$/gm)) {
+    if (!newImage1.match(/^https:\/\/.*\.(?:jpeg|jpg|png)$/gm) && newImage1) {
       error["newImage1"] = "image is incorect format";
     }
 
-    if (!newImage2.match(/^https:\/\/.*\.(?:jpeg|jpg|png)$/gm)) {
+    if (!newImage2.match(/^https:\/\/.*\.(?:jpeg|jpg|png)$/gm) && newImage2) {
       error["newImage2"] = "image is incorect format";
     }
 
-    if (!newImage3.match(/^https:\/\/.*\.(?:jpeg|jpg|png)$/gm)) {
+    if (!newImage3.match(/^https:\/\/.*\.(?:jpeg|jpg|png)$/gm) && newImage3) {
       error["newImage3"] = "image is incorect format";
     }
 
@@ -55,33 +55,32 @@ const rating = useSelector(state=>state.rating.rating)
   const handleCreateReview = (e) => {
     e.preventDefault();
     setIsSubmitted(true);
-   
-    if (
-      errors.review ||
-      errors.newImage 
-    ) {
+
+    if (errors.review || errors.newImage) {
       return;
     }
 
-    const formData={
-      review, 
-      user_id:user.id,
-      rating:rating,
+    const formData = {
+      review,
+      user_id: user.id,
+      rating: rating,
+    };
+    if (newImage) {
+      formData["review_images"] = newImage;
     }
-    if(newImage){
-      formData['review_images']=newImage
+    if (newImage1) {
+      formData["review_images1"] = newImage1;
     }
-    if(newImage1){
-      formData['review_images']=newImage1
+
+    if (newImage2) {
+      formData["review_images2"] = newImage2;
     }
-    if(newImage2){
-      formData['review_images']=newImage2
+    if (newImage3) {
+      formData["review_images3"] = newImage3;
     }
-    if(newImage3){
-      formData['review_images']=newImage3
-    }
-    console.log(formData, 444444)
-    dispatch(createNewReview(formData, id))
+
+    dispatch(createNewReview(formData, id));
+    history.push(`/spots/${id}`)
   };
 
   return (
@@ -188,14 +187,21 @@ const rating = useSelector(state=>state.rating.rating)
               </label>
             )}
             <div className="create-review-page-review-wrapper">
-              <div>
+              <div className="create-review-page-review-container">
                 {!imageInputShow && (
-                  <Button
-                    onClick={() => {
-                      setImageInputShow(true);
-                    }}
-                    id="addPhoto"
-                  />
+                  <div className="create-review-page-icon-wrapper">
+                    <Button
+                      onClick={() => {
+                        setImageInputShow(true);
+                      }}
+                      id="addPhoto"
+                    />
+                    {errors.newImage && isSubmitted && (
+                  <span className="create-review-page-icon-error">
+                    You should add at least on photo
+                  </span>
+                )}
+                  </div>
                 )}
               </div>
 

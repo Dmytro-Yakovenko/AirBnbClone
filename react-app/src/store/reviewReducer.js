@@ -26,7 +26,9 @@ export const removeReview =(id)=>({
 //fetch request
 
 export const createNewReview = (data, spotId)=>async (dispatch)=>{
+    console.log(data,444444)
     const res =await fetch (`/api/spots/${spotId}/reviews`,{
+
         method:"POST",
         headers: {
             "Content-Type": "application/json",

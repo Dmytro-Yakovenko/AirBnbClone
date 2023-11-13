@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify, session, request
-from app.models import db, Spot, Review, Spot_image
+from app.models import db, Spot, Review, Spot_image,Review_image
 
 from app.forms import SpotForm, ReviewForm
 from flask_login import current_user,login_required
@@ -148,7 +148,12 @@ def delete_spot(id):
 
 @spot_routes.route("/<int:id>/reviews", methods=["POST"]) 
 @login_required  
-def create_review():
+def create_review(id):
+    # checks if spot exists
+    spot = Spot.query.get(id)
+    if not spot:
+        return {'errors': f"Spot {id} does not exist."}, 404
+    
     """
     Creates a new review
     """
@@ -160,13 +165,47 @@ def create_review():
   
     if form.validate_on_submit():
         review = Review(
-           
+            user_id=form.data['user_id'],
             review=form.data['review'],
             rating=form.data['rating'],
-         
+            spot_id=id
+            
         )
         db.session.add(review)
         db.session.commit()
+        review_image=Review_image(
+            review_id=review.id,
+            user_id=form.data["user_id"],
+            review_image_url=form.data["review_images"],
+        )
+        db.session.add(review_image)
+        db.session.commit()
+        if(form.data['review_images1']):
+            review_image1 = Review_image(
+            review_id=review.id,
+            user_id=form.data["user_id"],
+            review_image_url=form.data["review_images1"],
+            )
+            db.session.add(review_image1)
+            db.session.commit()
+            
+        if(form.data['review_images2']):
+            review_image2 = Review_image(
+            review_id=review.id,
+            user_id=form.data["user_id"],
+            review_image_url=form.data["review_images2"],
+            )
+            db.session.add(review_image2)
+            db.session.commit()
+        
+        if(form.data['review_images3']):
+            review_image3 = Review_image(
+            review_id=review.id,
+            user_id=form.data["user_id"],
+            review_image_url=form.data["review_images3"],
+            )
+            db.session.add(review_image3)
+            db.session.commit()
         return review.to_dict(), 201
     return {'errors': validation_errors_to_error_messages(form.errors)}, 400
 

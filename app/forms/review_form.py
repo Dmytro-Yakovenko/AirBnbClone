@@ -9,7 +9,9 @@ from wtforms.validators import DataRequired
 class ReviewForm(FlaskForm):
    review  = StringField('review', validators=[DataRequired("review is required")])
    rating =StringField('rating', validators=[DataRequired("rating is required")])
-   review_image =StringField('review_image', validators=[DataRequired()])
+   review_images =StringField('review_images', validators=[DataRequired()])
    user_id = StringField("user_id", validators=[DataRequired()])
-   
+   review_images1=StringField('review_images1')
+   review_images2=StringField('review_images2')
+   review_images3=StringField('review_images3')
     
