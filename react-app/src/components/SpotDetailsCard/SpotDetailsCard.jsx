@@ -9,6 +9,9 @@ import { setDate } from "../../store/bookingReducer";
 import { NavLink, Redirect } from "react-router-dom";
 import { setModalId } from "../../store/modalReducer";
 
+import Carousel from "../Carousel";
+import { avеrageRate } from "../../utils/utils";
+
 let months = [
   "January",
   "February",
@@ -26,7 +29,7 @@ let months = [
 
 const SpotDetailsCard = () => {
   const spot = useSelector((state) => state.spots.spot);
-  
+
   const user = useSelector((state) => state.session.user);
 
   const [checkIn, setCheckIn] = useState(new Date());
@@ -122,23 +125,20 @@ const SpotDetailsCard = () => {
             <p>{spot.lat}</p>
             <p>{spot.long}</p>
           </div>
-          {(user.id===spot.owner_id) && 
-          
-          <div className="spot-details-button-wrapper">
-            <NavLink 
-            
-            to={`/spots/${spot.id}/edit`}>Edit Spot</NavLink>
+          {user.id === spot.owner_id && (
+            <div className="spot-details-button-wrapper">
+              <NavLink to={`/spots/${spot.id}/edit`}>Edit Spot</NavLink>
 
-            <Button id="deleteSpot" 
-            onClick={()=>{
-              
-              dispatch(  setModalId({modalId:"deleteSpot",currentId:spot.id}))
-            }
-            }
-            />
-            
+              <Button
+                id="deleteSpot"
+                onClick={() => {
+                  dispatch(
+                    setModalId({ modalId: "deleteSpot", currentId: spot.id })
+                  );
+                }}
+              />
             </div>
-            }
+          )}
         </div>
 
         <iframe
@@ -181,60 +181,74 @@ const SpotDetailsCard = () => {
         </div>
         {error.message && <span className="spot-error">{error.message} </span>}
       </form>
-      <div>
-      <NavLink
-                  className="spot-review-link"
-                  to={`/spots/${spot.id}/review/new`}
-                >
-                  Write a review
-                </NavLink>
+      <div className="spot-review-link-wrapper">
+        <NavLink
+          className="spot-review-link"
+          to={`/spots/${spot.id}/review/new`}
+        >
+          Write a review
+        </NavLink>
+        <div>
+          {" "}
+          Rating:
+
+          {!!spot.reviews?.length && <Stack spacing={1}>
+           <Rating
+              name="half-rating-read"
+              defaultValue={()=>avеrageRate(spot?.reviews)}
+              precision={0.5}
+              readOnly
+            />
+            <span>(on {spot.reviews.length} reviews)</span>
+          </Stack>}
+        </div>
       </div>
       {!!spot.reviews?.length && (
-        <ul>
+        <ul className="spot-review-list">
           {spot.reviews.map((item) => (
             <li className="spot-reviews" key={item.id}>
-              <div>
-                {" "}
-                Rating:
-                <Stack spacing={1}>
-                  <Rating
-                    name="half-rating-read"
-                    defaultValue={item.rating}
-                    precision={0.5}
-                    readOnly
-                  />
-                </Stack>
-            
-              </div>
-              <div>
-                <p>Review: </p>
-                <p> {item.review}</p>
-              </div>
-
-              <div className="spot-review-wrapper">
+              <div className="spot-review-item">
+                <div>
+                  {" "}
+                  Rating:
+                  <Stack spacing={1}>
+                    <Rating
+                      name="half-rating-read"
+                      defaultValue={item.rating}
+                      precision={0.5}
+                      readOnly
+                    />
+                  </Stack>
+                </div>
+                <div>
+                  <p>Review: </p>
+                  <p> {item.review}</p>
+                </div>
                 <p> {formatData(item.created_at)}</p>
+                <div className="spot-review-wrapper">
+                  <img
+                    className="user-image"
+                    src={item.user.user_image_url}
+                    alt=""
+                  />
+                  <p>
+                    {item.user.first_name} {item.user.last_name}
+                  </p>
 
-                <img
-                  className="user-image"
-                  src={item.user.user_image_url}
-                  alt=""
-                />
-                <p>
-                  {item.user.first_name} {item.user.last_name}
-                </p>
+                  {user.id===item.user.id && (<div>
+                    <Button id="deleteReviewModal"/>
+                    <NavLink path={`/spots/${spot.id}/edit`}/>
+
+                  </div>)}
+                </div>
+
               </div>
               {item.review_image.length && (
-                <ul>
-                  {item.review_image.map((el) => (
-                    <li key={`review_image_${el.id}`}>
-                      <img
-                        className="spot-review-image"
-                        src={el.review_image_url}
-                        alt=""
-                      />
-                    </li>
-                  ))}
-                </ul>
+                <Carousel
+                  id="review"
+                  images={item.review_image}
+                  title={spot.title}
+                />
               )}
             </li>
           ))}
@@ -243,9 +257,6 @@ const SpotDetailsCard = () => {
       {!spot.reviews?.length && (
         <div className="spot-form-container">
           <p>No reviews yet. You can leave you review </p>
-          <NavLink className="continue-btn" to={`/spots/${spot.id}/review/new`}>
-            Write a review
-          </NavLink>
         </div>
       )}
     </section>

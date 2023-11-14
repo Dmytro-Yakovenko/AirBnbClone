@@ -42,3 +42,15 @@ export const calculatePrice = (dates) => {
   const totalPrice = Math.ceil(price+cleaningFee+airbnbFee+taxes)
   return {price, cleaningFee, airbnbFee,taxes,totalPrice,days};
 };
+
+
+export const avеrageRate = (rate)=>{
+  
+  const rating =rate.reduce((acc, curr)=>{
+    acc+=curr.rating
+   
+    return acc
+   },0 )
+  
+return rating/rate.length
+}
