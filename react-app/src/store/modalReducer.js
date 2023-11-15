@@ -19,7 +19,7 @@ const initialState = {
 const modalReducer = (state = initialState, action) => {
   switch (action.type) {
     case MODAL_ID:
-        console.log(action.payload,1111111)
+   
       return { ...state, modalInfo: action.payload, isOpen: !state.isOpen };
     default:
       return state;

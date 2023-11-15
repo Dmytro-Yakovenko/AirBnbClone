@@ -8,6 +8,7 @@ import Stack from "@mui/material/Stack";
 import { setDate } from "../../store/bookingReducer";
 import { NavLink, Redirect } from "react-router-dom";
 import { setModalId } from "../../store/modalReducer";
+import { RiEdit2Line } from "react-icons/ri";
 
 import Carousel from "../Carousel";
 import { avеrageRate } from "../../utils/utils";
@@ -235,12 +236,16 @@ const SpotDetailsCard = () => {
                     {item.user.first_name} {item.user.last_name}
                   </p>
 
-                  {user.id===item.user.id && (<div>
-                    <Button id="deleteReviewModal"/>
-                    <NavLink path={`/spots/${spot.id}/edit`}/>
-
-                  </div>)}
                 </div>
+
+                {user.id===item.user.id && (<div className="spot-review-buttons-wrapper">
+                    <Button
+                    onClick={()=>dispatch(setModalId({modalId:"deleteReview", currentId:item.review.id}))}
+
+               
+                    id="deleteReviewModal"/>
+                    <NavLink className="edit-icon-btn" to={`/spots/${spot.id}/edit`}><RiEdit2Line /></NavLink>
+                  </div>)}
 
               </div>
               {item.review_image.length && (

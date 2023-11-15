@@ -1,5 +1,5 @@
 import { BsFillCameraFill } from 'react-icons/bs';
-
+import { RiDeleteBin6Line } from "react-icons/ri";
 const configBtn = {
   logOut: {
     text: "Log Out",
@@ -150,7 +150,22 @@ const configBtn = {
     text:"Cancel",
     type:'button',
     className: " btn cancel-btn",
+  },
+
+  deleteReviewModal:{
+    text:<RiDeleteBin6Line />,
+    type:'button',
+    className: " btn delete-icon-btn",
+  },
+
+  deleteReview:{
+    text:"Delete",
+    type:'button',
+    className: " btn cancel-btn",
   }
+
+
+
 
 
 

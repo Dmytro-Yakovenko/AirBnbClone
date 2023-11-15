@@ -132,6 +132,21 @@ const Modal = () => {
         </div>
       ),
 
+    },
+
+
+    deleteReview: {
+      title: "Delete Review",
+      text : "Are you sure you want to delete your review",
+      body: "",
+      className: "modal-content-edit",
+      action: (
+        <div className="btn-wrapper">
+          <Button id="deleteReview"  onClick={handleDeleteSpot}/>
+          <Button id="editCancel" onClick={handleClose}/>
+
+        </div>
+      ),
     }
 
 

@@ -12,8 +12,7 @@ import SwipeableViews from 'react-swipeable-views';
 import { autoPlay } from 'react-swipeable-views-utils';
 
 const Carousel = ({images, title, id}) => {
-console.log(images, 77777)
-console.log(title, 88888)
+
 
 images =(images.length<1)?[{spot_image_url:"https://res.cloudinary.com/dr1ekjmf4/image/upload/v1698849695/1e461b4afb5755045f2c2d841cc3c946_bf9cro.jpg"}]:images
     const theme = useTheme();
