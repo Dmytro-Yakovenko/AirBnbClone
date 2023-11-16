@@ -143,6 +143,25 @@ def delete_spot(id):
 
 
         
+@spot_routes.route('/<int:spot_id>/reviews/<int:review_id>')
+def get_review(spot_id, review_id):
+    """
+    Query for a spot  by id and returns that spot in a dictionary
+    """
+    spot = Spot.query.get(spot_id)
+    
+    # checks if spot exists
+    if not spot:
+        return {'errors': f"Spot {spot_id} does not exist."}, 404
+    
+
+    review = Review.query.get(review_id)
+    
+    if not review:
+        return {"errors": f"Review {review_id} does not exist."}, 404
+    
+    return review.to_dict()
+
 
 
 
@@ -243,6 +262,8 @@ def update_review(spot_id, review_id):
 @spot_routes.route('/<int:spot_id>/reviews/<int:review_id>', methods=["DELETE"])
 @login_required
 def delete_review(spot_id, review_id):
+    
+   
     """
     Deletes a spot
     """
@@ -252,13 +273,14 @@ def delete_review(spot_id, review_id):
         return {'errors': f"Spot {spot_id} does not exist."}, 400
     
     review = Review.query.get(review_id)
+  
     # checks if current user is a creator of the review
     if not review:
         return {'errors': f"Review {review_id} does not exist."}, 400
     
     if review.user_id != current_user.id:
         return {'errors': f"User is not the creator of review {review_id}."}, 401
-    db.session.delete(spot)
+    db.session.delete(review)
     db.session.commit()
     return {'message': 'Delete successful.'}
 

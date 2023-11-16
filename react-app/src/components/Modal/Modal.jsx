@@ -8,9 +8,12 @@ import Button from "../Button";
 import Dates from "../Dates";
 import { deleteProfile } from "../../store/session";
 import { deleteSpot } from "../../store/spotReducer";
+import { deleteReview } from "../../store/reviewReducer";
 
 const Modal = () => {
   const modalInfo = useSelector((state) => state.modal.modalInfo);
+  const spot = useSelector((state)=>state.spots.spot)
+
   const dispatch = useDispatch()
   const history = useHistory()
 
@@ -23,6 +26,13 @@ const Modal = () => {
     handleClose()
     history.push("/")
     
+  }
+
+  const handleDeleteReview=()=>{
+   const res = dispatch(deleteReview(spot.id, modalInfo.currentId))
+   if(res){
+    handleClose()
+   }
   }
  
 
@@ -142,7 +152,7 @@ const Modal = () => {
       className: "modal-content-edit",
       action: (
         <div className="btn-wrapper">
-          <Button id="deleteReview"  onClick={handleDeleteSpot}/>
+          <Button id="deleteReview"  onClick={handleDeleteReview}/>
           <Button id="editCancel" onClick={handleClose}/>
 
         </div>

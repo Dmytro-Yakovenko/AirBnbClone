@@ -18,6 +18,7 @@ import CreateSpotPage from "./pages/CreateSpotPage/CreateSpotPage";
 import CreateReviewPage from "./pages/CreateReviewPage";
 import ProfilePage from "./pages/ProfilePage";
 import EditSpotPage from "./pages/EditSpotPage";
+import EditReviewPage from "./pages/EditReviewPage";
 
 function App() {
 
@@ -71,6 +72,10 @@ function App() {
 
         <Route exact path="/spots/:id/edit">
           <EditSpotPage />
+        </Route>
+
+        <Route exact path="/spots/:spot_id/review/:review_id/edit">
+          <EditReviewPage />
         </Route>
        
         <Route path="*">

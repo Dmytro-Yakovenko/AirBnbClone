@@ -240,11 +240,11 @@ const SpotDetailsCard = () => {
 
                 {user.id===item.user.id && (<div className="spot-review-buttons-wrapper">
                     <Button
-                    onClick={()=>dispatch(setModalId({modalId:"deleteReview", currentId:item.review.id}))}
+                    onClick={()=>dispatch(setModalId({modalId:"deleteReview", currentId:item.id}))}
 
                
                     id="deleteReviewModal"/>
-                    <NavLink className="edit-icon-btn" to={`/spots/${spot.id}/edit`}><RiEdit2Line /></NavLink>
+                    <NavLink className="edit-icon-btn" to={`/spots/${spot.id}/review/${item.id}/edit`}><RiEdit2Line /></NavLink>
                   </div>)}
 
               </div>

@@ -11,7 +11,7 @@ const getAllSpots=(data)=>({
     payload:data
 })
 
-const getSpotById = (data)=>({
+export const getSpotById = (data)=>({
     type:GET_SPOT_BY_ID,
     payload:data
 })
