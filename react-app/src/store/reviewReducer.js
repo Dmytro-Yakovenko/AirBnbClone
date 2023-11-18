@@ -30,7 +30,7 @@ export const getReviewById = (data) => ({
 
 //fetch request
 
-export const createNewReview = (data, spotId) => async (dispatch) => {
+export const createNewReview = (data, spotId) => async (dispatch, getState) => {
   const res = await fetch(`/api/spots/${spotId}/reviews`, {
     method: "POST",
     headers: {
@@ -39,7 +39,12 @@ export const createNewReview = (data, spotId) => async (dispatch) => {
     body: JSON.stringify(data),
   });
   if (res.ok) {
-    dispatch(createReview(await res.json()));
+    const data = await res.json()
+    dispatch(createReview( data));
+    const state = getState()
+    const review= [...state.spots.spot.reviews, data]
+   
+    dispatch(getSpotById({...state.spots.spot, reviews:review}))
     return res.ok;
   }
 };

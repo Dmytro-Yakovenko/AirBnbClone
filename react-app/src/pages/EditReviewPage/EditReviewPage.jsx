@@ -5,11 +5,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { getReview, updateReview } from "../../store/reviewReducer";
 import CreateRating from "../../components/CreateRating";
 import Button from "../../components/Button";
+import { useHistory } from "react-router-dom";
 
 const EditReviewPage = () => {
   const { spot_id, review_id } = useParams();
   const review = useSelector((state) => state.reviews.review);
-  console.log(review, 111111);
+  const rating = useSelector((state)=>state.rating.rating)
   const dispatch = useDispatch();
   const [errors, setErrors] = useState({});
   const [reviewValue, setReviewValue] = useState("");
@@ -19,6 +20,8 @@ const EditReviewPage = () => {
   const [newImage2, setNewImage2] = useState("");
   const [newImage3, setNewImage3] = useState("");
 
+  const user = useSelector((state)=>state.session.user)
+  const history = useHistory()
   useEffect(() => {
     dispatch(getReview(spot_id, review_id));
   }, [dispatch, spot_id, review_id]);
@@ -65,8 +68,34 @@ const EditReviewPage = () => {
   }, [reviewValue, newImage, newImage1, newImage2, newImage3]);
 
 
-const handleSubmit=()=>{
-    
+const handleSubmit=(e)=>{
+    e.preventDefault()
+    setIsSubmitted(true)
+    if(errors.review || errors.newImage){
+      return 
+    }
+    const formData = {
+      review:reviewValue,
+      user_id:user.id,
+      rating:rating, 
+      
+    };
+    if (newImage) {
+      formData["review_images"] = newImage;
+    }
+    if (newImage1) {
+      formData["review_images1"] = newImage1;
+    }
+
+    if (newImage2) {
+      formData["review_images2"] = newImage2;
+    }
+    if (newImage3) {
+      formData["review_images3"] = newImage3;
+    }
+    dispatch(updateReview(formData, spot_id, review_id))
+    history.push(`/spots/${spot_id}`)
+
 }
 
   return (

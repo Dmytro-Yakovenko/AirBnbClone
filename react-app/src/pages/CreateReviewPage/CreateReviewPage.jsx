@@ -20,6 +20,7 @@ const CreateReviewPage = () => {
 
   const user = useSelector((state) => state.session.user);
   const rating = useSelector((state) => state.rating.rating);
+
   const history = useHistory()
   const dispatch = useDispatch();
   const { id } = useParams();

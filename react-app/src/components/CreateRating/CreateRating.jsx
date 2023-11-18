@@ -31,7 +31,7 @@ export default function HoverRating() {
 
 const dispatch = useDispatch()
 useEffect(()=>{
-  dispatch(createRating)
+  dispatch(createRating(value))
 }, [value, dispatch])
 useEffect(()=>{
   if(review && review.rating){
@@ -53,6 +53,7 @@ useEffect(()=>{
         precision={0.5}
         getLabelText={getLabelText}
         onChange={(event, newValue) => {
+       
           setValue(newValue);
         }}
         onChangeActive={(event, newHover) => {

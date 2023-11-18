@@ -219,6 +219,7 @@ const SpotDetailsCard = () => {
                       precision={0.5}
                       readOnly
                     />
+              
                   </Stack>
                 </div>
                 <div>
