@@ -162,7 +162,15 @@ const configBtn = {
     text:"Delete",
     type:'button',
     className: " btn cancel-btn",
-  }
+  },
+
+  updateReview: {
+    text: "Update Review",
+    type: "submit",
+    className: " btn cancel-btn",
+  },
+
+
 
 
 
