@@ -132,8 +132,8 @@ const CreateSpotPage = () => {
       error.imageUrl ||
       error.imageUrl1||
       error.imageUrl2||
-      error.imageUrl3||
-      error.owner_id
+      error.imageUrl3
+     
     ) {
       return;
     }

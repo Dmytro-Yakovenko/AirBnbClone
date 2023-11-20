@@ -245,7 +245,7 @@ const SpotDetailsCard = () => {
 
                
                     id="deleteReviewModal"/>
-                    <NavLink className="edit-icon-btn" to={`/spots/${spot.id}/review/${item.id}/edit`}><RiEdit2Line /></NavLink>
+                    {/* <NavLink className="edit-icon-btn" to={`/spots/${spot.id}/review/${item.id}/edit`}><RiEdit2Line /></NavLink> */}
                   </div>)}
 
               </div>

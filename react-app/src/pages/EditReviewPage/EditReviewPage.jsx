@@ -75,24 +75,28 @@ const handleSubmit=(e)=>{
       return 
     }
     const formData = {
-      review:reviewValue,
-      user_id:user.id,
-      rating:rating, 
+    
+        review:reviewValue,
+        user_id:user.id,
+        rating:rating, 
+        review_images:[]
+
       
     };
     if (newImage) {
-      formData["review_images"] = newImage;
+      formData.review_images.push(newImage);
     }
-    if (newImage1) {
-      formData["review_images1"] = newImage1;
-    }
+    // if (newImage1) {
+    //   formData["review_images1"] = newImage1;
+    // }
 
-    if (newImage2) {
-      formData["review_images2"] = newImage2;
-    }
-    if (newImage3) {
-      formData["review_images3"] = newImage3;
-    }
+    // if (newImage2) {
+    //   formData["review_images2"] = newImage2;
+    // }
+    // if (newImage3) {
+    //   formData["review_images3"] = newImage3;
+    // }
+    console.log(formData, 4444444)
     dispatch(updateReview(formData, spot_id, review_id))
     history.push(`/spots/${spot_id}`)
 
@@ -101,7 +105,7 @@ const handleSubmit=(e)=>{
   return (
     <main className="edit-review-page-main">
       <div className="edit-review-page-container">
-        <h2>Uodate Review</h2>
+        <h2>Update Review</h2>
         <form 
         onSubmit={handleSubmit}
         className="edit-review-page-form">
