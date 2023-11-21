@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import "./EditSpotPage.css"
 import { useParams, useHistory} from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { getOneSpot } from '../../store/spotReducer'
+import { getOneSpot, updateSpot } from '../../store/spotReducer'
 import  Button from '../../components/Button'
 
 
@@ -10,7 +10,8 @@ const EditSpotPage = () => {
   const dispatch = useDispatch()   
   const {id}= useParams()
   const spot = useSelector(state=>state.spots.spot)
-  const history = useHistory
+  const user = useSelector(state=>state.session.user)
+  const history = useHistory()
  
   const [title, setTitle]= useState("")
   const [description,setDescription] = useState("")
@@ -48,28 +49,28 @@ useEffect(() => {
     error["state"] = "state is to long or to short";
   }
 
-  if (country?.length > 25 || country?.length < 5) {
+  if (country?.length > 25 || country?.length < 2) {
     error["country"] = "country is to long or to short";
   }
 
   if (lat?.length > 10 || lat?.length < 3) {
     error["lat"] = "Latitude is to long or to short";
   }
-  if (!lat?.match(/^[0-9]*\.?[0-9]+$/gm)) {
+  if (lat && !String(lat).match(/^[0-9]*\.?[0-9]+$/gm)) {
     error["lat"] = "Latitude is incorect format";
   }
 
   if (long?.length > 10 || long?.length < 3) {
     error["long"] = "Longitude is to long or to short";
   }
-  if (!long?.match(/^[0-9]*\.?[0-9]+$/gm)) {
+  if (long && !String(long).match(/^[0-9]*\.?[0-9]+$/gm)) {
     error["long"] = "Longitude is incorect format";
   }
 
   if (price?.length >= 8 || price?.length <= 5) {
     error["price"] = "Price is to long or to short";
   } // ^[0-9]*\.?[0-9]+$
-  if (!price?.match(/^[0-9]*\.?[0-9]+$/gm)) {
+  if (price && !String(price).match(/^[0-9]*\.?[0-9]+$/gm)) {
     error["price"] = "price is incorect format";
   }
   // if (!imageUrl.match(/^https:\/\/.*\.(?:jpeg|jpg|png)$/gm)) {
@@ -129,6 +130,7 @@ setPrice(spot.price)
 const handleSubmitForm=(e)=>{
   e.preventDefault()
   setIsSubmitted(true);
+  console.log(error.title, 55555555)
   if (
     error.title ||
     error.description ||
@@ -143,24 +145,43 @@ const handleSubmitForm=(e)=>{
   ) {
     return;
   }
+  const formData = {
+    title,
+    description,
+    address,
+    city,
+    state,
+    country,
+    lat,
+    long,
+    price,
+    owner_id:spot.owner_id,
+    user_id:user.id,
+  }
+  dispatch(updateSpot(formData, spot.id))
 }
 
   return (
-    <div className='edit-spot-page-container'>
+    <div className='update-spot-page-container'>
         <h2> Update Spot</h2>
         <form 
-        className='edit-spot-page-form'
+        className='update-spot-page-form'
         onSubmit={handleSubmitForm}
         >
-            <label>
+            <label
+            className='update-spot-page-label'
+            >
             Title
             <input value={title} onChange={(e)=>setTitle(e.target.value)}/>
             {error.title && isSubmitted && (
+              
               <span className="update-spot-page-error">{error.title}</span>
             )}
             </label>
 
-            <label>
+            <label
+            className='update-spot-page-label'
+            >
             Description
             <input value={description} onChange={(e)=>setDescription(e.target.value)}/>
             {error.description && isSubmitted && (
@@ -170,7 +191,9 @@ const handleSubmitForm=(e)=>{
                )}
             </label>
 
-            <label>
+            <label
+            className='update-spot-page-label'
+            >
             Address
             <input value={address} onChange={(e)=>setAddress(e.target.value)}/>
             {error.address && isSubmitted && (
@@ -178,7 +201,9 @@ const handleSubmitForm=(e)=>{
             )}
             </label>
 
-            <label>
+            <label
+            className='update-spot-page-label'
+            >
             City
             <input value={city} onChange={(e)=>setCity(e.target.value)}/>
             {error.city && isSubmitted && (
@@ -186,7 +211,9 @@ const handleSubmitForm=(e)=>{
             )}
             </label>
 
-            <label>
+            <label
+            className='update-spot-page-label'
+            >
             State
             <input value={state} onChange={(e)=>setState(e.target.value)}/>
             {error.state && isSubmitted && (
@@ -194,7 +221,9 @@ const handleSubmitForm=(e)=>{
             )}
             </label>
 
-            <label>
+            <label
+            className='update-spot-page-label'
+            >
             Country
             <input value={country} onChange={(e)=>setCountry(e.target.value)}/>
             {error.country && isSubmitted && (
@@ -202,7 +231,9 @@ const handleSubmitForm=(e)=>{
             )}
             </label>
 
-            <label>
+            <label
+            className='update-spot-page-label'
+            >
             Lattitude
             <input value={lat} onChange={(e)=>setLat(e.target.value)}/>
             {error.lat && isSubmitted && (
@@ -210,7 +241,9 @@ const handleSubmitForm=(e)=>{
               )}
             </label>
 
-            <label>
+            <label
+            className='update-spot-page-label'
+            >
             Longtitude
             <input value={long} onChange={(e)=>setLong(e.target.value)}/>
             {error.long && isSubmitted && (

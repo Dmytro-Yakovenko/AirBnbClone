@@ -1,28 +1,29 @@
-.edit-spot-page-container {
+.update-spot-page-container {
    
     max-width: 450px;
     margin: 50px auto;
 }
 
-.edit-spot-page-container h2 {
+.update-spot-page-container h2 {
    font-size: 28px;
    margin-bottom: 10px;
    font-weight: bold;
 }
 
-.edit-spot-page-form {
+.update-spot-page-form {
     display: flex;
     flex-direction: column;
     gap: 20px;
 }
 
-.edit-spot-page-form input {
+.update-spot-page-form input {
     display: block;
     width: 100%;
     margin-top: 5px;
+    padding: 5px;
 }
 
-.edit-spot-page-form span{
+.update-spot-page-form span{
     display: flex;
     flex-direction: column;
 }

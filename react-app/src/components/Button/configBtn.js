@@ -142,7 +142,7 @@ const configBtn = {
 
   editSpot:{
     text:"Edit",
-    type:'button',
+    type:'submit',
     className: " btn cancel-btn",
   },
 

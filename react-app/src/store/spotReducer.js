@@ -4,6 +4,7 @@ const GET_SPOTS = "spots/GET_SPOTS"
 const GET_SPOT_BY_ID = "spots/GET_SPOT_BY_ID"
 const CREATE_SPOT = "spots/CREATE_SPOT"
 const REMOVE_SPOT = "spots/REMOVE_SPOT"
+const EDIT_SPOT = "spots/EDIT_SPOT"
 
 //actions
 const getAllSpots=(data)=>({
@@ -24,6 +25,11 @@ const createSpot = (data)=>({
 const removeSpot=(id)=>({
     type:REMOVE_SPOT,
     payload:id
+})
+
+const editSpot = (data)=>({
+    type:EDIT_SPOT,
+    payload:data
 })
 
 
@@ -65,6 +71,20 @@ export const createNewSpot=(data)=>async(dispatch)=>{
         dispatch(createSpot(data))  
         return data
     }
+}
+
+
+export const updateSpot = (data, id )=>async(dispatch)=>{
+    const response = await fetch(`/api/spots/${id}`, {
+        method: "PUT", 
+        body:JSON.stringify(data),
+        headers: {
+			"Content-Type": "application/json",
+		},
+      
+
+    })
+    console.log(response,666666)
 }
 
 

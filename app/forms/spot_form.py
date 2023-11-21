@@ -20,7 +20,7 @@ class SpotForm(FlaskForm):
    price =StringField('price', validators=[DataRequired()])
    
    owner_id=StringField('owner_id', validators=[DataRequired()])
-   spot_image_url=StringField('spot_image_url', validators=[DataRequired()])
+   spot_image_url=StringField('spot_image_url')
    spot_image_url1=StringField('spot_image_url1')
    spot_image_url2=StringField('spot_image_url2')
    spot_image_url3=StringField('spot_image_url3')

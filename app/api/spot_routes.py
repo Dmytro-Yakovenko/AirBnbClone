@@ -112,7 +112,7 @@ def update_spot(id):
     if not spot:
         return {'errors': f"Spot {id} does not exist."}, 404
     # checks if current user is a creator of the spot
-    if spot.user_id != current_user.id:
+    if spot.owner_id != current_user.id:
         return {'errors': f"User is not the creator of spot {id}."}, 401
     form = SpotForm()
 
