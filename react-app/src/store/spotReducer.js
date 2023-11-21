@@ -84,7 +84,7 @@ export const updateSpot = (data, id )=>async(dispatch)=>{
       
 
     })
-    console.log(response,666666)
+    
 }
 
 

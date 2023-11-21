@@ -1,13 +1,15 @@
 .update-spot-page-container {
    
     max-width: 450px;
-    margin: 50px auto;
+    margin: 50px auto 100px auto;
+    
 }
 
 .update-spot-page-container h2 {
    font-size: 28px;
    margin-bottom: 10px;
    font-weight: bold;
+
 }
 
 .update-spot-page-form {
@@ -40,13 +42,13 @@
     width: 100%;
 }
 
-.update-spot-page-container {
+/* .update-spot-page-container {
     margin-top: 20px;
     max-width: 500px;
     margin: 0 auto;
     
   
-}
+} */
 
 .update-spot-page-form {
     display: flex;
