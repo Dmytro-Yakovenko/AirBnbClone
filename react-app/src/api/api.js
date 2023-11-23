@@ -1,7 +1,21 @@
 export const updateSpotImages = async (data, id, image_id)=>{
-    const res = await fetch(`/api/spots/${id}/spot_images/${image_id}`,{
+    await fetch(`/api/spots/${id}/spot_images/${image_id}`,{
         method:"PUT",
-        body:JSON.stringify(data)
+        body:JSON.stringify(data),
+        headers:{
+            "Content-Type":"application/json"
+        }
     })
-    console.log(res)
+   
+}
+
+export const createSpotImages = async(data, id)=>{
+    await fetch(`/api/spots/${id}/spot_images`,{
+        method:"POST",
+        body:JSON.stringify(data),
+        headers:{
+            "Content-Type":"application/json"
+        }
+    })
+    
 }

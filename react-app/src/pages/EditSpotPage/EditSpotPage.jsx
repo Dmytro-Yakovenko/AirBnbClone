@@ -4,7 +4,7 @@ import { useParams, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getOneSpot, updateSpot } from "../../store/spotReducer";
 import Button from "../../components/Button";
-import { updateSpotImages } from "../../api/api";
+import { createSpotImages, updateSpotImages } from "../../api/api";
 
 const EditSpotPage = () => {
   const dispatch = useDispatch();
@@ -170,8 +170,59 @@ const EditSpotPage = () => {
 
       },spot.id, spot.spot_image[0].id)
     }
-    updateSpotImages()
+    console.log(spot.spot_image[1], 55555555)
+    if(imageUrl1 && spot.spot_image[1]){
+      updateSpotImages({
+        spot_image_url:imageUrl,
+
+      },spot.id, spot.spot_image[1].id)
+    }
+  
+    if(imageUrl1 && !spot.spot_image[1]){
+      createSpotImages({
+        spot_image_url:imageUrl,
+
+      },spot.id)
+    }
+
+
+    if(imageUrl2 && !spot.spot_image[1]){
+      createSpotImages({
+        spot_image_url:imageUrl,
+
+      },spot.id)
+    }
+
+    if(imageUrl2 &&spot.spot_image[2]){
+      updateSpotImages({
+        spot_image_url:imageUrl,
+
+      },spot.id, spot.spot_image[2].id)
+    }
+
+    if(imageUrl2 && !spot.spot_image[2]){
+      createSpotImages({
+        spot_image_url:imageUrl,
+
+      },spot.id)
+    }
+
+    if(imageUrl3 && spot.spot_image[3]){
+      updateSpotImages({
+        spot_image_url:imageUrl,
+
+      },spot.id, spot.spot_image[3].id)
+    }
+
+    if(imageUrl3 && !spot.spot_image[3]){
+      createSpotImages({
+        spot_image_url:imageUrl,
+
+      },spot.id)
+    }
+   
     dispatch(updateSpot(formData, spot.id));
+    history.push(`/spots/${id}`)
   };
 
   return (
@@ -273,7 +324,7 @@ const EditSpotPage = () => {
               <input
                 value={imageUrl1}
                 onChange={(e) => setImageUrl1(e.target.value)}
-                required
+               
               />
             </label>
           )}
@@ -284,7 +335,7 @@ const EditSpotPage = () => {
               <input
                 value={imageUrl2}
                 onChange={(e) => setImageUrl2(e.target.value)}
-                required
+                
               />
             </label>
           )}
@@ -294,7 +345,7 @@ const EditSpotPage = () => {
               <input
                 value={imageUrl3}
                 onChange={(e) => setImageUrl3(e.target.value)}
-                required
+               
               />
             </label>
           )}

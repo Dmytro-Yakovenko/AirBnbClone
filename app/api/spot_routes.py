@@ -200,7 +200,7 @@ def create_review(id):
         )
         db.session.add(review_image)
         db.session.commit()
-        if(form.data['review_images1']):
+        if form.data['review_images1']:
             review_image1 = Review_image(
             review_id=review.id,
             user_id=form.data["user_id"],
@@ -209,7 +209,7 @@ def create_review(id):
             db.session.add(review_image1)
             db.session.commit()
             
-        if(form.data['review_images2']):
+        if form.data['review_images2']:
             review_image2 = Review_image(
             review_id=review.id,
             user_id=form.data["user_id"],
@@ -218,7 +218,7 @@ def create_review(id):
             db.session.add(review_image2)
             db.session.commit()
         
-        if(form.data['review_images3']):
+        if form.data['review_images3']:
             review_image3 = Review_image(
             review_id=review.id,
             user_id=form.data["user_id"],
@@ -312,6 +312,35 @@ def update_spot_image(spot_id, spot_images_id):
         db.session.commit()
         return spot_image.to_dict()
     return {'errors': validation_errors_to_error_messages(form.errors)}, 400
+
+
+@spot_routes.route('/<int:spot_id>/spot_images', methods=['POST'])
+@login_required
+def create_spot_image(spot_id):
     
+    """
+    Create spot_image
+    """
     
+    spot = Spot.query.get(spot_id)
+    if not spot:
+        return {'errors': f"Spot {spot_id} does not exist."}, 404
+    
+    # checks if current user is a creator of the spot
+    if spot.owner_id != current_user.id:
+        return {'errors': f"User is not the creator of spot image {spot_images_id}."}, 401
+    form = SpotImagesForm()
+    
+    form['csrf_token'].data = request.cookies['csrf_token']
+    if form.validate_on_submit():
+        
+        spot_image =Spot_image(
+            spot_image_url=form.data['spot_image_url'],
+            spot_id = spot.id
+        )
+        db.session.add(spot_image)
+        db.session.commit()
+        return spot.to_dict(), 201
+    return {'errors': validation_errors_to_error_messages(form.errors)}, 400
+        
 
