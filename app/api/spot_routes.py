@@ -1,9 +1,10 @@
 from flask import Blueprint, jsonify, session, request
 from app.models import db, Spot, Review, Spot_image,Review_image
 
-from app.forms import SpotForm, ReviewForm
+from app.forms import SpotForm, ReviewForm, SpotImagesForm
 from flask_login import current_user,login_required
 from app.api.auth_routes import validation_errors_to_error_messages
+
 
 
 spot_routes = Blueprint("spots", __name__)
@@ -250,7 +251,7 @@ def update_review(spot_id, review_id):
     if review.user_id != current_user.id:
         return {'errors': f"User is not the creator of review {review_id}."}, 401
     form = ReviewForm()
-    print(form, 88888888)
+   
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
         form.populate_obj(review)
@@ -262,8 +263,6 @@ def update_review(spot_id, review_id):
 @spot_routes.route('/<int:spot_id>/reviews/<int:review_id>', methods=["DELETE"])
 @login_required
 def delete_review(spot_id, review_id):
-    
-   
     """
     Deletes a spot
     """
@@ -283,4 +282,36 @@ def delete_review(spot_id, review_id):
     db.session.delete(review)
     db.session.commit()
     return {'message': 'Delete successful.'}
+
+
+
+@spot_routes.route('/<int:spot_id>/spot_images/<int:spot_images_id>', methods=["PUT"])
+@login_required
+def update_spot_image(spot_id, spot_images_id):
+    """
+    Update spot_images
+    """
+    
+    spot = Spot.query.get(spot_id)
+    if not spot:
+        return {'errors': f"Spot {spot_id} does not exist."}, 404
+   
+    spot_image =Spot_image.query.get(spot_images_id) 
+    if not spot_image:
+        return {'errors': f"User is not the creator of review {spot_images_id}."}, 401
+
+     # checks if current user is a creator of the spot
+    if spot.owner_id != current_user.id:
+        return {'errors': f"User is not the creator of spot image {spot_images_id}."}, 401
+    form = SpotImagesForm()
+    
+    
+    form['csrf_token'].data = request.cookies['csrf_token']
+    if form.validate_on_submit():
+        form.populate_obj(spot_image)
+        db.session.commit()
+        return spot_image.to_dict()
+    return {'errors': validation_errors_to_error_messages(form.errors)}, 400
+    
+    
 
